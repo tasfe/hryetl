@@ -2,12 +2,12 @@
 
 ## 调度
 ### 管理后台
-* 生产 http://10.228.13.3:4440/user/login
-* 准生产 http://10.255.13.1:4440/user/login;jsessionid=1mzd5tpf6mmbbwz65wy1n9gt5
+* 生产 http://localhost:4440/user/login
+* 准生产 http://localhost:4440/user/login;jsessionid=1mzd5tpf6mmbbwz65wy1n9gt5
 
 ## 配置
 ### 每日调度任务配置
-＊ 10.228.7.90 机器上数据库，bi_daily_task
+＊ localhost 机器上数据库，bi_daily_task
 
 ## 业务Domain
 ### 理财业务－p2p
