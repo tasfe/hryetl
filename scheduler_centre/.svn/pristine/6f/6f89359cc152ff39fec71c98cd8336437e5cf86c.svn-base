@@ -1,0 +1,16 @@
+# datasource config
+scheduler.datasource.url=${scheduler.datasource.url}
+scheduler.datasource.driverClassName=${scheduler.datasource.driverClassName}
+scheduler.datasource.username=${scheduler.datasource.username}
+scheduler.datasource.password=${scheduler.datasource.password}
+
+
+scheduler.datasource.jndi.name=${scheduler.datasource.jndi.name}
+
+#callback url
+scheduler.centre.callback.url=${scheduler.centre.callback.url}
+
+dubbo.registry=${dubbo.registry}
+sms.provider.user=${sms.provider.user}
+sms.provider.pwd=${sms.provider.pwd}
+sms.provider.channelCode=${sms.provider.channelCode}

@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SCHE_JOB">
+	<resultMap id="scheJobResult" class="com.banggo.scheduler.dao.dataobject.ScheJob">
+		<result column="ID" property="id" jdbcType="INTEGER" />
+		<result column="APP_NAME" property="appName" jdbcType="VARCHAR" />
+		<result column="JOB_NAME" property="jobName" jdbcType="VARCHAR" />
+		<result column="JOB_GROUP" property="jobGroup" jdbcType="VARCHAR" />
+		<result column="BEGIN_DATE" property="beginDate" jdbcType="DATETIME" />
+		<result column="END_DATE" property="endDate" jdbcType="DATETIME" />
+		<result column="STATUS" property="status" jdbcType="CHAR" />
+		<result column="CRON_EXP" property="cronExp" jdbcType="VARCHAR" />
+		<result column="IS_ALLOW_CONCURRENT" property="isAllowConcurrent"
+			jdbcType="CHAR" />
+		<result column="REMOTE_URL" property="remoteUrl" jdbcType="VARCHAR" />
+		<result column="CONNECT_TIMEOUT" property="connectTimeout"
+			jdbcType="INTEGER" />
+		<result column="READ_TIMEOUT" property="readTimeout" jdbcType="INTEGER" />
+		<result column="IS_DELETE" property="isDelete" jdbcType="CHAR" />
+		<result column="TYPE" property="type" jdbcType="INTEGER" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATETIME" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="DATETIME" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result select="SCHE_JOB_PARAMS.selectByScheJobId" column="ID"
+			property="scheJobParamsList" />
+
+	</resultMap>
+	
+	<resultMap id="scheJobResultWithFireTime" class="com.banggo.scheduler.dao.ro.ScheJobRO">
+		<result column="ID" property="id" jdbcType="INTEGER" />
+		<result column="APP_NAME" property="appName" jdbcType="VARCHAR" />
+		<result column="JOB_NAME" property="jobName" jdbcType="VARCHAR" />
+		<result column="JOB_GROUP" property="jobGroup" jdbcType="VARCHAR" />
+		<result column="BEGIN_DATE" property="beginDate" jdbcType="DATETIME" />
+		<result column="END_DATE" property="endDate" jdbcType="DATETIME" />
+		<result column="STATUS" property="status" jdbcType="CHAR" />
+		<result column="CRON_EXP" property="cronExp" jdbcType="VARCHAR" />
+		<result column="IS_ALLOW_CONCURRENT" property="isAllowConcurrent"
+			jdbcType="CHAR" />
+		<result column="REMOTE_URL" property="remoteUrl" jdbcType="VARCHAR" />
+		<result column="CONNECT_TIMEOUT" property="connectTimeout"
+			jdbcType="INTEGER" />
+		<result column="READ_TIMEOUT" property="readTimeout" jdbcType="INTEGER" />
+		<result column="IS_DELETE" property="isDelete" jdbcType="CHAR" />
+		<result column="TYPE" property="type" jdbcType="INTEGER" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="DATETIME" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="DATETIME" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result select="SCHE_JOB_PARAMS.selectByScheJobId" column="ID"
+			property="scheJobParamsList" />
+		<result column="NEXT_FIRE_TIME" property="nextFireTime" jdbcType="DATETIME" />
+		<result column="PREVIOUS_FIRE_TIME" property="previousFireTime" jdbcType="DATETIME" />
+	</resultMap>
+
+	<select id="selectByPrimaryKey" resultMap="scheJobResult"
+		parameterClass="com.banggo.scheduler.dao.dataobject.ScheJob">
+		select ID, APP_NAME, JOB_NAME, JOB_GROUP, BEGIN_DATE,
+		END_DATE, STATUS,
+		CRON_EXP,
+		IS_ALLOW_CONCURRENT, REMOTE_URL,
+		CONNECT_TIMEOUT, READ_TIMEOUT, IS_DELETE, TYPE,CREATE_DATE,
+		CREATE_BY,
+		UPDATE_DATE, UPDATE_BY
+		from SCHE_JOB
+		where ID = #id:INTEGER#
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheJob">
+		delete from
+		SCHE_JOB
+		where ID = #id:INTEGER#
+	</delete>
+
+	<insert id="insert" parameterClass="com.banggo.scheduler.dao.dataobject.ScheJob">
+		insert into SCHE_JOB (ID, APP_NAME, JOB_NAME, JOB_GROUP, BEGIN_DATE,
+		END_DATE, STATUS, CRON_EXP,
+		IS_ALLOW_CONCURRENT, REMOTE_URL,
+		CONNECT_TIMEOUT, READ_TIMEOUT, IS_DELETE, TYPE,CREATE_DATE,
+		CREATE_BY,
+		UPDATE_DATE, UPDATE_BY)
+		values (#id:INTEGER#, #appName:VARCHAR#,
+		#jobName:VARCHAR#,
+		#jobGroup:VARCHAR#,
+		#beginDate:DATETIME#,
+		#endDate:DATETIME#, #status:CHAR#, #cronExp:VARCHAR#,
+		#isAllowConcurrent:CHAR#, #remoteUrl:VARCHAR#,
+		#connectTimeout:INTEGER#,
+		#readTimeout:INTEGER#, #isDelete:CHAR#,#type:INTEGER#,
+		now(), #createBy:VARCHAR#,
+		#updateDate:DATETIME#, #updateBy:VARCHAR#)
+		<selectKey resultClass="int" keyProperty="id">
+			select
+			last_insert_id() as ID from SCHE_JOB limit 1
+		</selectKey>
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheJob">
+		update SCHE_JOB
+		set APP_NAME = #appName:VARCHAR#,
+		JOB_NAME = #jobName:VARCHAR#,
+		JOB_GROUP = #jobGroup:VARCHAR#,
+		BEGIN_DATE = #beginDate:DATETIME#,
+		END_DATE = #endDate:DATETIME#,
+		STATUS = #status:CHAR#,
+		CRON_EXP =
+		#cronExp:VARCHAR#,
+		IS_ALLOW_CONCURRENT = #isAllowConcurrent:CHAR#,
+		REMOTE_URL = #remoteUrl:VARCHAR#,
+		CONNECT_TIMEOUT =
+		#connectTimeout:INTEGER#,
+		READ_TIMEOUT = #readTimeout:INTEGER#,
+		IS_DELETE = #isDelete:CHAR#,
+		TYPE = #type:INTEGER#,
+		UPDATE_DATE = now(),
+		UPDATE_BY = #updateBy:VARCHAR#
+		where ID = #id:INTEGER#
+	</update>
+
+	<update id="updateByPrimaryKeySelective" parameterClass="com.banggo.scheduler.dao.dataobject.ScheJob">
+		update SCHE_JOB
+		set UPDATE_DATE = now()
+		<isNotNull prepend=" , " property="appName">
+			APP_NAME =
+			#appName:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend=" , " property="jobName">
+			JOB_NAME =
+			#jobName:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend=" , " property="jobGroup">
+			JOB_GROUP =
+			#jobGroup:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend=" , " property="beginDate">
+			BEGIN_DATE =
+			#beginDate:DATETIME#
+		</isNotNull>
+		<isNotNull prepend=" , " property="endDate">
+			END_DATE =
+			#endDate:DATETIME#
+		</isNotNull>
+		<isNotNull prepend=" , " property="status">
+			STATUS = #status:CHAR#
+		</isNotNull>
+		<isNotNull prepend=" , " property="cronExp">
+			CRON_EXP =
+			#cronExp:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend=" , " property="isAllowConcurrent">
+			IS_ALLOW_CONCURRENT =
+			#isAllowConcurrent:CHAR#
+		</isNotNull>
+		<isNotNull prepend=" , " property="remoteUrl">
+			REMOTE_URL =
+			#remoteUrl:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend=" , " property="connectTimeout">
+			CONNECT_TIMEOUT =
+			#connectTimeout:INTEGER#
+		</isNotNull>
+		<isNotNull prepend=" , " property="readTimeout">
+			READ_TIMEOUT =
+			#readTimeout:INTEGER#
+		</isNotNull>
+		<isNotNull prepend=" , " property="isDelete">
+			IS_DELETE =
+			#isDelete:CHAR#
+		</isNotNull>
+		<isNotNull prepend=" , " property="type">
+			TYPE = 
+			#type:INTEGER#
+		</isNotNull>
+		<isNotNull prepend=" , " property="createDate">
+			CREATE_DATE =
+			#createDate:DATETIME#
+		</isNotNull>
+		<isNotNull prepend=" , " property="createBy">
+			CREATE_BY =
+			#createBy:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend=" , " property="updateBy">
+			UPDATE_BY =
+			#updateBy:VARCHAR#
+		</isNotNull>
+		where ID = #id:INTEGER#
+	</update>
+
+	<select id="selectActivity" resultMap="scheJobResult"
+		parameterClass="map">
+		select ID, APP_NAME, JOB_NAME, JOB_GROUP, BEGIN_DATE, END_DATE,
+		STATUS, CRON_EXP,
+		IS_ALLOW_CONCURRENT, REMOTE_URL, CONNECT_TIMEOUT,
+		READ_TIMEOUT, IS_DELETE,TYPE, CREATE_DATE,
+		CREATE_BY, UPDATE_DATE, UPDATE_BY
+		from SCHE_JOB
+		where (is_delete = 0 or is_delete is null)
+		
+		<isNotNull prepend=" and " property="appName">
+			APP_NAME = #appName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobName">
+			JOB_NAME = #jobName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobGroup">
+			JOB_GROUP = #jobGroup#
+		</isNotNull>
+	</select>
+
+	<select id="selectForupdate" resultMap="scheJobResult"
+		parameterClass="int">
+		select ID, APP_NAME, JOB_NAME, JOB_GROUP, BEGIN_DATE,
+		END_DATE, STATUS,
+		CRON_EXP,
+		IS_ALLOW_CONCURRENT, REMOTE_URL,
+		CONNECT_TIMEOUT, READ_TIMEOUT, IS_DELETE, TYPE,CREATE_DATE,
+		CREATE_BY,
+		UPDATE_DATE, UPDATE_BY
+		from SCHE_JOB
+		where ID = #value#
+		for update
+	</select>
+
+	<select id="selectByExecuterId" resultMap="scheJobResult"
+		parameterClass="int">
+		select job.* from SCHE_EXECUTER ect,SCHE_JOB job
+		where
+		ect.SCHE_JOB_ID = job.ID
+		and ect.id = #value#
+	</select>
+
+	<select id="query" resultMap="scheJobResultWithFireTime" parameterClass="map">
+
+	select j.ID, j.APP_NAME, j.JOB_NAME, j.JOB_GROUP, j.BEGIN_DATE,
+			j.END_DATE,
+			j.STATUS, j.CRON_EXP,
+			j.IS_ALLOW_CONCURRENT, j.REMOTE_URL, j.CONNECT_TIMEOUT,
+			j.READ_TIMEOUT, j.IS_DELETE, j.TYPE, j.CREATE_DATE,
+			j.CREATE_BY, j.UPDATE_DATE, j.UPDATE_BY,
+			DATE_ADD('1970-01-01 08:00:00',INTERVAL t.NEXT_FIRE_TIME/1000 SECOND) AS NEXT_FIRE_TIME,
+			IFNULL(r.BEGIN_TIME,chain.BEGIN_TIME) as PREVIOUS_FIRE_TIME
+	from SCHE_JOB j force index(IDX_SCHE_JOB_CREATE_DATE)
+	    left join SCHE_QZ_TRIGGERS t
+		on (t.JOB_NAME = CONCAT(j.APP_NAME,":",j.JOB_NAME) and t.JOB_GROUP = CONCAT(j.APP_NAME,":",j.JOB_GROUP)
+			and t.SCHED_NAME = 'SchedulerCentre'
+		)
+    	left JOIN
+			(
+			select MAX(e.BEGIN_TIME) as BEGIN_TIME,SCHE_JOB_ID from SCHE_EXECUTER e
+			GROUP BY SCHE_JOB_ID
+			) r
+
+	    on r.SCHE_JOB_ID = j.ID
+	    
+	    left JOIN 
+            (
+           select params.SCHE_JOB_ID, max(ce.BEGIN_TIME) as BEGIN_TIME
+	       from SCHE_CHAIN c,  SCHE_JOB_PARAMS params,SCHE_CHAIN_EXECUTER ce
+		   where params.NAME='chainName'
+		   and params.VALUE = c.CHAIN_NAME
+		   and (c.IS_DELETE is null or c.IS_DELETE = '0')
+		   and ce.SCHE_CHAIN_ID = c.ID
+	       group by c.CHAIN_NAME
+            ) chain
+           on chain.SCHE_JOB_ID = j.ID
+	
+	    where (IS_DELETE = 0 OR IS_DELETE IS NULL)
+		
+		<isNotNull prepend=" and " property="appName">
+			j.APP_NAME = #appName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobName">
+			j.JOB_NAME like #jobName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobGroup">
+			j.JOB_GROUP like
+			#jobGroup#
+		</isNotNull>
+		<isNotNull prepend=" and " property="status">
+			j.STATUS = #status#
+		</isNotNull>
+		<isNotNull prepend=" and " property="type">
+			j.TYPE = #type#
+		</isNotNull>
+		
+		 order by j.CREATE_DATE desc
+		 
+		<isNotNull prepend="  " property="pageSize">
+			<isNotNull prepend="  " property="skip">
+				LIMIT #skip#,#pageSize#
+			</isNotNull>
+		</isNotNull>
+	</select>
+	
+	<select id="querySize" resultClass="Integer" parameterClass="map">
+		select count(*) from SCHE_JOB
+		where (IS_DELETE = 0 OR IS_DELETE IS NULL)
+		<isNotNull prepend=" and " property="appName">
+			APP_NAME = #appName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobName">
+			JOB_NAME like #jobName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobGroup">
+			JOB_GROUP like
+			#jobGroup#
+		</isNotNull>
+		<isNotNull prepend=" and " property="status">
+			STATUS = #status#
+		</isNotNull>
+		<isNotNull prepend=" and " property="type">
+			TYPE = #type#
+		</isNotNull>
+	</select>
+	
+	<select id="selectByParamNameValue" resultMap="scheJobResult"
+		parameterClass="map">
+		select j.ID, j.APP_NAME, j.JOB_NAME, j.JOB_GROUP, j.BEGIN_DATE,
+			j.END_DATE,
+			j.STATUS, j.CRON_EXP,
+			j.IS_ALLOW_CONCURRENT, j.REMOTE_URL, j.CONNECT_TIMEOUT,
+			j.READ_TIMEOUT, j.IS_DELETE, j.TYPE, j.CREATE_DATE,
+			j.CREATE_BY, j.UPDATE_DATE, j.UPDATE_BY
+		from SCHE_JOB j, SCHE_JOB_PARAMS p
+		where j.ID = p.SCHE_JOB_ID
+		and  (j.IS_DELETE = 0 OR j.IS_DELETE IS NULL)
+		
+		<isNotNull prepend=" and " property="status">
+			j.STATUS = #status#
+		</isNotNull>
+		
+		<isNotNull prepend=" and " property="paramName">
+		   p.NAME = #paramName#
+		</isNotNull>
+		
+		<isNotNull prepend=" and " property="paramValue">
+		   p.VALUE = #paramValue#
+		</isNotNull>
+	</select>
+</sqlMap>

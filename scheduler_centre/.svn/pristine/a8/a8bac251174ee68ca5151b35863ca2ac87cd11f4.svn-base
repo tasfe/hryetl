@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     2008-6-25 下午03:05:39                                                        
+      项目构建文件
+     ====================================================================== -->
+<project xmlns:artifact="urn:maven-artifact-ant" default="init">
+
+	<tstamp>
+			<format property="DSTAMP" pattern="yyyy-MM-dd HH:mm:ss"/>
+	</tstamp>
+	
+	<!-- 开始设置maven2,方便ant调用 -->
+	<property name="mvnconf" value="D:\apache-maven-3.0.3\conf\settings.xml"/>
+		<typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="urn:maven-artifact-ant">
+			<classpath>
+				<pathelement location="${basedir}/lib/maven-ant-tasks-2.1.3.jar" />
+			</classpath>
+		</typedef>
+		<!-- 使用maven2 pom -->
+		<artifact:pom file="pom.xml" id="maven.project" />
+		<!-- maven2 管理scope=compile的jar -->
+		<artifact:dependencies pathId="compile.classpath" filesetId="compile.fileset" useScope="compile" 
+			settingsfile="${mvnconf}">
+			<pom refid="maven.project" />
+		</artifact:dependencies>
+
+		<!-- maven2 管理scope=test的jar -->
+		<artifact:dependencies pathId="test.classpath" filesetId="test.fileset" useScope="test" 
+			settingsfile="${mvnconf}">
+			<pom refid="maven.project" />
+		</artifact:dependencies>
+
+		<!-- maven2 管理scope=runtime的jar -->
+		<artifact:dependencies pathId="runtime.classpath" filesetId="runtime.fileset" useScope="runtime"
+			settingsfile="${mvnconf}">
+			<pom refid="maven.project" />
+		</artifact:dependencies>
+	
+	<import file="build.property.xml" />
+    <!-- ================================= 
+          target: init              
+         ================================= -->
+    <target name="init" description="初始化目录结构">
+        <mkdir dir="${dist.dir}" />
+        <mkdir dir="${docs.dir}" />
+        <mkdir dir="${conf.dir}"/>
+        <mkdir dir="${conf.test.dir}"/>
+        <mkdir dir="${conf.unittest.dir}"/>
+        <mkdir dir="${lib.dir}" />
+        <mkdir dir="${build.jar.dir}" />
+    </target>
+
+    <!-- ================================= 
+          target: clean              
+         ================================= -->
+    <target name="clean" description="删除编译产生的中间产物">
+        <delete dir="${build.classes.dir}"/>        
+        <delete dir="${docs.dir}"/>     
+        <delete dir="${report.dir}"/>
+        <delete dir="${dist.dir}" includes="*.*"/>
+    </target>
+
+	
+    <!-- ================================= 
+          target: native2ascii              
+         ================================= -->
+    <target name="native2ascii" depends="init" description="本地化资源文件到WEB-INF/classes文件夹下,仅为开发使用">
+        <native-resources resourcesdir="${resources.dir}" destdir="${classes.dir}"/>
+    </target>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: native-resources
+          native2ascii到目标文件夹的时候,如果存在同名文件,native2ascii不会执行,
+          　此宏会先native2ascii到一个临时目录,再强制覆盖到目标文件夹.
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="native-resources">
+        <attribute name="resourcesdir"/>
+        <attribute name="destdir"/>
+        <sequential>
+            <mkdir dir="${build.dir}/tmp"/>
+            <native2ascii src="@{resourcesdir}" dest="${build.dir}/tmp" includes="**/*.properties" encoding="${build.encoding}" />
+            <copy todir="@{destdir}" overwrite="true">
+                <fileset dir="${build.dir}/tmp" includes="**/*.properties"/>
+            </copy>
+            <delete dir="${build.dir}/tmp"/>
+        </sequential>
+    </macrodef>
+
+    
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: compile          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="compile" description="编译宏">
+        <attribute name="srcdir" />
+        <attribute name="destdir" />
+        <sequential>
+            <javac destdir="@{destdir}" debug="${build.debug}" encoding="${build.encoding}" source="${build.source}">
+                <src path="@{srcdir}" />
+                <classpath refid="compile.classpath"/>
+            </javac>
+        </sequential>
+    </macrodef>
+
+    <!-- ================================= 
+          target: copy-resource              
+         ================================= -->
+    <target name="copy-resource" description="把资源文件copy到classes">
+        <copy todir="${build.classes.dir}">
+            <fileset dir="${resources.dir}">
+                <exclude name="**/*.bak" />
+                <exclude name="**/*.tmp" />
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
+    
+	<target name="copy-jars" description="Copies JARs from local repository">
+			<mkdir dir="${build.jar.dir}" />
+			<copy todir="${build.jar.dir}">
+				<fileset refid="compile.fileset" />
+				<fileset refid="runtime.fileset" />
+				<mapper type="flatten" />
+			</copy>
+			<delete>
+				<fileset dir="${build.jar.dir}" includes="servlet-api*" />
+			</delete>
+	</target>
+	
+    <!-- ================================= 
+          target: compile-java              
+         ================================= -->
+    <target name="compile-java" depends="copy-resource" description="编译java源文件">
+        <compile srcdir="${src.java.dir}" destdir="${build.classes.dir}" />
+    </target>
+    
+    <!-- ================================= 
+          target: compile-test              
+         ================================= -->
+    <target name="compile-test" depends="compile-java" description="编译test源文件">
+        <compile srcdir="${src.test.dir}" destdir="${build.classes.dir}" />
+    </target>
+
+    <!-- ================================= 
+          target: compile              
+         ================================= -->
+    <target name="compile" depends="clean,init,compile-java" description="清理,然后只编译java源文件,主要为打包使用"/>
+    
+    <!-- ================================= 
+          target: instrument              
+         ================================= -->
+    <target name="instrument" description="cobertura需要对class做增强">
+        <delete file="${coverage.ser.filepath}" />
+        <mkdir dir="${build.classes.dir}/tmpClasses"/>
+        <compile srcdir="${src.java.dir}" destdir="${build.classes.dir}/tmpClasses" />
+        <cobertura-instrument datafile="${coverage.ser.filepath}" todir="${build.classes.dir}">
+            <fileset dir="${build.classes.dir}/tmpClasses">
+                <include name="**/*.class" />
+                <exclude name="**/*Test.class" />
+            </fileset>
+        </cobertura-instrument>
+            <delete dir="${build.classes.dir}/tmpClasses"/>
+    </target>
+
+    <!-- ================================= 
+              target: junit
+             ================================= -->
+    <target name="junit-run" depends="clean,init,compile-test" description="运行单元测试">
+        <junit printsummary="false" haltonerror="false" haltonfailure="false" fork="yes" failureProperty="test.failed">
+            <sysproperty key="net.sourceforge.cobertura.datafile" file="${coverage.ser.filepath}" />
+            <classpath location="${build.classes.dir}" />
+            <formatter type="plain" usefile="false" />
+            <formatter type="xml" />
+            <batchtest todir="${report.junit.xml.dir}" haltonfailure="false">
+                <fileset dir="${src.test.dir}" includes="**/*Test.java"/>
+            </batchtest>
+        	<classpath refid="compile.classpath"/>
+        </junit>
+    </target>
+    
+    <!-- ================================= 
+          target: junit-report              
+         ================================= -->
+    <target name="junit-report" depends="junit-run" description="生成单元测试结果报告">
+        <junitreport todir="${report.junit.html.dir}">
+            <fileset dir="${report.junit.xml.dir}" includes="TEST-*.xml"/>
+            <report format="frames" todir="${report.junit.html.dir}"/>
+        </junitreport>
+    </target>
+    
+    <!-- ================================= 
+          target: coverage-report              
+         ================================= -->
+    <target name="coverage-report" depends="clean,init,instrument,junit-report" description="生成单元测试覆盖率报告">
+        <cobertura-report format="html" destdir="${report.coverage.dir}" datafile="${coverage.ser.filepath}" maxmemory="512m">
+            <fileset dir="${src.java.dir}" includes="**/*.java"/>
+            <fileset dir="${src.test.dir}" includes="**/*.java"/>
+        </cobertura-report>
+    </target>
+
+    <!-- ================================= 
+          target: zip-report            
+         ================================= -->
+    <target name="zip-report" depends="junit-report,coverage-report" description="生成单元测试结果和覆盖率报告,打成zip">
+        <zip destfile="${zip.coverage.report.filepath}" basedir="${report.coverage.dir}" update="true" />
+        <zip destfile="${zip.junit.report.filepath}" basedir="${report.junit.dir}" update="true" />
+    </target>
+
+    
+    <!-- ================================= 
+          target: war-test
+         ================================= -->
+    <target name="war-test" depends="compile,copy-jars" description="发布到测试机上的war包">
+        <make-war confdir="${conf.test.dir}" />
+    </target>
+
+    <!-- ================================= 
+          target: war-schedule
+         ================================= -->
+    <target name="war-schedule" depends="compile,copy-jars" description="发布到计划任务上的war包">
+        <make-war confdir="${conf.schedule.dir}" />
+    </target>
+
+    <!-- ================================= 
+              target: war-www
+             ================================= -->
+    <target name="war-www" depends="compile,copy-jars" description="发布到www上的war包">
+        <make-war confdir="${conf.www.dir}" warname="${project.name}.war" /> 
+    </target>
+    <target name="war-wwwtest" depends="compile,copy-jars" description="发布到www1上的war包">
+        <make-war confdir="${conf.wwwtest.dir}" warname="${project.name}.war"/>
+    </target>
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: make-war          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="make-war" description="打包宏">
+        <attribute name="confdir" />
+        <attribute name="warname" default="${project.war.filename}"/>
+        <sequential>
+            <copy todir="${build.classes.dir}" overwrite="true">
+                <fileset dir="@{confdir}" excludes="**/*.properties"/>
+            </copy>
+            <native-resources resourcesdir="@{confdir}" destdir="${build.classes.dir}"/>
+        	<war destfile="${dist.dir}/@{warname}" webxml="${web.xml.filepath}">
+        					<webinf dir="${webinf.dir}" excludes="classes/**/*.*"/>
+        					<classes dir="${build.classes.dir}"/>
+        					<fileset dir="${web.content.dir}" excludes="WEB-INF/**/*.*" />
+        					<zipfileset prefix="WEB-INF/lib" dir="${build.jar.dir}/" includes="**/*.*" excludes="META-INF/**"/>
+        	</war>
+        	
+        	<delete dir="${build.classes.dir}"/>
+        	<delete dir="${docs.dir}"/>
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: shutdown          
+          先调用shutdown.sh,再kill掉未结束的进程
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="shutdown">
+        <attribute name="server" />
+        <attribute name="username" />
+        <attribute name="password" />
+        <attribute name="tomcatdir" />
+        <attribute name="javahome" />
+        <sequential>
+            <sshexec host="@{server}" username="@{username}" password="@{password}" trust="true" failonerror="false" 
+                     command="export JAVA_HOME=@{javahome};
+                              @{tomcatdir}/bin/shutdown.sh;
+                              kill -9 $(ps -ef | grep -v ps | grep -v grep | grep @{tomcatdir} | awk '{print $2}')" 
+            />
+        </sequential>
+    </macrodef>
+    
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: shutdown-by-transfer          
+          先调用shutdown.sh,再kill掉未结束的进程
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="shutdown-by-transfer">
+        <attribute name="server" />
+        <attribute name="username" />
+        <attribute name="tomcatdir" />
+        <attribute name="javahome" />
+        <attribute name="password" />
+        <sequential>
+            <property name="remote.server" value="@{server}"/>
+            <susshexec port="${transfer.port}" host="${transfer.server}" username="${transfer.username}" password="${transfer.password}" superPassword="@{password}" trust="true" failonerror="false" 
+                     command="ssh @{username}@${remote.server} 'export JAVA_HOME=@{javahome};@{tomcatdir}/bin/shutdown.sh;kill -9 $(ps -ef | grep -v ps | grep -v grep | grep @{tomcatdir} | awk &quot;{print $2}&quot;)'" 
+            />
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: startup
+          直接调用startup.sh启动          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="startup">
+        <attribute name="server" />
+        <attribute name="username" />
+        <attribute name="password" />
+        <attribute name="tomcatdir" />
+        <attribute name="javahome" />
+        <sequential>
+            <sshexec host="@{server}" username="@{username}" password="@{password}" trust="true" failonerror="false" 
+                     command="export JAVA_HOME=@{javahome};export LANG=en_US.ISO-8859-1;
+                              @{tomcatdir}/bin/startup.sh"
+            />
+        </sequential>
+    </macrodef>
+
+    
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: startup-by-transfer
+          直接调用startup.sh启动          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="startup-by-transfer">
+        <attribute name="server" />
+        <attribute name="username" />
+        <attribute name="tomcatdir" />
+        <attribute name="javahome" />
+        <attribute name="password" />
+        <sequential>
+            <property name="remote.server" value="@{server}"/>
+            <susshexec port="${transfer.port}" host="${transfer.server}" username="${transfer.username}" password="${transfer.password}" superPassword="@{password}" trust="true" failonerror="false" 
+                     command="ssh @{username}@${remote.server} 'export JAVA_HOME=@{javahome};@{tomcatdir}/bin/startup.sh;'" 
+            />
+        </sequential>
+    </macrodef>
+
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: deploy
+          1、关闭tomcat
+          2、删除上次发布目录
+          3、将war包copy过去
+          4、解压,清除war包
+          5、启动tomcat
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="deploy">
+        <attribute name="server" />
+        <attribute name="username" />
+        <attribute name="password" />
+        <attribute name="tomcatdir" />
+        <attribute name="javahome" />
+        <attribute name="warpath" />        
+        <sequential>
+            <property name="remote.server" value="@{server}"/>
+            <shutdown server="@{server}" username="@{username}" password="@{password}" javahome="@{javahome}" tomcatdir="@{tomcatdir}"/>
+            <sshexec trust="true" host="@{server}" username="@{username}" password="@{password}" failonerror="false" command="cd @{tomcatdir}/webapps; tar -zcvf ${project.name}.tar.gz ${deploy.dirname}; rm -r @{tomcatdir}/webapps/${deploy.dirname}"/>
+            <scp file="@{warpath}" remoteToFile="@{username}:@{password}@${remote.server}:@{tomcatdir}/webapps/${project.name}.war" trust="true" verbose="true" passphrase="" />
+            <sshexec trust="true" host="@{server}" username="@{username}" password="@{password}" 
+                     command="unzip -d @{tomcatdir}/webapps/${deploy.dirname} @{tomcatdir}/webapps/${project.name}.war;
+                              rm @{tomcatdir}/webapps/${project.name}.war"
+            />
+            <startup server="@{server}" username="@{username}" password="@{password}" javahome="@{javahome}" tomcatdir="@{tomcatdir}"/>
+        </sequential>           
+    </macrodef>
+    
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: deploy-by-transfer
+          1、copy本地war包到中转服务器
+          2、通过中转服务器关闭远程tomcat
+          3、删除上次发布目录
+          4、从中转服务器复制war包至远程服务器,并解压,删除war包
+          5、通过中转服务器启动远程tomcat
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="deploy-by-transfer" description="通过中转服务器发布">
+        <attribute name="server" />
+        <attribute name="username" />
+        <attribute name="password" />
+        <attribute name="tomcatdir" />
+        <attribute name="javahome" />
+        <attribute name="warpath" />        
+        <sequential>
+            <property name="remote.server" value="@{server}"/>          
+            <property name="ssh2server" value="ssh @{username}@${remote.server}"/>          
+            <scp file="@{warpath}" port="${transfer.port}" remoteToFile="${transfer.username}:${transfer.password}@${transfer.server}:~/${project.name}/${project.name}.war" trust="true" verbose="true" passphrase="" />
+            <shutdown-by-transfer server="@{server}" username="@{username}" password="@{password}" javahome="@{javahome}" tomcatdir="@{tomcatdir}"/>
+            <susshexec port="${transfer.port}" trust="true" host="${transfer.server}" username="${transfer.username}" password="${transfer.password}" superPassword="@{password}" failonerror="false" command="${ssh2server} 'cd @{tomcatdir}/webapps; tar -zcvf ${project.name}.tar.gz ${deploy.dirname}; rm -r @{tomcatdir}/webapps/${deploy.dirname}'"/>
+            <susshexec port="${transfer.port}" trust="true" host="${transfer.server}" username="${transfer.username}" password="${transfer.password}" superPassword="@{password}" 
+                command="scp ~/${project.name}/${project.name}.war @{username}@${remote.server}:@{tomcatdir}/webapps;
+                        ${ssh2server} 'unzip -d @{tomcatdir}/webapps/${deploy.dirname} @{tomcatdir}/webapps/${project.name}.war';
+                        ${ssh2server} 'rm @{tomcatdir}/webapps/${project.name}.war'"
+            />
+            <startup-by-transfer server="@{server}" username="@{username}"  password="@{password}" javahome="@{javahome}" tomcatdir="@{tomcatdir}"/>
+        </sequential>
+    </macrodef>
+    
+    <!-- = = = = = = = = = = = = = = = = =
+          macrodef: deploy-www
+          1、copy本地war包到中转服务器
+          2、通过中转服务器关闭远程tomcat
+          3、删除上次发布目录
+          4、从中转服务器复制war包至远程服务器,并解压,删除war包
+          5、通过中转服务器启动远程tomcat
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="deploy-www" description="通过中转服务器发布">
+        <attribute name="server" />
+        <attribute name="username" />
+        <attribute name="password" />
+        <attribute name="tomcatdir" />
+        <attribute name="javahome" />
+        <attribute name="warpath" />
+        <sequential>
+            <property name="remote.server" value="@{server}" />
+            <property name="ssh2server" value="ssh @{username}@${remote.server}" />
+            <scp file="@{warpath}" port="${transfer.port}" remoteToFile="${transfer.username}:${transfer.password}@${transfer.server}:~/${project.name}/${project.name}.war" trust="true" verbose="true" passphrase="" />
+        	
+            <shutdown-by-transfer server="@{server}" username="@{username}" password="@{password}" javahome="@{javahome}" tomcatdir="@{tomcatdir}" />
+            <susshexec port="${transfer.port}" trust="true" host="${transfer.server}" username="${transfer.username}" password="${transfer.password}" superPassword="@{password}" failonerror="false" command="${ssh2server} 'cd @{tomcatdir}/webapps; tar -zcvf ${project.name}.tar.gz ${deploy.dirname}; rm -r @{tomcatdir}/webapps/${deploy.dirname}'" />
+            <susshexec port="${transfer.port}" trust="true" host="${transfer.server}" username="${transfer.username}" password="${transfer.password}" superPassword="@{password}" command="scp ~/${project.name}/${project.name}.war @{username}@${remote.server}:@{tomcatdir}/webapps;
+                        ${ssh2server} 'unzip -d @{tomcatdir}/webapps/${deploy.dirname} @{tomcatdir}/webapps/${project.name}.war';
+                        ${ssh2server} 'rm @{tomcatdir}/webapps/${project.name}.war'" />
+            <startup-by-transfer server="@{server}" username="@{username}" password="@{password}" javahome="@{javahome}" tomcatdir="@{tomcatdir}" />
+        </sequential>
+    </macrodef>
+	
+	
+    <!-- ================================= 
+          target: deploy-test              
+         ================================= -->
+    <target name="deploy-test" depends="war-test" description="远程发布到测试机">
+        <deploy warpath="${dist.dir}/${project.war.filename}" server="${test.server}" username="${test.username}" password="${test.password}" javahome="${test.javahome}" tomcatdir="${test.tomcat.dir}"/>
+        <antcall target="is-deploy-success"/>
+    </target>
+    <!-- ================================= 
+          target: is-deploy-success     
+         ================================= -->
+    <target name="is-deploy-success" description="测试是否可以访问给定的url">
+        <waitfor maxwait="5" maxwaitunit="second" timeoutproperty="deploy.fail">
+            <http url="${test.deploy.url}"/>            
+        </waitfor>
+        <fail if="deploy.fail" message="${test.deploy.url}无法访问,请确认是否发布成功"/>
+        <echo>发布成功,访问地址: ${test.deploy.url}</echo>
+    </target>
+    
+    <!-- ================================= 
+          target: send-mail  
+         ================================= -->
+    <target name="send-mail" depends="is-deploy-success" unless="deploy.fail" description="如果发布成功则mail通知相关人员">
+        <mail
+            mailhost="${mailhost}"
+            subject="${subject}"            
+            user="${mail.user}"
+            password="${mail.password}"
+            mailport="${mailport}"
+            messagemimetype="${messagemimetype}"
+            ssl="${mail.ssl}"
+            cclist="${cclist}"
+            from="${mail.from}"
+            tolist="${mail.tolist}"
+            replyto="${mail.replyto}"
+            message="${mail.message}"
+        />
+    </target>
+    
+    
+    <!-- ================================= 
+          target: checkstyle              
+         ================================= -->
+    <target name="checkstyle" depends="init">
+        <checkstyle config="${project.docs.dir}/checkstyle/tudou-checks.xml">
+          <fileset dir="${src.java.dir}" includes="**/*.java"/>
+            <formatter type="plain"/>
+            <formatter type="xml" toFile="${report.checkstyle.dir}/checkstyle_errors.xml"/>
+        </checkstyle>
+    </target>
+    
+    <!-- ================================= 
+          target: checkstyle-report              
+         ================================= -->
+    <target name="checkstyle-report">
+        <delete file="${build.dir}/checkstyle_report.html"/>
+        <xslt in="${report.checkstyle.dir}/checkstyle_errors.xml" out="${report.checkstyle.dir}/checkstyle_report.html" style="${project.docs.dir}/checkstyle/checkstyle-frames-errors.xsl"/>
+    </target>
+    
+    <!-- ================================= 
+          target: checkout              
+         ================================= -->
+    <target name="checkout">
+        <echo>正在从${svn.url}更新源文件.......</echo>
+        <svn username="${svn.username}" password="${svn.password}" javahl="true">
+            <checkout url="${svn.url}" destPath="${base.dir}"/>         
+        </svn>
+        <echo>更新结束</echo>
+    </target>
+
+    <target name="deploy-wwwtest" depends="war-wwwtest" description="通过中转服务器发布到wwwtest环境">
+        <deploy-by-transfer warpath="${dist.dir}/${project.name}.war" server="${wwwtest.server}" username="${wwwtest.username}" password="${wwwtest.password}" javahome="${wwwtest.javahome}" tomcatdir="${wwwtest.tomcat.dir}"/>
+    </target>
+	
+    <target name="deploy-www1" depends="war-www" description="通过中转服务器发布到www环境">
+        <deploy-www warpath="${dist.dir}/${project.name}1.war" server="${www1.server}" username="${www1.username}" password="${www1.password}" javahome="${www1.javahome}" tomcatdir="${www1.tomcat.dir}"/>
+    </target>
+    
+    <target name="deploy-www2" depends="war-www" description="通过中转服务器发布到www环境">
+        <deploy-www warpath="${dist.dir}/${project.name}2.war" server="${www2.server}" username="${www2.username}" password="${www2.password}" javahome="${www2.javahome}" tomcatdir="${www2.tomcat.dir}"/>
+    </target>
+    
+
+</project>

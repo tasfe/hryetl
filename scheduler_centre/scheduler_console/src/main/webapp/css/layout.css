@@ -1,0 +1,68 @@
+body{
+	margin:0px;
+}
+
+input.pointerCheckBox{
+	margin-top:-13px;
+	margin-left : 65px;
+	visibility : hidden;
+}
+
+div.pointerText{
+	font-size : 13px;
+	border-radius : 3px;
+	padding-top: 1px;
+	background-color : #0C71A4;
+	text-align : center;
+	width : 100%;
+	color : white;
+	font-weight :bold;
+	background: -webkit-gradient(linear, left top, left bottom, 
+                             from(#1B81B5), to(#176E9A), 
+                             color-stop(0.5, #41ACE3), color-stop(0.5, #41ACE3));
+	box-shadow: 
+	  rgba(22, 22, 128, 0.35) 
+	  2px  
+	  2px  
+	  4px; 
+}
+div.pointerText:hover{
+	background-color : #666666;
+	border-radius : 3px;
+	box-shadow: 
+	  rgba(83, 82, 83, 0.75) 
+	  1px  
+	  1px  
+	  11px; 
+}
+.shadowDiv{
+	box-shadow: 
+	  rgba(234, 82, 70, 0.95) 
+	  2px  
+	  2px  
+	  6px; 
+}
+div.optDiv{
+	border-radius : 3px;
+	cursor : pointer;
+	visibility : hidden;
+	font-weight : bold;
+	color : white;
+	box-shadow: 
+	  rgba(83, 82, 83, 0.75) 
+	  0px  
+	  0px  
+	  6px; 
+}
+
+.divFloat{
+	width : 290px;
+	height : 190px;
+	border-radius : 4px;
+	background-color : #efefef;
+	box-shadow: 
+	  rgba(0, 0, 128, 0.25) 
+	  5px  
+	  5px  
+	  2px; 
+}

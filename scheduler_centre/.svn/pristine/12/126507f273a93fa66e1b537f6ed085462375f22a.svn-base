@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"><value>${scheduler.datasource.driverClassName}</value></property>
+        <property name="url"><value>${scheduler.datasource.url}</value></property>
+        <property name="username"><value>${scheduler.datasource.username}</value></property>
+        <property name="password"><value>${scheduler.datasource.password}</value></property>
+    </bean>
+    
+    <bean id="etl_dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"><value>${etl.datasource.driverClassName}</value></property>
+        <property name="url"><value>${etl.datasource.url}</value></property>
+        <property name="username"><value>${etl.datasource.username}</value></property>
+        <property name="password"><value>${etl.datasource.password}</value></property>
+    </bean>
+	
+	 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>	
+</beans>

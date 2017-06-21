@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>任务执行详情</title>
+<meta name="content-type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="#springUrl('/common/css/style.css')"	type="text/css"  media="screen" />
+    <script>
+    
+    function interrupt(execId){
+      if (window.confirm("确认要中断任务?")){
+         window.location.href= "#springUrl('/fired/interrupt.htm?execId=')" + execId;
+      }
+    }
+    
+    
+    </script>
+</head>
+<body id="body-wrapper">
+    <div id="main-content">
+        <div class="content-box">
+            <div class="content-box-header">
+                <h3>任务管理器>>任务执行详情</h3>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab1">
+					
+
+	<table>
+						<thead>
+                            <th width="12%" align="right">&nbsp;</th>
+                            <th width="15%" align="left" >&nbsp;</th>
+                            <th width="12%" align="right">&nbsp;</th>
+                            <th width="15%" align="left">&nbsp;</th>
+                            <th width="46%" align="right">&nbsp;</th>
+                        </thead>
+						<tbody>
+							<tr>
+								<td>执行编号</th>
+								<td>$!scheExecRecordRO.execNo</td>
+								<td>应用执行编号</th>
+								<td>$!scheExecRecordRO.remoteExecNo</td>
+							</tr>
+							<tr>
+								<td>任务名称</th>
+								<td>$!scheExecRecordRO.jobName</td>
+								<td>任务组名称</th>
+								<td>$!scheExecRecordRO.jobGroup</td>
+							</tr>
+							
+							<tr>
+								<td>开始执行时间</th>
+								<td>$dateUtil.format($!scheExecRecordRO.beginTime)</td>
+								<td>结束执行时间</th>
+								<td>$dateUtil.format($!scheExecRecordRO.endTime)</td>
+							</tr>
+								
+							<tr>
+								<td>应用开始执行时间</th>
+								<td>$dateUtil.format($!scheExecRecordRO.remoteExecBegin)</td>
+								<td>应用结束执行时间</th>
+								<td>$dateUtil.format($!scheExecRecordRO.remoteExecEnd)</td>
+							</tr>
+                        	<tr>
+								<td>状态</th>
+								<td>$!scheExecRecordRO.statusName</td>
+								<td>执行结果</th>
+								<td>$!scheExecRecordRO.result</td>
+							</tr>	
+                        	<tr>
+								<td>异常信息</th>
+								<td colspan="4">$!scheExecRecordRO.exception</td>
+							</tr>		
+                        </tbody>
+      </table>
+                        		
+						
+						
+                     
+								#if ($!scheExecRecordRO.status == "1" || $!scheExecRecordRO.status == "-1")
+								  <input name="btnStop" type="button" value="中  断" class="button" onclick="interrupt('$!scheExecRecordRO.execId')" />
+								#end
+								
+								<input name="btnClose" type="button" value="关  闭" class="button"  onclick="window.close()"/>
+								
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

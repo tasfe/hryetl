@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SCHE_APPLICATION" >
+  <resultMap id="ScheApplicationResult" class="com.banggo.scheduler.dao.dataobject.ScheApplication" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="APP_NAME" property="appName" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="ScheApplicationResult" parameterClass="com.banggo.scheduler.dao.dataobject.ScheApplication" >
+    select ID, APP_NAME, CREATE_DATE
+    from SCHE_APPLICATION
+    where ID = #id:INTEGER#
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheApplication" >
+    delete from SCHE_APPLICATION
+    where ID = #id:INTEGER#
+  </delete>
+  
+  <insert id="insert" parameterClass="com.banggo.scheduler.dao.dataobject.ScheApplication" >
+    insert into SCHE_APPLICATION (ID, APP_NAME, CREATE_DATE)
+    values (#id:INTEGER#, #appName:VARCHAR#, #createDate:TIMESTAMP#)
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheApplication" >
+    update SCHE_APPLICATION
+    set APP_NAME = #appName:VARCHAR#,
+      CREATE_DATE = #createDate:TIMESTAMP#
+    where ID = #id:INTEGER#
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterClass="com.banggo.scheduler.dao.dataobject.ScheApplication" >
+   
+    update SCHE_APPLICATION
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="appName" >
+        APP_NAME = #appName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:TIMESTAMP#
+      </isNotNull>
+    </dynamic>
+    where ID = #id:INTEGER#
+  </update>
+  
+   <select id="query" resultMap="ScheApplicationResult" parameterClass="map" >
+    select ID, APP_NAME, CREATE_DATE
+    from SCHE_APPLICATION
+    where 1 = 1
+    
+    <isNotNull prepend=" and " property="appName" >
+        APP_NAME like #appName#
+     </isNotNull>
+     
+  </select>
+  
+   <select id="now" resultClass="date">
+    select now()
+  </select>
+</sqlMap>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>   
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <!-- ===================================================================== -->
+    <!-- ===================================================================== -->
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">  
+        <layout class="org.apache.log4j.PatternLayout">  
+            <param name="ConversionPattern"     
+                value="%d{yyyy-MM-dd HH:mm:ss,SSS} [%t:%p] %c - %m%n" />  
+        </layout>  
+
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
+            <param name="levelMin" value="DEBUG" />  
+            <param name="levelMax" value="ERROR" />  
+            <param name="AcceptOnMatch" value="true" />  
+        </filter>  
+    </appender> 
+    
+    <appender name="PROJECT" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="/logs/scheduler_centre/scheduler_centre.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+        <param name="append" value="true"/>
+        <param name="encoding" value="UTF-8"/>
+        <param name="threshold" value="info"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} [%t:%p] %c - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="PROJECT-DEBUG" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="/logs/scheduler_centre/scheduler_centre-debug.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} [%t:%p] %c - %m%n"/>
+        </layout>
+    </appender>
+    
+    
+    
+    <!-- ===================================================================== -->
+    <!-- ===================================================================== -->
+    <logger name="com.mchange.v2" additivity="false">
+      <level value="ERROR"/>
+      <appender-ref ref="PROJECT"/>
+    </logger>
+    
+    <root>
+        <level value="DEBUG"/>
+        <appender-ref ref="PROJECT"/>
+        <appender-ref ref="PROJECT-DEBUG"/>
+        
+        
+        <!--  <appender-ref ref="CONSOLE"/> -->
+    </root>
+</log4j:configuration>

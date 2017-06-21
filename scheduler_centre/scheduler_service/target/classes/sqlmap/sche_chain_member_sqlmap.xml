@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SCHE_CHAIN_MEMBER">
+  <resultMap class="com.banggo.scheduler.dao.dataobject.ScheChainMember" id="ScheChainMemberResult">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SCHE_CHAIN_ID" jdbcType="INTEGER" property="scheChainId" />
+    <result column="SCHE_JOB_ID" jdbcType="INTEGER" property="scheJobId" />
+    <result column="LEFT_NODE" jdbcType="INTEGER" property="leftNode" />
+    <result column="RIGHT_NODE" jdbcType="INTEGER" property="rightNode" />
+    <result column="TERMINATE_ON_ERROR" jdbcType="CHAR" property="terminateOnError" />
+     <result column="VERSION" jdbcType="INTEGER" property="version" />
+    
+  </resultMap>
+  <select id="selectByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainMember" resultMap="ScheChainMemberResult">
+    select ID, SCHE_CHAIN_ID, SCHE_JOB_ID, LEFT_NODE, RIGHT_NODE, TERMINATE_ON_ERROR,VERSION
+    from SCHE_CHAIN_MEMBER
+    where ID = #id:INTEGER#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainMember">
+    delete from SCHE_CHAIN_MEMBER
+    where ID = #id:INTEGER#
+  </delete>
+  <insert id="insert" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainMember">
+    insert into SCHE_CHAIN_MEMBER ( SCHE_CHAIN_ID, SCHE_JOB_ID, LEFT_NODE, RIGHT_NODE,
+      TERMINATE_ON_ERROR,VERSION)
+    values ( #scheChainId:INTEGER#, #scheJobId:INTEGER#, #leftNode:INTEGER#,
+      #rightNode:INTEGER#, #terminateOnError:CHAR#,#version:INTEGER#)
+      <selectKey resultClass="int" keyProperty="id"> 
+  		  select last_insert_id() as ID from SCHE_CHAIN_MEMBER limit 1 
+	  </selectKey> 
+  </insert>
+  <update id="updateByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainMember">
+    update SCHE_CHAIN_MEMBER
+    set SCHE_CHAIN_ID = #scheChainId:INTEGER#,
+      SCHE_JOB_ID = #scheJobId:INTEGER#,
+      LEFT_NODE = #leftNode:INTEGER#,
+      RIGHT_NODE = #rightNode:INTEGER#,
+      TERMINATE_ON_ERROR = #terminateOnError:CHAR#,
+      VERSION = #version:INTEGER#
+    where ID = #id:INTEGER#
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainMember">
+    update SCHE_CHAIN_MEMBER
+    <dynamic prepend="set">
+      <isNotNull prepend="," property="scheChainId">
+        SCHE_CHAIN_ID = #scheChainId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="scheJobId">
+        SCHE_JOB_ID = #scheJobId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="leftNode">
+        LEFT_NODE = #leftNode:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="rightNode">
+        RIGHT_NODE = #rightNode:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="terminateOnError">
+        TERMINATE_ON_ERROR = #terminateOnError:CHAR#
+      </isNotNull>
+       <isNotNull prepend="," property="version">
+        VERSION = #version:INTEGER#
+      </isNotNull>
+    </dynamic>
+    where ID = #id:INTEGER#
+  </update>
+  
+   <select id="query" parameterClass="map" resultMap="ScheChainMemberResult">
+    select ID, SCHE_CHAIN_ID, SCHE_JOB_ID, LEFT_NODE, RIGHT_NODE, TERMINATE_ON_ERROR,VERSION
+    from SCHE_CHAIN_MEMBER m
+    where 1 = 1
+    <isNotNull prepend=" and " property="scheChainId"> 
+	 exists (
+	   select 1 from SCHE_CHAIN c
+	   where c.id = m.SCHE_CHAIN_ID
+	   and m.VERSION= c.VERSION
+	   and m.SCHE_CHAIN_ID = #scheChainId# 
+	)
+    </isNotNull>
+    <isNotNull prepend=" and " property="scheJobId"> SCHE_JOB_ID = #scheJobId# </isNotNull>
+    <isNotNull prepend=" and " property="onlyScheChainId">
+     SCHE_CHAIN_ID = #onlyScheChainId#
+    </isNotNull> 
+    <isNotNull prepend=" and " property="version">
+     VERSION = #version#
+    </isNotNull> 
+  </select>
+  
+   <select id="selectUnExecuteFinishedMember" parameterClass="map" resultMap="ScheChainMemberResult">
+	 SELECT t1.*
+		FROM (SELECT mem.*
+			FROM SCHE_CHAIN_MEMBER mem
+			WHERE mem.VERSION = #version#
+				AND mem.SCHE_CHAIN_ID = #scheChainId#
+			) t1 LEFT JOIN (SELECT detail.SCHE_CHAIN_MEMEBER_ID
+			FROM SCHE_CHAIN_EXECUTER_DETAIL detail
+			WHERE detail.SCHE_CHAIN_EXECUTER_ID = #scheChainExecuterId#
+				AND detail.STATUS = '1'
+			) t2 ON t1.ID = t2.SCHE_CHAIN_MEMEBER_ID
+		WHERE t2.SCHE_CHAIN_MEMEBER_ID IS NULL
+  </select>
+  
+   <select id="selectMainMemberOfBarrier" parameterClass="map" resultMap="ScheChainMemberResult">
+	 select * from SCHE_CHAIN_MEMBER mem,(
+	 
+			select SCHE_CHAIN_ID,SCHE_JOB_ID,VERSION, max(RIGHT_NODE) as mxRightNode from SCHE_CHAIN_MEMBER
+			where SCHE_CHAIN_ID = #scheChainId#
+			and SCHE_JOB_ID = #scheJobId#
+			and VERSION =#version#
+			group by SCHE_CHAIN_ID,SCHE_JOB_ID,VERSION
+			)t2
+	
+	where mem.SCHE_CHAIN_ID = t2.SCHE_CHAIN_ID
+	 and mem.SCHE_JOB_ID = t2.SCHE_JOB_ID
+	 and mem.VERSION = t2.VERSION
+	 and mem.RIGHT_NODE = t2.mxRightNode
+	limit 1  
+    </select>
+
+</sqlMap>

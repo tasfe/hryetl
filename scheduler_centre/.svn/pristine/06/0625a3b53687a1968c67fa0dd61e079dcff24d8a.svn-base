@@ -1,0 +1,16 @@
+<toolbox>
+	<xhtml>true</xhtml>
+	<tool>
+		<key>dateUtil</key>
+		<scope>application</scope>
+		<class>com.banggo.scheduler.common.DateUtils</class>
+	</tool>
+	
+	<tool>
+		<key>stringUtil</key>
+		<scope>application</scope>
+		<class>org.apache.commons.lang.StringUtils</class>
+	</tool>
+	
+	
+</toolbox>

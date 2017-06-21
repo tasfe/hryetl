@@ -1,0 +1,33 @@
+{
+	//运行结果
+	topics_result : [{
+				value : '',
+				text : '请选择'
+			}, {
+				value : '1',
+				text : '成功'
+			}, {
+				value : '0',
+				text: '失败'
+			}],
+  //执行状态
+	topics_Status : [{
+				value : '',
+				text : '请选择'
+			}, {
+				value : '0',
+				text : '初始'
+			}, {
+				value : '1',
+				text: '执行中'
+			}, {
+				value : '2',
+				text: '执行结束'
+			}, {
+				value : '-1',
+				text: '未知'
+			}, {
+				value : '-2',
+				text: '调度失败'
+			}]
+}

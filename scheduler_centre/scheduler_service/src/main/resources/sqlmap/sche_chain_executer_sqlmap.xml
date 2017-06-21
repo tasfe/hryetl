@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SCHE_CHAIN_EXECUTER">
+  <resultMap class="com.banggo.scheduler.dao.dataobject.ScheChainExecuter" id="ScheChainExecuterResult">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SCHE_CHAIN_ID" jdbcType="INTEGER" property="scheChainId" />
+    <result column="EXEC_NO" jdbcType="VARCHAR" property="execNo" />
+    <result column="BEGIN_TIME" jdbcType="DATETIME" property="beginTime" />
+    <result column="END_TIME" jdbcType="DATETIME" property="endTime" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="SCHE_CHAIN_VERSION" jdbcType="INTEGER" property="scheChainVersion" />
+    <result column="EXCEPTION" property="exception" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap class="com.banggo.scheduler.dao.dataobject.ScheChainExecuter" id="ScheChainExecuterResultWithChainName">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SCHE_CHAIN_ID" jdbcType="INTEGER" property="scheChainId" />
+    <result column="EXEC_NO" jdbcType="VARCHAR" property="execNo" />
+    <result column="BEGIN_TIME" jdbcType="DATETIME" property="beginTime" />
+    <result column="END_TIME" jdbcType="DATETIME" property="endTime" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="SCHE_CHAIN_VERSION" jdbcType="INTEGER" property="scheChainVersion" />
+    <result column="EXCEPTION" property="exception" jdbcType="VARCHAR" />
+     <result column="CHAIN_NAME" jdbcType="VARCHAR" property="chainName" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainExecuter" resultMap="ScheChainExecuterResult">
+    select ID, SCHE_CHAIN_ID, EXEC_NO, BEGIN_TIME, END_TIME, STATUS,SCHE_CHAIN_VERSION,EXCEPTION
+    from SCHE_CHAIN_EXECUTER
+    where ID = #id:INTEGER#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainExecuter">
+    delete from SCHE_CHAIN_EXECUTER
+    where ID = #id:INTEGER#
+  </delete>
+  <insert id="insert" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainExecuter">
+    insert into SCHE_CHAIN_EXECUTER (SCHE_CHAIN_ID, EXEC_NO, BEGIN_TIME, END_TIME, STATUS,SCHE_CHAIN_VERSION,EXCEPTION)
+    values (#scheChainId:INTEGER#, #execNo:VARCHAR#, #beginTime:DATETIME#,
+      #endTime:DATETIME#, #status:VARCHAR#,#scheChainVersion:INTEGER#, #exception:VARCHAR#)
+       <selectKey resultClass="int" keyProperty="id"> 
+  		  select last_insert_id() as ID from SCHE_CHAIN_EXECUTER limit 1 
+	  </selectKey> 
+  </insert>
+  <update id="updateByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainExecuter">
+    update SCHE_CHAIN_EXECUTER
+    set SCHE_CHAIN_ID = #scheChainId:INTEGER#,
+      EXEC_NO = #execNo:VARCHAR#,
+      BEGIN_TIME = #beginTime:DATETIME#,
+      END_TIME = #endTime:DATETIME#,
+      STATUS = #status:VARCHAR#,
+      SCHE_CHAIN_VERSION = #scheChainVersion:INTEGER#,
+      EXCEPTION= #exception:VARCHAR#
+    where ID = #id:INTEGER#
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainExecuter">
+    update SCHE_CHAIN_EXECUTER
+    <dynamic prepend="set">
+      <isNotNull prepend="," property="scheChainId">
+        SCHE_CHAIN_ID = #scheChainId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="execNo">
+        EXEC_NO = #execNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="beginTime">
+        BEGIN_TIME = #beginTime:DATETIME#
+      </isNotNull>
+      <isNotNull prepend="," property="endTime">
+        END_TIME = #endTime:DATETIME#
+      </isNotNull>
+      <isNotNull prepend="," property="status">
+        STATUS = #status:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="scheChainVersion">
+        SCHE_CHAIN_VERSION =  #scheChainVersion:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="exception">
+        EXCEPTION = #exception:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where ID = #id:INTEGER#
+  </update>
+  
+   
+   <select id="query" resultMap="ScheChainExecuterResultWithChainName" parameterClass="map" >
+	select distinct e.*,c.CHAIN_NAME from SCHE_CHAIN_EXECUTER e 
+	left join SCHE_CHAIN c on (e.SCHE_CHAIN_ID = c.ID and c.VERSION >= e.SCHE_CHAIN_VERSION )
+	left join  SCHE_CHAIN_EXECUTER_DETAIL d on (e.ID = d.SCHE_CHAIN_EXECUTER_ID)
+	left join SCHE_CHAIN_MEMBER m on (e.SCHE_CHAIN_ID = m.SCHE_CHAIN_ID and m.VERSION = e.SCHE_CHAIN_VERSION)
+	left join SCHE_JOB j on (j.ID = m.SCHE_JOB_ID)
+      where 1 = 1 
+       <isNotNull prepend=" and " property="chainName">
+        c.CHAIN_NAME like #chainName#
+      </isNotNull>
+      <isNotNull prepend=" and " property="status">
+        e.STATUS = #status#
+      </isNotNull>
+      <isNotNull prepend=" and " property="beginTimeFrom">
+		e.BEGIN_TIME >= #beginTimeFrom#
+	  </isNotNull>
+	
+	  <isNotNull prepend=" and " property="beginTimeTo">
+		 #beginTimeTo# >= e.BEGIN_TIME
+	  </isNotNull>
+      <isNotNull prepend=" and " property="execNo">
+        e.EXEC_NO like #execNo#
+      </isNotNull>
+      <isNotNull prepend=" and " property="appName">
+			j.APP_NAME = #appName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobName">
+			j.JOB_NAME like #jobName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobGroup">
+			j.JOB_GROUP like
+			#jobGroup#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobId">
+			c.CHAIN_NAME in ( select  params.VALUE
+	       from  SCHE_JOB job, SCHE_JOB_PARAMS params
+		   where job.ID = params.SCHE_JOB_ID
+		   and params.NAME='chainName'		   
+		   and job.ID = #jobId#	 )
+		</isNotNull>
+      
+       order by e.BEGIN_TIME desc
+		 
+		<isNotNull prepend="  " property="pageSize">
+			<isNotNull prepend="  " property="skip">
+				LIMIT #skip#,#pageSize#
+			</isNotNull>
+		</isNotNull>
+     
+  </select>
+  
+   <select id="count" resultClass="int" parameterClass="map" >
+	select count(distinct e.ID) from SCHE_CHAIN_EXECUTER e 
+	left join SCHE_CHAIN c on (e.SCHE_CHAIN_ID = c.ID and c.VERSION >= e.SCHE_CHAIN_VERSION )
+	left join  SCHE_CHAIN_EXECUTER_DETAIL d on (e.ID = d.SCHE_CHAIN_EXECUTER_ID)
+	left join SCHE_CHAIN_MEMBER m on (e.SCHE_CHAIN_ID = m.SCHE_CHAIN_ID and m.VERSION = e.SCHE_CHAIN_VERSION)
+	left join SCHE_JOB j on (j.ID = m.SCHE_JOB_ID)
+      where 1 = 1 
+      
+       <isNotNull prepend=" and " property="chainName">
+        c.CHAIN_NAME like #chainName#
+      </isNotNull>
+      <isNotNull prepend=" and " property="status">
+        e.STATUS = #status#
+      </isNotNull>
+      <isNotNull prepend=" and " property="beginTimeFrom">
+		e.BEGIN_TIME >= #beginTimeFrom#
+	  </isNotNull>
+	
+	  <isNotNull prepend=" and " property="beginTimeTo">
+		 #beginTimeTo# >= e.BEGIN_TIME
+	  </isNotNull>
+      <isNotNull prepend=" and " property="execNo">
+        e.EXEC_NO like #execNo#
+      </isNotNull>
+       <isNotNull prepend=" and " property="scheChianExecuterId">
+        e.ID = #scheChianExecuterId#
+      </isNotNull>
+      <isNotNull prepend=" and " property="appName">
+			j.APP_NAME = #appName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobName">
+			j.JOB_NAME like #jobName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobGroup">
+			j.JOB_GROUP like
+			#jobGroup#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobId">
+			c.CHAIN_NAME in ( select  params.VALUE
+	       from  SCHE_JOB job, SCHE_JOB_PARAMS params
+		   where job.ID = params.SCHE_JOB_ID
+		   and params.NAME='chainName'		   
+		   and job.ID = #jobId#	 )
+		</isNotNull>
+  </select>
+  
+   <select id="queryScheExecuterIds" resultClass="int" parameterClass="int" >
+	select  d.SCHE_EXECUTER_ID 
+	 from SCHE_CHAIN_EXECUTER e,  SCHE_CHAIN_EXECUTER_DETAIL d 
+	where e.ID = d.SCHE_CHAIN_EXECUTER_ID
+	  and d.SCHE_EXECUTER_ID is not null
+       and   e.ID = #value#
+    </select>
+  
+</sqlMap>

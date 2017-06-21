@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SCHE_CHAIN_BARRIER" >
+  <resultMap id="ScheChainBarrierResult" class="com.banggo.scheduler.dao.dataobject.ScheChainBarrier" >
+   
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SCHE_CHAIN_EXECUTER_ID" property="scheChainExecuterId" jdbcType="INTEGER" />
+    <result column="BARRIER_JOB_ID" property="barrierJobId" jdbcType="INTEGER" />
+    <result column="WAIT_COUNT" property="waitCount" jdbcType="INTEGER" />
+    <result column="SCHE_CHAIN_VERSION" property="scheChainVersion" jdbcType="INTEGER" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATETIME" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="DATETIME" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="ScheChainBarrierResult" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainBarrier" >
+   
+    select ID, SCHE_CHAIN_EXECUTER_ID, BARRIER_JOB_ID, WAIT_COUNT, SCHE_CHAIN_VERSION, CREATE_DATE,
+      UPDATE_DATE
+    from SCHE_CHAIN_BARRIER
+    where ID = #id:INTEGER#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainBarrier" >
+   
+    delete from SCHE_CHAIN_BARRIER
+    where ID = #id:INTEGER#
+  </delete>
+  <insert id="insert" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainBarrier" >
+   
+    insert into SCHE_CHAIN_BARRIER (SCHE_CHAIN_EXECUTER_ID, BARRIER_JOB_ID, WAIT_COUNT,
+      SCHE_CHAIN_VERSION, CREATE_DATE, UPDATE_DATE)
+    values ( #scheChainExecuterId:INTEGER#, #barrierJobId:INTEGER#,
+      #waitCount:INTEGER#, #scheChainVersion:INTEGER#, now(),
+      #updateDate:DATETIME#)
+  </insert>
+  <update id="updateByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainBarrier" >
+   
+    update SCHE_CHAIN_BARRIER
+    set SCHE_CHAIN_EXECUTER_ID = #scheChainExecuterId:INTEGER#,
+      BARRIER_JOB_ID = #barrierJobId:INTEGER#,
+      WAIT_COUNT = #waitCount:INTEGER#,
+      SCHE_CHAIN_VERSION = #scheChainVersion:INTEGER#,
+      CREATE_DATE = #createDate:DATETIME#,
+      UPDATE_DATE = now()
+    where ID = #id:INTEGER#
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainBarrier" >
+    
+    update SCHE_CHAIN_BARRIER
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="scheChainExecuterId" >
+        SCHE_CHAIN_EXECUTER_ID = #scheChainExecuterId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="barrierJobId" >
+        BARRIER_JOB_ID = #barrierJobId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="waitCount" >
+        WAIT_COUNT = #waitCount:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="scheChainVersion" >
+        SCHE_CHAIN_VERSION = #scheChainVersion:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate" >
+        CREATE_DATE = #createDate:DATETIME#
+      </isNotNull>
+      <isNotNull prepend="," property="updateDate" >
+        UPDATE_DATE = now()
+      </isNotNull>
+    </dynamic>
+    where ID = #id:INTEGER#
+  </update>
+  
+   <select id="query" resultMap="ScheChainBarrierResult" parameterClass="map" >
+   
+    select ID, SCHE_CHAIN_EXECUTER_ID, BARRIER_JOB_ID, WAIT_COUNT, SCHE_CHAIN_VERSION, CREATE_DATE,
+      UPDATE_DATE
+    from SCHE_CHAIN_BARRIER
+    where 1 = 1
+      <isNotNull prepend=" and " property="scheChainExecuterId" >
+        SCHE_CHAIN_EXECUTER_ID = #scheChainExecuterId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend=" and "  property="barrierJobId" >
+        BARRIER_JOB_ID = #barrierJobId:INTEGER#
+      </isNotNull>
+  </select>
+</sqlMap>

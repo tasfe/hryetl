@@ -1,0 +1,205 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.banggo.scheduler</groupId>
+	<artifactId>scheduler_console</artifactId>
+	<packaging>war</packaging>
+	<version>1.2.2</version>
+	<name>scheduler_console Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+
+	<properties>
+		<maven.test.skip>true</maven.test.skip>
+		<springframework.version>3.1.0.RELEASE</springframework.version>
+		<junit.version>4.8</junit.version>
+
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.9</version>
+		</dependency>
+
+		<!-- spring begin -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-web</artifactId> 
+			<version>${springframework.version}</version> </dependency> -->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${springframework.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${springframework.version}</version>
+		</dependency>
+
+		<!-- spring end -->
+
+		<!-- jakarta commons begin -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-digester</groupId>
+			<artifactId>commons-digester</artifactId>
+			<version>1.8</version>
+		</dependency>
+		<!-- jakarta commons end -->
+		
+		<!-- ****************** tongyiyanzhen BEGIN ***************** -->
+		<dependency>
+			<groupId>com.banggo.united</groupId>
+			<artifactId>auth_center_client</artifactId>
+			<version>0.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>hessian</groupId>
+			<artifactId>hessian</artifactId>
+			<version>4.0.7</version>
+		</dependency>
+		<!-- ****************** tongyiyanzhen END ***************** -->
+		
+		<!-- velocity begin -->
+		<dependency>
+			<groupId>velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>velocity-tools</groupId>
+			<artifactId>velocity-tools</artifactId>
+			<version>1.4</version>
+		</dependency>
+		<!-- velocity end -->
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.8.3</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>com.banggo.scheduler</groupId>
+			<artifactId>scheduler_service</artifactId>
+			<version>1.0.4</version>
+		</dependency>
+
+
+
+	</dependencies>
+
+
+	<build>
+		<finalName>scheduler_console</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>utf8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<configuration>
+					<container>
+						<type>remote</type>
+						<containerId>tomcat7x</containerId>
+					</container>
+					<configuration>
+						<type>runtime </type>
+						<properties>
+							<cargo.hostname>10.100.200.26</cargo.hostname>
+							<cargo.servlet.port>8080</cargo.servlet.port>
+							<cargo.tomcat.manager.url>http://10.100.200.26:8080/manager</cargo.tomcat.manager.url>
+							<cargo.remote.username>tomcat</cargo.remote.username>
+							<cargo.remote.password>tomcat</cargo.remote.password>
+						</properties>
+					</configuration>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+
+	</build>
+	
+	<profiles>
+	<profile>
+		<id>test</id>
+		<activation>
+			<activeByDefault>true</activeByDefault>
+		</activation>
+		<build>
+			<resources>
+				<resource>
+					<directory>src/main/resources</directory>
+					<excludes>
+						<exclude>system.properties</exclude>
+					</excludes>
+				</resource>
+				<resource>
+					<directory>conf/test</directory>
+					<includes>
+						<include>system.properties</include>
+					</includes>
+				</resource>
+
+			</resources>
+		</build>
+	</profile>
+</profiles>
+</project>

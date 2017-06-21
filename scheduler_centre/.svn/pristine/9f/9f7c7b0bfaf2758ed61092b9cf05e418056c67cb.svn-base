@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SCHE_JOB_PARAMS" >
+  <resultMap id="scheJobParamsResult" class="com.banggo.scheduler.dao.dataobject.ScheJobParams" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SCHE_JOB_ID" property="scheJobId" jdbcType="INTEGER" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="VALUE" property="value" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="scheJobParamsResult" parameterClass="com.banggo.scheduler.dao.dataobject.ScheJobParams" >
+    select ID, SCHE_JOB_ID, NAME, VALUE
+    from SCHE_JOB_PARAMS
+    where ID = #id:INTEGER#
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheJobParams" >
+    delete from SCHE_JOB_PARAMS
+    where ID = #id:INTEGER#
+  </delete>
+  
+  <insert id="insert" parameterClass="com.banggo.scheduler.dao.dataobject.ScheJobParams" >
+    insert into SCHE_JOB_PARAMS (SCHE_JOB_ID, NAME, VALUE)
+    values ( #scheJobId:INTEGER#, #name:VARCHAR#, #value:VARCHAR#)
+     <selectKey resultClass="int" keyProperty="id"> 
+  		  select last_insert_id() as ID from SCHE_JOB_PARAMS limit 1 
+	  </selectKey> 
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheJobParams" >
+    update SCHE_JOB_PARAMS
+    set SCHE_JOB_ID = #scheJobId:INTEGER#,
+      NAME = #name:VARCHAR#,
+      VALUE = #value:VARCHAR#
+    where ID = #id:INTEGER#
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterClass="com.banggo.scheduler.dao.dataobject.ScheJobParams" >
+    update SCHE_JOB_PARAMS
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="scheJobId" >
+        SCHE_JOB_ID = #scheJobId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="name" >
+        NAME = #name:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="value" >
+        VALUE = #value:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where ID = #id:INTEGER#
+  </update>
+  
+   <select id="selectByScheJobId" resultMap="scheJobParamsResult" parameterClass="int" >
+    select ID, SCHE_JOB_ID, NAME, VALUE
+    from SCHE_JOB_PARAMS
+    where SCHE_JOB_ID = #value#
+  </select>
+  
+    <delete id="deleteByScheJobId" parameterClass="int" >
+    delete from SCHE_JOB_PARAMS
+    where SCHE_JOB_ID = #value#
+  </delete>
+  
+</sqlMap>

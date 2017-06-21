@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	
+	
+	
+    <bean id="hessianExecuteJob" class="com.banggo.scheduler.job.HessianExecuteJobImpl"/>
+    <bean id="hessianInterruptJob" class="com.banggo.scheduler.job.HessianInterruptJobImpl"/>
+    <bean id="startJobChainJob" class="com.banggo.scheduler.job.StartJobChainJobImpl"/>
+    
+    
+    <bean id="propertiesFactory"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+			    <bean class="org.springframework.core.io.ClassPathResource">
+					<constructor-arg value="system.properties" />
+				</bean> 
+			</list>
+		</property>
+	</bean>
+	
+    <bean id="quartzScheduler" class="com.banggo.scheduler.support.QuartzSchedulerFactoryBean">
+    	<property name="qtzSchedulerFactoryKey" value="scheduler.factory.key"/>
+	    <property name="registeMap">
+	     <map>
+	        <entry key="com.banggo.scheduler.job.HessianExecuteJob"  value-ref="hessianExecuteJob"/>
+	        <entry key="com.banggo.scheduler.job.HessianInterruptJob"  value-ref="hessianInterruptJob"/>
+	        <entry key="com.banggo.scheduler.job.StartJobChainJob"  value-ref="startJobChainJob"/>
+	     </map>
+	    </property>
+    </bean>
+    
+    <bean id="scheChainMemberExecuter" class="com.banggo.scheduler.executer.ScheChainMemberExecuter"/>
+    <bean id="hessianJobExecuter" class="com.banggo.scheduler.executer.HessianJobExecuter"/>
+   
+    <bean id="startNodeHandeler" class="com.banggo.scheduler.executer.member.handler.StartNodeHandler"/>
+    <bean id="hessianNodeHandler" class="com.banggo.scheduler.executer.member.handler.HessianNodeHandler"/>
+    <bean id="barrierNodeHandler" class="com.banggo.scheduler.executer.member.handler.BarrierNodeHandler"/>
+     
+     
+    <bean id="nodeHandlerFactory" class="com.banggo.scheduler.executer.member.handler.NodeHandlerFactory">
+    <property name="registeMap">
+	     <map>
+	        <entry key="default"  value-ref="hessianNodeHandler"/>
+	        <entry key="-999"  value-ref="startNodeHandeler"/>
+	        <entry key="-900"  value-ref="barrierNodeHandler"/>
+	        <entry key="-901"  value-ref="barrierNodeHandler"/>
+	        <entry key="-902"  value-ref="barrierNodeHandler"/>
+	        <entry key="-903"  value-ref="barrierNodeHandler"/>
+	        <entry key="-904"  value-ref="barrierNodeHandler"/>
+	        <entry key="-905"  value-ref="barrierNodeHandler"/>
+	        <entry key="-906"  value-ref="barrierNodeHandler"/>
+	        <entry key="-907"  value-ref="barrierNodeHandler"/>
+	        <entry key="-908"  value-ref="barrierNodeHandler"/>
+	        <entry key="-909"  value-ref="barrierNodeHandler"/>
+	     </map>
+	    </property>
+   
+    </bean>
+    
+    	
+	<bean id="executeFinishedListener" class="com.banggo.scheduler.event.ExecuteFinishedListener"/>
+	<bean id="sendAlarmMsgOnErrorListener" class="com.banggo.scheduler.event.SendAlarmMsgOnErrorListener"/>
+	
+	<bean id="eventPublisher" class="com.banggo.scheduler.event.EventPublisher">
+		<property name="listenerList">
+		 <list>
+		   <ref bean="executeFinishedListener" />
+		   <ref bean="sendAlarmMsgOnErrorListener" />
+		 </list>
+		</property>
+	</bean>
+	
+	<bean id="smsService" class="com.banggo.scheduler.service.SmsService">
+	  <property name="smsProvider" ref="sMSService"/> 
+	    <property name="user">
+	     <bean class="com.metersbonwe.sms.bean.User">
+		     <constructor-arg index="0" value="${sms.provider.user}"/>
+		     <constructor-arg index="1" value="${sms.provider.pwd}"/>
+	     </bean>
+	    </property> 
+	    <property name="sendTypeFullDay" value="scheduler_sms_full_day"/> 
+	      <property name="sendTypeLimit" value="scheduler_sms_limit"/>  
+	       <property name="channelCode" value="${sms.provider.channelCode}"/> 
+	</bean>
+	
+	 <bean id="mailProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+			    <bean class="org.springframework.core.io.ClassPathResource">
+					<constructor-arg value="mail.properties" />
+				</bean> 
+			</list>
+		</property>
+	</bean>
+    
+    <bean id="mailService" class="com.banggo.scheduler.service.mail.MailService">
+        <property name="mailServerConfProp" ref="mailProperties"/>
+    </bean>	
+    
+</beans>

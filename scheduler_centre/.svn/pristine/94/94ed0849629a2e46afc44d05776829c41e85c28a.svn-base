@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>任务执行查询</title>
+<meta name="content-type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" href="#springUrl('/common/css/style.css')"	type="text/css"  media="screen" />
+<script type="text/javascript" src="#springUrl('/common/js/My97DatePicker/WdatePicker.js')"></script>
+<script type="text/javascript" src="#springUrl('/common/js/common.js')"></script>
+ <script type="text/javascript" src="#springUrl('/common/js/jq/jquery.js')"></script>
+<script>
+function openDateDialog(){
+   WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})
+}
+
+function clean(){
+   document.getElementById("appName").selectedIndex  = 0;
+   document.getElementById("status").selectedIndex  = 0;
+    document.getElementById("result").selectedIndex  = 0;
+   document.getElementById("jobName").value="";
+   document.getElementById("jobGroup").value="";
+   document.getElementById("execNo").value="";
+   document.getElementById("remoteExecNo").value="";
+   document.getElementById("beginTimeFrom").value="";
+   document.getElementById("beginTimeTo").value="";
+   document.getElementById("jobId").value="";
+}
+
+function openDetail(execId){
+   window.open("#springUrl('/fired/detail.htm?execId=')" + execId,"detail","height=600,width=900,status=yes,toolbar=no,menubar=no,location=no");
+}
+
+function openJobDetail(jobId){
+  window.open("#springUrl('/job/retrive.htm?jobId=')$!job.id" + jobId,"detail","height=800,width=1007,status=yes,toolbar=no,menubar=no,location=no");
+ }
+   
+
+function interrupt(execId){
+  if (window.confirm("确认要中断任务?")){
+     window.open("#springUrl('/fired/interrupt.htm?execId=')" + execId,"interrupt","height=200,width=200,status=yes,toolbar=no,menubar=no,location=no");
+  }
+}
+
+function refresh(){
+   document.forms["workform"].submit();
+}
+</script>
+
+
+</head>
+<body id="body-wrapper">
+    <div id="main-content">
+        <div class="content-box">
+            <div class="content-box-header">
+                <h3>任务管理器>>维护任务</h3>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab1">
+					
+<form name="workform"  action="#springUrl('/fired/query.htm')" method="post">
+	<input type="hidden" name="jobId" id="jobId" value="$!queryObject.jobId">
+	<table cellpadding="0" cellspacing="0" >
+		 <tr>
+            <td><label>应用名称</label></td>
+			<td><select id="appName" name="appName">
+					<option value="-1"> 请选择  </option>
+					#foreach($appName in $scheAppNames)
+						<option value="$!appName"
+							#if($!appName == $queryObject.appName)
+								selected
+								#end
+							> $!appName  </option>
+						#end	
+				</select>
+			</td>
+			
+            <td><label>任务名称</label></td>
+			<td><input id="jobName" name="jobName" type="text" value="$!queryObject.jobName"/></td>
+            <td><label>任务组名称</label></td>
+			<td><input id="jobGroup" name="jobGroup" type="text" value="$!queryObject.jobGroup"/></td>
+		 </tr>
+		 
+		 <tr>
+            <td><label>运行状态</label></td>
+			<td><select id="status" name="status">
+					<option value=""> 请选择  </option>
+					
+					#foreach($status in $scheExecuterStatus)
+						<option value="$!status.code"
+							#if($!status.code == $queryObject.status)
+								selected
+								#end
+							> $!status.name  </option>
+					#end	
+				</select>
+			</td>
+			
+            <td><label>运行结果</label></td>
+			<td><select id="result" name="result">
+					<option value=""> 请选择  </option>
+					<option value="1" 
+						#if("1" == $queryObject.result)
+								selected
+						#end
+					>成功 </option>
+					<option value="0"
+						#if("0" == $queryObject.result)
+								selected
+						#end
+						>失败 </option>
+				</select>
+			</td>
+			
+            <td><label>执行编号</label></td>
+			<td><input id="execNo" name="execNo" type="text" value="$!queryObject.execNo"/></td>
+		 </tr>
+		 
+		  <tr>
+            <td><label>应用执行编号</label></td>
+			<td><input id="remoteExecNo" name="remoteExecNo" type="text"  value="$!queryObject.remoteExecNo"/></td>
+			
+            <td><label>开始时间从</label></td>
+			<td colspan="3">
+				<input type="text" name="beginTimeFrom" id="beginTimeFrom" value="$dateUtil.format($!queryObject.beginTimeFrom)" class="Wdate" onClick="openDateDialog()" /> 到
+				<input type="text" name="beginTimeTo" id="beginTimeTo" value="$dateUtil.format($!queryObject.beginTimeTo)" class="Wdate" onClick="openDateDialog()" /> 
+			</td>
+			
+		 </tr>
+
+		 <tr>
+            <td colspan="6" align="right">
+				<label >
+					<input name="btnSearch" type="submit" value="查	询" class="button" />
+					<input name="btnClean" type="button"  value="清	空" class="button" onclick="clean()"/>
+				</label>
+			</td>
+		 </tr>
+
+    </table>
+	 <div class="clear"></div>
+	 
+</form>
+
+	<table>
+						<thead>
+							<tr>
+								<th>执行编号</th>
+                        		<th>应用名称</th>	
+                        		<th>任务名称</th>	
+                        		<th>任务组名称</th>	
+                        		<th>开始执行时间</th>	
+                        		<th>结束执行时间</th>	
+                        		<th>状态</th>	
+                        		<th>执行结果</th>	
+                        		<th>异常信息</th>								
+                        		<th>操作</th>								
+							</tr>
+						</thead>
+						<tbody>
+                        #foreach($scheExecRecordRO in $resultList)
+						  <tr>
+                             <td align="center" ><a href="#" onclick="openDetail('$!scheExecRecordRO.execId')">$!scheExecRecordRO.execNo</a></td>
+                             <td align="center" >$!scheExecRecordRO.appName</td>
+                             <td align="center" ><a href="#" onclick="openJobDetail('$!scheExecRecordRO.jobId')">$!scheExecRecordRO.jobName</a></td>
+                             <td align="center" >$!scheExecRecordRO.jobGroup</td>
+                             <td align="center" >$dateUtil.format($!scheExecRecordRO.beginTime)</td>
+                             <td align="center" >$dateUtil.format($!scheExecRecordRO.endTime)</td>
+                             <td align="center" >$!scheExecRecordRO.statusName</td>
+                             <td align="center" >$!scheExecRecordRO.result</td>
+							 <td align="center" title="$!scheExecRecordRO.exception">
+								#if ($!scheExecRecordRO.exception && $scheExecRecordRO.exception.length() > 20)
+								   $stringUtil.substring($!scheExecRecordRO.exception,0,20) ...
+								   #else
+									$!scheExecRecordRO.exception
+								#end
+								
+							 </td>
+                             <td align="center" >
+								#if ($!scheExecRecordRO.status == "1" || ($!scheExecRecordRO.status == "-1" && $scheExecRecordRO.remoteCancelUrl))
+								  <input name="btnStop" type="button" value="中断" class="button" onclick="interrupt('$!scheExecRecordRO.execId')" />
+								   #else
+									 &nbsp;
+								#end
+								</td>
+						  
+						  </tr>
+					    #end	
+						
+						</tbody>
+						
+						
+						
+						
+						<tfoot>
+							<tr>
+								<td colspan="10">									
+								     #page("workform")             
+									<div class="clear"></div>
+                                </td>
+							</tr>
+						</tfoot>
+					
+						</table>   
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
