@@ -1,0 +1,9 @@
+mail.smtp.host=smtp.ym.163.com
+mail.smtp.port=25
+mail.smtp.connectiontimeout=15000
+mail.smtp.timeout=30000
+mail.smtp.from=wuxin@ptzaixian.com
+mail.smtp.auth=true
+#mail.smtp.localhost=
+mail.smtp.user=wuxin@ptzaixian.com
+mail.smtp.pwd=2892870

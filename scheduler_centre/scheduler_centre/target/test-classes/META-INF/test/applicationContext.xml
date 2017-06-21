@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	
+	<context:annotation-config/>
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"><value>com.mysql.jdbc.Driver</value></property>
+        <property name="url"><value>jdbc:mysql://192.168.149.52:3306/bgservice</value></property>
+        <property name="username"><value>admin</value></property>
+        <property name="password"><value>admin52</value></property>
+    </bean>
+	
+	 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>	
+    
+   
+    <bean id="smsService" class="com.banggo.scheduler.service.SmsService">
+	  <property name="smsProvider" ref="sMSService"/> 
+	    <property name="user">
+	     <bean class="com.metersbonwe.sms.bean.User">
+		     <constructor-arg index="0" value="wxtest"/>
+		     <constructor-arg index="1" value="wxtest"/>
+	     </bean>
+	    </property> 
+	      <property name="sendTypeFullDay" value="scheduler_sms_full_day"/> 
+	      <property name="sendTypeLimit" value="scheduler_sms_limit"/>  
+	       <property name="channelCode" value="test"/> 
+	</bean>
+
+  
+	<import resource="consumer.xml"/>
+
+	
+	
+	
+</beans>

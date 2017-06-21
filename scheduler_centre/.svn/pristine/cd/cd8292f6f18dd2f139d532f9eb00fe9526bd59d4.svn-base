@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	
+	<context:annotation-config/>
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"><value>com.mysql.jdbc.Driver</value></property>
+        <property name="url"><value>jdbc:mysql://192.168.149.52:3306/bgservice</value></property>
+        <property name="username"><value>admin</value></property>
+        <property name="password"><value>admin52</value></property>
+    </bean>
+	
+	 <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>	
+    
+    <bean id="quartzScheduler"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="schedulerName" value="SchedulerCentre"/> 
+		<property name="autoStartup" value="false"></property>
+		<property name="quartzProperties">
+			<props>
+			  <prop key="org.quartz.jobStore.tablePrefix">SCHE_QZ_</prop>
+			  <prop key="org.quartz.scheduler.instanceId">AUTO</prop>
+			  <prop key="org.quartz.scheduler.instanceName">SchedulerCentre</prop>
+			</props>
+		</property>
+	</bean>
+    
+    <bean id="mailProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+			    <bean class="org.springframework.core.io.ClassPathResource">
+					<constructor-arg value="mail.properties" />
+				</bean> 
+			</list>
+		</property>
+	</bean>
+    
+    <bean id="mailService" class="com.banggo.scheduler.service.mail.MailService">
+        <property name="mailServerConfProp" ref="mailProperties"/>
+    </bean>	
+    
+	<import resource="classpath*:META-INF/spring/springContext_scheduler_*.xml"/>
+	
+</beans>

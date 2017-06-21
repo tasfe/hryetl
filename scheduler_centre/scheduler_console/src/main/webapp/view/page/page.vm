@@ -1,0 +1,34 @@
+#if($pg)
+<div class="pagination">
+#set($pns = $pg.slider())
+#if($pg.enablePage(1))
+	<a href="javascript:;">&laquo; 首页</a>
+#else
+    <a href="javascript:gotoPage('$formName', 1)">&laquo; 首页</a>
+#end
+#if($pg.enablePage($pg.previousPage()))
+	<a href="javascript:;">&laquo; 上一页</a>
+#else
+    <a href="javascript:gotoPage('$formName', $pg.previousPage())">&laquo; 上一页</a>
+#end
+#foreach($pn in $pns)	
+    #if($pg.enablePage($pn))
+        <a class="number current" href="#"><b>$pn</b></a>
+    #else
+        <a class="number" href="javascript:gotoPage('$formName', $pn)"><b>$pn</b></a>
+    #end
+#end						
+#if($pg.enablePage($pg.nextPage()))
+	<a href="javascript:;">下一页 &raquo;</a>
+#else
+    <a href="javascript:gotoPage('$formName', $pg.nextPage())">下一页 &raquo;</a>
+#end
+#if($pg.enablePage($pg.getPages()))
+	<a href="javascript:;">末页 &raquo;</a>
+#else
+    <a href="javascript:gotoPage('$formName', $pg.getPages())">末页 &raquo;</a>
+#end
+&nbsp;跳至第<input id="page_in" type="text" size="1" />页
+<input type="button" class="button" onclick="javascript:gotoPageIn('$formName', 'page_in', $pg.getPages())" value="确定" />	
+</div>
+#end

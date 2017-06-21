@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SCHE_MANUAL_TRIGGER" >
+  <resultMap id="scheManualTriggerResult" class="com.banggo.scheduler.dao.dataobject.ScheManualTrigger" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SCHE_JOB_ID" property="scheJobId" jdbcType="INTEGER" />
+    <result column="SCHE_EXEC_ID" property="scheExecId" jdbcType="INTEGER" />
+    <result column="TRIGGER_TYPE" property="triggerType" jdbcType="CHAR" />
+    <result column="OPERATE_TIME" property="operateTime" jdbcType="DATETIME" />
+    <result column="OPERATE_BY" property="operateBy" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="scheManualTriggerResult" parameterClass="com.banggo.scheduler.dao.dataobject.ScheManualTrigger" >
+    select ID, SCHE_JOB_ID, SCHE_EXEC_ID, TRIGGER_TYPE, OPERATE_TIME, OPERATE_BY
+    from SCHE_MANUAL_TRIGGER
+    where ID = #id:INTEGER#
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheManualTrigger" >
+    delete from SCHE_MANUAL_TRIGGER
+    where ID = #id:INTEGER#
+  </delete>
+  
+  <insert id="insert" parameterClass="com.banggo.scheduler.dao.dataobject.ScheManualTrigger" >
+    insert into SCHE_MANUAL_TRIGGER (SCHE_JOB_ID, SCHE_EXEC_ID, TRIGGER_TYPE, OPERATE_TIME,
+      OPERATE_BY)
+    values ( #scheJobId:INTEGER#, #scheExecId:INTEGER#, #triggerType:CHAR#,
+    now(), #operateBy:VARCHAR#)
+      
+      <selectKey resultClass="int" keyProperty="id"> 
+  		  select last_insert_id() as ID from SCHE_MANUAL_TRIGGER limit 1 
+	  </selectKey> 
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheManualTrigger" >
+    update SCHE_MANUAL_TRIGGER
+    set SCHE_JOB_ID = #scheJobId:INTEGER#,
+      SCHE_EXEC_ID = #scheExecId:INTEGER#,
+      TRIGGER_TYPE = #triggerType:CHAR#,
+      OPERATE_TIME = #operateTime:DATETIME#,
+      OPERATE_BY = #operateBy:VARCHAR#
+    where ID = #id:INTEGER#
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterClass="com.banggo.scheduler.dao.dataobject.ScheManualTrigger" >
+    update SCHE_MANUAL_TRIGGER
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="scheJobId" >
+        SCHE_JOB_ID = #scheJobId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="scheExecId" >
+        SCHE_EXEC_ID = #scheExecId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="triggerType" >
+        TRIGGER_TYPE = #triggerType:CHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="operateTime" >
+        OPERATE_TIME = #operateTime:DATETIME#
+      </isNotNull>
+      <isNotNull prepend="," property="operateBy" >
+        OPERATE_BY = #operateBy:VARCHAR#
+      </isNotNull>
+    </dynamic>
+    where ID = #id:INTEGER#
+  </update>
+</sqlMap>

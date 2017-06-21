@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>操作成功</title>
+<meta name="content-type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" href="#springUrl('/common/css/style.css')"	type="text/css"  media="screen" />
+</head>
+<body id="body-wrapper">
+    <div id="main-content">
+        <div class="content-box">
+            <div class="content-box-header">
+                <h3>操作成功</h3>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab1">
+                    <div>
+                    	恭喜您，操作成功!
+                    </div>
+					
+					<div >
+                    	<input name="btnClose" type="button" value="关  闭" class="button"  onclick="window.close();opener.refresh();"/>
+                    </div>
+					
+	              </div>
+				  
+					</div>
+						</div>
+    </div>
+		
+</body>
+</html>

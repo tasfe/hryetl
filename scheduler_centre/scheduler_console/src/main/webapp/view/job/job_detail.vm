@@ -1,0 +1,182 @@
+<html>
+    <head>
+        <META http-equiv=Content-Type content="text/html; charset=UTF-8">
+        #parse("/common/js.vm")
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".addtask").validate();
+});
+
+var paramsIndex = 0;
+#if($job.scheJobParamsList)
+   paramsIndex = '$job.scheJobParamsList.size()';
+#end
+
+function addParams(){
+
+ $("#paramsdiv").append("<div style='margin:10px 10px 0px 12px' id='" + paramsIndex  
+ 						+ "'><label>参数名称：</label><input type='text' class='{required:true,maxlength:333}' name='scheJobParamsList[" +
+						paramsIndex
+						+ "].name' /> &nbsp; &nbsp; <label> 参数值：</label><input type='text' class='{required:true,maxlength:666}' name='scheJobParamsList["+ 
+						paramsIndex
+						+"].value'/> &nbsp;<input type='button'class='button' value='删除' onclick='rmParams(" 
+						+ paramsIndex + ")'<br/><br/></div> ");
+ paramsIndex ++;
+}
+function rmParams(id){
+  $("#paramsdiv #" + id).remove();
+}
+
+</script>
+</head>
+<body id="body-wrapper">
+    <div id="main-content">
+        <div class="content-box">
+            <div class="content-box-header">
+                <h3>任务管理器>>更新任务</h3>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab1">
+                    <form class="addtask" action="#springUrl('/job/update.htm')" method="post">
+						<input name="id" type="hidden" value="$job.id"/>
+						<input name="status" type="hidden" value="$!job.status"/>
+						<input name="createDate" type="hidden" value="$dateUtil.format($!job.createDate)"/>
+						<input name="createBy" type="hidden" value="$!job.createBy"/>
+						<input name="updateDate" type="hidden" value="$dateUtil.format($!job.updateDate)"/>
+						<input name="updateBy" type="hidden" value="$!job.updateBy"/>
+						
+                        <table style="border-collapse: separate;">
+                            <tr>
+                                <td width="40%" >
+                                    <label>应用名称</label>
+                                </td>
+                                <td width="15%" >
+                                   <select id="appName" name="appName" class="{required:true}">
+                					<option value=""> 请选择  </option>
+                					#foreach($scheAppName in $scheAppNames)
+                						<option value="$!scheAppName"
+											#if($!scheAppName == $!job.appName)
+                								selected
+                								#end
+											> $!scheAppName  </option>
+            						#end	
+        				          </select>
+                                </td>
+                                <td width="20%" >&nbsp;  </td>                                 
+                                <td width="50%" >&nbsp; </td>                             
+                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>任务名</label>
+                                </td>
+                                <td >
+                                    <input type="text" name="jobName" id="jobName" value="$!job.jobName" class="{required:true,maxlength:66}"/>
+                                </td>
+                                <td>
+                                    <label>任务组名称</label>
+                                </td>
+                                <td >
+                                    <input type="text" name="jobGroup" id="jobGroup" value="$!job.jobGroup" class="{required:true,maxlength:66}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>开始时间</label>
+                                </td>
+                                <td >
+                                    <input type="text" name="beginDate" id="beginDate" value="$dateUtil.format($!job.beginDate)" class="Wdate" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"  />
+                                </td>
+                                <td>
+                                    <label>结束时间</label>
+                                </td>
+                                <td >
+                                    <input type="text" name="endDate" id="endDate" class="Wdate" value="$dateUtil.format($!job.endDate)"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Cron表达式</label>
+                                </td>
+                                <td >
+                                    <input type="text" name="cronExp" id="cronExp" value="$!job.cronExp" class="{required:true,minlength:11,maxlength:66}"/>
+                                </td>
+								 <td >
+                                    <input type="radio"  name="isAllowConcurrent" value="1" 
+									 #if($job.isAllowConcurrent == "1")
+										checked
+										#end
+										/>
+									并行
+                                </td>
+                                <td>
+                                    <input type="radio"  name="isAllowConcurrent" value="0"
+									#if($job.isAllowConcurrent == "0")
+										checked
+										#end
+									/>
+									串行
+                                </td>
+                               
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>应用系统URL</label>
+                                </td>
+                                <td >
+                                    <input type="text" class="{required:true,url:true}" value="$!job.remoteUrl" name="remoteUrl"  style="width: 380px;" id="remoteUrl" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>连接超时(毫秒)</label>
+                                </td>
+                                <td >
+                                    <input type="text" name="connectTimeout" id="connectTimeout" value="$!job.connectTimeout"   class="{number:true }" />
+                                </td>
+                                <td colspan="2">
+                                   &nbsp;
+                                </td>
+                                
+                            </tr>
+							 <tr>
+                              
+                                <td>
+                                    <label>读取超时(毫秒)</label>
+                                </td>
+                                <td >
+                                    <input type="text" name="readTimeout" id="readTimeout" value="$!job.readTimeout"   class="{number:true }  />
+                                </td>
+								<td colspan="2">
+                                   &nbsp;
+                                </td>
+                            </tr>
+							
+                        </table>
+						<div id="paramsdiv">
+							#set($index = 0)
+							#foreach($scheJobParams in $job.scheJobParamsList)
+							  <div style='margin:10px 10px 0px 12px' id='$index'>
+								<label>参数名称：</label><input type='text' class='{required:true,maxlength:333}' name='scheJobParamsList[$index].name' value="$job.scheJobParamsList.get($index).name"/> &nbsp; &nbsp;
+								<label>参数值：</label><input type='text' class='{required:true,maxlength:666}' name='scheJobParamsList[$index].value' value="$job.scheJobParamsList.get($index).value"/> &nbsp;
+								<input type='button'class='button' value='删除' onclick='rmParams("$index")'/> 
+								<br/><br/>
+						    </div>
+						      #set($index = $index + 1)
+							 #end
+                        </div>
+						<br /><br />
+						<div align="center">
+							 <input type="button" class="button" value="增加任务参数" onclick="addParams()"/>
+						   <input type="submit" class="button" value="保	存"/>
+						   <input type="button" class="button" value="关	闭" onclick="window.close();"/>
+						</div>
+                        <div class="clear"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

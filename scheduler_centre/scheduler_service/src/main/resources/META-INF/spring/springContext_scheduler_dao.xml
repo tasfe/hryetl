@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocations" >
+		   <list>
+		       <value>classpath:sqlmap/sqlmap_scheduler_service.xml</value>
+		   </list>
+		</property>
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+  
+  <bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+    <property name="sqlMapClient"  ref="sqlMapClient"/>
+  </bean>
+  
+   <bean id="baseDAO" abstract="true" >
+      <property name="sqlMapClient" ref="sqlMapClientTemplate"/>
+   </bean>
+ 
+   <bean id="scheChainDAO" class="com.banggo.scheduler.dao.ibatis.ScheChainDAOImpl" parent="baseDAO"/>
+   <bean id="scheChainExecuterDAO" class="com.banggo.scheduler.dao.ibatis.ScheChainExecuterDAOImpl" parent="baseDAO"/>
+   <bean id="scheChainMemberDAO" class="com.banggo.scheduler.dao.ibatis.ScheChainMemberDAOImpl" parent="baseDAO"/>
+   <bean id="scheChainExecuterDetailDAO" class="com.banggo.scheduler.dao.ibatis.ScheChainExecuterDetailDAOImpl" parent="baseDAO"/>
+   <bean id="scheExecuterDAO" class="com.banggo.scheduler.dao.ibatis.ScheExecuterDAOImpl" parent="baseDAO"/>
+   <bean id="scheJobDAO" class="com.banggo.scheduler.dao.ibatis.ScheJobDAOImpl" parent="baseDAO"/>
+   <bean id="scheJobParamsDAO" class="com.banggo.scheduler.dao.ibatis.ScheJobParamsDAOImpl" parent="baseDAO"/>
+   <bean id="scheManualTriggerDAO" class="com.banggo.scheduler.dao.ibatis.ScheManualTriggerDAOImpl" parent="baseDAO"/>
+   <bean id="scheApplicationDAO" class="com.banggo.scheduler.dao.ibatis.ScheApplicationDAOImpl" parent="baseDAO"/>
+   <bean id="scheChainBarrierDAO" class="com.banggo.scheduler.dao.ibatis.ScheChainBarrierDAOImpl" parent="baseDAO"/>
+   <bean id="updateKettleDateDao" class="com.banggo.scheduler.dao.ibatis.UpdateKettleDateDaoImpl" parent="baseDAO"/>
+  
+   <bean id="scheAlarmDAO" class="com.banggo.scheduler.dao.ibatis.ScheAlarmDAOImpl" parent="baseDAO"/>
+   <bean id="scheAlarmRecordDAO" class="com.banggo.scheduler.dao.ibatis.ScheAlarmRecordDAOImpl" parent="baseDAO"/>
+   <bean id="scheUserDAO" class="com.banggo.scheduler.dao.ibatis.ScheUserDAOImpl" parent="baseDAO"/>
+   <bean id="scheUserGroupDAO" class="com.banggo.scheduler.dao.ibatis.ScheUserGroupDAOImpl" parent="baseDAO"/>
+   <bean id="scheUserGroupMemberDAO" class="com.banggo.scheduler.dao.ibatis.ScheUserGroupMemberDAOImpl" parent="baseDAO"/>
+       
+
+</beans>

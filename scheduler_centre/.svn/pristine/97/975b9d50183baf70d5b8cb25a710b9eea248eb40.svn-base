@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="#springUrl('/common/css/style.css')" type="text/css"  media="screen" />
+<link rel="stylesheet" href="#springUrl('/common/css/easydialog.css')"	type="text/css"  media="screen" />
+<script type="text/javascript" src="#springUrl('/common/js/My97DatePicker/WdatePicker.js')"></script>
+<script type="text/javascript" src="#springUrl('/common/js/jq/jquery.js')"></script>
+<script type="text/javascript" src="#springUrl('/common/js/jq/jquery.metadata.js')"></script>		
+<script type="text/javascript" src="#springUrl('/common/js/jq/jquery.validate.js')"></script>
+<script type="text/javascript" src="#springUrl('/common/js/jq/messages_cn.js')"></script>
+<script type="text/javascript" src="#springUrl('/common/js/common.js')"></script>

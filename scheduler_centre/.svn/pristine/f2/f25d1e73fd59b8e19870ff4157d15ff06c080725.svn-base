@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+	
+	<!-- 项目名称,此参数默认为打成的war包的名字 -->
+	<property name="project.name" value="scheduler_console" />
+
+	<!-- 项目目录 -->
+	<property name="base.dir" location="." />
+	
+	<!-- 三个源文件目录,src只放java,test只放junit代码,resources放配置文件 -->
+	<property name="src.java.dir" location="src/main/java" />
+	<property name="src.test.dir" location="src/test/java" />
+	<property name="resources.dir" location="src/main/resources" />
+	
+	<!-- conf目录,各子目录为不同的发布环境提供不同的配置文件 -->
+	<property name="conf.dir" location="conf" />
+	<!-- common目录存放相同的配置,一般为线上使用 -->
+	<property name="conf.common.dir" location="${conf.dir}/common" />
+	<property name="conf.unittest.dir" location="${conf.dir}/unittest" />
+	<property name="conf.test.dir" location="${conf.dir}/test" />
+	
+	<!-- 可根据需要增加conf.www.dir等等 -->
+	<property name="conf.wwwtest.dir" location="${conf.dir}/wwwtest" />
+	<!-- 可根据需要增加conf.www.dir等等 -->
+	<property name="conf.www.dir" location="${conf.dir}/www" />
+	
+	<!-- 项目根目录下的docs目录,存放项目文档 -->
+	<property name="project.docs.dir" location="docs" />
+	
+	<!-- 产生的最终文件放在dist,主要为war -->
+	<property name="dist.dir" location="dist" />
+	
+	<!-- 外部的lib,存放程序开发需要但发布不要的jar包 -->
+	<property name="lib.dir" location="lib" />
+	
+	<!-- build目录,存放编译与测试产生的文件 -->
+	<property name="build.dir" location="..\build\target\${project.name}" />
+	<property name="build.classes.dir" location="${build.dir}/classes" />
+	<property name="build.jar.dir" location="${build.dir}/jar" />
+	<!-- build下的docs目录,存放javadoc文件 -->
+	<property name="docs.dir" location="${build.dir}/docs" />
+	<property name="docs.api.dir" location="${docs.dir}/api" />
+	<!-- report目录存放产生的各种报告 -->
+	<property name="report.dir" location="${build.dir}/report" />
+	<property name="report.junit.dir" location="${report.dir}/junit" />
+	<property name="report.junit.html.dir" location="${report.junit.dir}/html" />
+	<property name="report.junit.xml.dir" location="${report.junit.dir}/xml" />
+	<property name="report.coverage.dir" location="${report.dir}/coverage" />
+	<property name="report.checkstyle.dir" location="${report.dir}/checkstyle" />
+	<property name="report.zip.dir" location="${report.dir}/zip" />
+	
+	<!-- WEB-INF的上一级目录 -->
+	<property name="web.content.dir" location="${basedir}/src/main/webapp" />
+	<property name="webinf.dir" location="${web.content.dir}/WEB-INF" />
+	<property name="webinf.lib.dir" location="${webinf.dir}/lib" />
+	<!-- WEB-INF/classes目录,此build文件不会针对这个目录进行操作,仅操作build/classes -->
+	<property name="classes.dir" location="${webinf.dir}/classes" />
+	<property name="metainf.dir" location="${web.content.dir}/META-INF" />
+	
+	<!-- 特殊文件的名字或者路径　-->
+	<property name="coverage.ser.filepath" location="${build.dir}/coverage.ser"/>
+	<property name="zip.coverage.report.filepath" location="${report.zip.dir}/coverage-report.zip"/>
+	<property name="zip.junit.report.filepath" location="${report.zip.dir}/junit-report.zip"/>
+	<property name="web.xml.filepath" location="${webinf.dir}/web.xml"/>
+	<property name="project.war.filename" value="${project.name}.war"/>
+	<property name="application-context.xml.filename" value="application-context.xml"/>
+	
+	
+	<!-- 编译参数 -->
+	<property name="build.source" value="1.6" />
+	<property name="build.encoding" value="UTF-8" />
+	<property name="build.debug" value="true" />
+
+
+	<!-- 编译所需的classpath -->
+	<path id="compile.classpath">
+		<fileset refid="compile.fileset">
+		</fileset>
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${classes.dir}" />
+		<pathelement location="${build.classes.dir}" />
+	</path>
+	
+
+	<!-- 发布的服务器参数 -->
+	
+	<!-- test环境 -->	
+	<property name="test.server" value="10.100.200.26"/>
+	<property name="test.username" value="root"/>
+	<property name="test.password" value="ibanggou"/>
+	<property name="test.port" value="22"/>
+	<property name="test.user.dir" value="/root"/>
+	<!-- test机器上的JAVA_HOME路径,必需 -->
+	<property name="test.javahome" value="/usr/java/jdk1.6.0_27"/>
+	<!-- test机器上的tomcat路径 -->
+	<property name="test.tomcat.dir" value="${test.user.dir}/scheduler-tomcat-7.0.23"/>
+	<property name="test.tomcat.webapps.dir" value="${test.tomcat.dir}/webapps"/>
+	<!-- 发布在webapps下的哪个目录 -->
+	<property name="deploy.dirname" value="scheduler_console"/>
+	<!-- test应用的访问地址,用来自动判定是否发布成功 -->	
+	<property name="test.deploy.url" value="http://10.100.200.26:8080/scheduler_console"/>
+	
+	<!-- 中转ssh服务器参数 -->
+	<property name="transfer.server" value="10.24.251.101"/>
+	<property name="transfer.username" value="huangjunjie"/>
+	<property name="transfer.password" value="fucknima"/>
+	<property name="transfer.port" value="9090"/>
+	
+    <!-- 线上服务器参数　-->
+    <property name="www1.server" value="wwwcl1"/>
+    <property name="www1.username" value="sport"/>
+    <property name="www1.password" value="sport"/>
+    <property name="www1.port" value="20"/>
+    <property name="www1.javahome" value="/usr/java/jdk1.6.0_03"/>
+    <property name="www1.user.dir" value="/home/${www1.username}"/>
+    <property name="www1.tomcat.dir" value="/home/sport-tomcat/apache-tomcat-6.0.18-cms"/>
+    <property name="www1.tomcat.webapps.dir" value="${www1.tomcat.dir}/webapps"/>
+
+    <property name="www2.server" value="wwwcl2"/>
+    <property name="www2.username" value="sport"/>
+    <property name="www2.password" value="sport"/>
+    <property name="www2.port" value="20"/>
+    <property name="www2.javahome" value="/usr/java/jdk1.6.0_03"/>
+    <property name="www2.user.dir" value="/home/${www2.username}"/>
+    <property name="www2.tomcat.dir" value="/home/sport/apache-tomcat-6.0.18-cms"/>
+    <property name="www2.tomcat.webapps.dir" value="${www2.tomcat.dir}/webapps"/>
+
+    <!-- wwwrtest服务器参数　-->
+    <property name="wwwtest.server" value="online-test2" />
+    <property name="wwwtest.username" value="game" />
+    <property name="wwwtest.password" value="toodou" />
+    <property name="wwwtest.port" value="20" />
+    <property name="wwwtest.javahome" value="/usr/java/jdk1.6.0_03" />
+    <property name="wwwtest.user.dir" value="/home/${wwwtest.username}" />
+    <property name="wwwtest.tomcat.dir" value="${wwwtest.user.dir}/game/apache-tomcat-6.0.18" />
+    <property name="wwwtest.tomcat.webapps.dir" value="${wwwtest.tomcat.dir}/webapps" />
+
+	
+	<!-- mail server -->
+	<property name="mailhost" value="smtp.gmail.com"/>
+	<property name="subject" value="${project.name}测试环境已发布"/>
+	<property name="mail.user" value="build.ant.tudou"/>
+	<property name="mail.password" value="admin123"/>
+	<property name="mailport" value="465"/>
+	<property name="messagemimetype" value="text/html"/>
+	<property name="mail.ssl" value="true"/>
+	<!-- 收件人 -->
+	<property name="mail.tolist" value="zhzhang@tudou.com,jannocktony@gmail.com"/>
+	<property name="mail.from" value="zhzhang@tudou.com"/>
+	<!-- 回复地址 -->
+	<property name="mail.replyto" value="zhzhang@tudou.com"/>
+	<!-- 抄送 -->
+	<property name="cclist" value="zhzhang@tudou.com,bloodwroth@gmail.com"/>
+	<property name="mail.message" value="${project.name}已发布到TEST,访问地址: ${test.deploy.url}"/>
+	
+	<!-- svn 参数 -->
+	<property name="svn.url" value="http://svn.tudou.com/svn/repository/tdprograms/trunk/tdprograms"/>
+	<property name="svn.username" value="zhzhang"/>
+	<property name="svn.password" value="zhzhang"/>
+	
+	
+	<!-- 第三方任务 -->
+	<!-- cobertura -->
+	<taskdef resource="tasks.properties" classpathref="compile.classpath"/>
+	<!-- checkstyle -->
+	<taskdef resource="checkstyletask.properties" classpathref="compile.classpath"/>
+	<!-- svn -->
+	<taskdef resource="svntask.properties" classpathref="compile.classpath"/>
+	
+	<taskdef resource="susshexecTask.properties" classpathref="compile.classpath"/>
+	<taskdef resource="net/sf/antcontrib/antlib.xml" classpathref="compile.classpath"/> 
+</project>

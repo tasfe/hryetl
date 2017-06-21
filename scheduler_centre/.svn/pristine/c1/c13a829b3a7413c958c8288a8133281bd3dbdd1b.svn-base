@@ -1,0 +1,35 @@
+{
+	"text" : "调度器",
+	"id" : "task",
+	"leaf" : false,
+	"expanded" : true,
+	"children" : [{
+				"text" : "任务管理",
+				"id" : "JobContentPanel",
+				"leaf" : true
+			},{
+				"text" : "任务执行记录",
+				"id" : "ScheExecRecordContentPanel",
+				"leaf" : true
+			},{
+				"text" : "ETL时间管理",
+				"id" : "UpdateKettleDatePanel",
+				"leaf" : true
+			},{
+				"text" : "任务链管理",
+				"id" : "WorkFlowDesignContentPanel",
+				"leaf" : true
+			},{
+				"text" : "任务链执行记录",
+				"id" : "WorkFlowExecuteContentPanel",
+				"leaf" : true
+			},{
+				"text" : "任务预警",
+				"id" : "WorkContentPanel",
+				"leaf" : true
+			},{
+				"text" : "用户组管理",
+				"id" : "UserGroupContentPanel",
+				"leaf" : true
+			}]
+}

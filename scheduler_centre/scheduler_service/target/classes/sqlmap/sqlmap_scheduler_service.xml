@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+    <settings cacheModelsEnabled="true" 
+              enhancementEnabled="false" 
+              lazyLoadingEnabled="false" 
+              maxRequests="3000" 
+              maxSessions="3000" 
+              maxTransactions="3000" 
+              useStatementNamespaces="true"/>
+	
+	<sqlMap resource="sqlmap/sche_chain_executer_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_chain_member_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_chain_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_chain_executer_detail_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_executer_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_job_params_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_job_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_manual_trigger_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_application_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_chain_barrier_sqlmap.xml"/>
+	
+	<sqlMap resource="sqlmap/sche_alarm_record_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_alarm_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_user_group_member_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_user_group_sqlmap.xml"/>
+	<sqlMap resource="sqlmap/sche_user_sqlmap.xml"/>
+	
+</sqlMapConfig>

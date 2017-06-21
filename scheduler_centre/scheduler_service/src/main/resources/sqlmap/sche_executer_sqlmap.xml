@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SCHE_EXECUTER" >
+  <resultMap id="scheExecuterResult" class="com.banggo.scheduler.dao.dataobject.ScheExecuter" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SCHE_JOB_ID" property="scheJobId" jdbcType="INTEGER" />
+    <result column="EXEC_NO" property="execNo" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="BEGIN_TIME" property="beginTime" jdbcType="DATETIME" />
+    <result column="END_TIME" property="endTime" jdbcType="DATETIME" />
+    <result column="REMOTE_EXEC_NO" property="remoteExecNo" jdbcType="VARCHAR" />
+    <result column="REMOTE_EXEC_BEGIN" property="remoteExecBegin" jdbcType="DATETIME" />
+    <result column="REMOTE_EXEC_END" property="remoteExecEnd" jdbcType="DATETIME" />
+    <result column="REMOTE_CANCEL_URL" property="remoteCancelUrl" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="EXCEPTION" property="exception" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="DATETIME" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="DATETIME" />
+  </resultMap>
+  
+   <resultMap id="scheExecRecordResult" class="com.banggo.scheduler.dao.ro.ScheExecRecordRO" >
+     <result column="APP_NAME" property="appName" jdbcType="VARCHAR" />
+    <result column="JOB_NAME" property="jobName" jdbcType="VARCHAR" />
+    <result column="JOB_GROUP" property="jobGroup" jdbcType="VARCHAR" />
+     <result column="ID" property="jobId" jdbcType="INTEGER" />
+    <result column="EXEC_ID" property="execId" jdbcType="INTEGER" />
+    <result column="EXEC_NO" property="execNo" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="BEGIN_TIME" property="beginTime" jdbcType="DATETIME" />
+    <result column="END_TIME" property="endTime" jdbcType="DATETIME" />
+    <result column="REMOTE_EXEC_NO" property="remoteExecNo" jdbcType="VARCHAR" />
+    <result column="REMOTE_EXEC_BEGIN" property="remoteExecBegin" jdbcType="DATETIME" />
+    <result column="REMOTE_EXEC_END" property="remoteExecEnd" jdbcType="DATETIME" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="EXCEPTION" property="exception" jdbcType="VARCHAR" />
+    <result column="REMOTE_CANCEL_URL" property="remoteCancelUrl" jdbcType="VARCHAR" />
+    <result column="TRIGGER_TYPE" property="triggerType" jdbcType="CHAR" />
+    
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="scheExecuterResult" parameterClass="com.banggo.scheduler.dao.dataobject.ScheExecuter" >
+    select ID, SCHE_JOB_ID, EXEC_NO, STATUS, BEGIN_TIME, END_TIME, REMOTE_EXEC_NO,
+      REMOTE_EXEC_BEGIN, REMOTE_EXEC_END, REMOTE_CANCEL_URL, RESULT, EXCEPTION, CREATE_DATE,
+      UPDATE_DATE
+    from SCHE_EXECUTER
+    where ID = #id:INTEGER#
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheExecuter" >
+    delete from SCHE_EXECUTER
+    where ID = #id:INTEGER#
+  </delete>
+  
+  <insert id="insert" parameterClass="com.banggo.scheduler.dao.dataobject.ScheExecuter" >
+    insert into SCHE_EXECUTER (SCHE_JOB_ID, EXEC_NO, STATUS, BEGIN_TIME, END_TIME,
+      REMOTE_EXEC_NO, REMOTE_EXEC_BEGIN, REMOTE_EXEC_END, REMOTE_CANCEL_URL, RESULT, EXCEPTION,
+      CREATE_DATE, UPDATE_DATE)
+    values ( #scheJobId:INTEGER#, #execNo:VARCHAR#, #status:VARCHAR#,
+      #beginTime:DATETIME#, #endTime:DATETIME#, #remoteExecNo:VARCHAR#,
+      #remoteExecBegin:DATETIME#, #remoteExecEnd:DATETIME#, #remoteCancelUrl:VARCHAR#,
+      #result:VARCHAR#, #exception:VARCHAR#, now(), #updateDate:DATETIME#)
+      <selectKey resultClass="int" keyProperty="id"> 
+  		  select last_insert_id() as ID from SCHE_EXECUTER limit 1 
+	  </selectKey> 
+  </insert>
+  
+  <update id="updateByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheExecuter" >
+    update SCHE_EXECUTER
+    set SCHE_JOB_ID = #scheJobId:INTEGER#,
+      EXEC_NO = #execNo:VARCHAR#,
+      STATUS = #status:VARCHAR#,
+      BEGIN_TIME = #beginTime:DATETIME#,
+      END_TIME = #endTime:DATETIME#,
+      REMOTE_EXEC_NO = #remoteExecNo:VARCHAR#,
+      REMOTE_EXEC_BEGIN = #remoteExecBegin:DATETIME#,
+      REMOTE_EXEC_END = #remoteExecEnd:DATETIME#,
+      REMOTE_CANCEL_URL = #remoteCancelUrl:VARCHAR#,
+      RESULT = #result:VARCHAR#,
+      EXCEPTION = #exception:VARCHAR#,
+      UPDATE_DATE = now()
+    where ID = #id:INTEGER#
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterClass="com.banggo.scheduler.dao.dataobject.ScheExecuter" >
+    update SCHE_EXECUTER
+      set UPDATE_DATE = now()
+      <isNotNull prepend=" , " property="scheJobId" >
+        SCHE_JOB_ID = #scheJobId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend=" , " property="execNo" >
+        EXEC_NO = #execNo:VARCHAR#
+      </isNotNull>
+   <!--    <isNotNull prepend=" , " property="status" >
+        STATUS = #status:VARCHAR#
+      </isNotNull> -->
+      <isNotNull prepend=" , " property="beginTime" >
+        BEGIN_TIME = #beginTime:DATETIME#
+      </isNotNull>
+      <isNotNull prepend=" , " property="endTime" >
+        END_TIME = #endTime:DATETIME#
+      </isNotNull>
+      <isNotNull prepend=" , " property="remoteExecNo" >
+        REMOTE_EXEC_NO = #remoteExecNo:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend=" , " property="remoteExecBegin" >
+        REMOTE_EXEC_BEGIN = #remoteExecBegin:DATETIME#
+      </isNotNull>
+      <isNotNull prepend=" , " property="remoteExecEnd" >
+        REMOTE_EXEC_END = #remoteExecEnd:DATETIME#
+      </isNotNull>
+      <isNotNull prepend=" , " property="remoteCancelUrl" >
+        REMOTE_CANCEL_URL = #remoteCancelUrl:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend=" , " property="result" >
+        RESULT = #result:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend=" , " property="exception" >
+        EXCEPTION = #exception:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend=" , " property="createDate" >
+        CREATE_DATE = #createDate:DATETIME#
+      </isNotNull>
+    where ID = #id:INTEGER#
+  </update>
+  
+  
+   <select id="queryRunnig" resultMap="scheExecuterResult" parameterClass="map" >
+	select ect.* from SCHE_EXECUTER ect,SCHE_JOB job
+	where ect.SCHE_JOB_ID = job.ID
+	and (ect.STATUS = 1 
+	          or (ect.STATUS = 0 and 5*60 >= (now() - ect.create_date) )
+	          or (ect.STATUS = -1 and 60*60 >= (now() - ect.create_date) )
+	     ) 
+	<isNotNull prepend=" and " property="appName">
+		job.APP_NAME = #appName#
+	</isNotNull>
+	<isNotNull prepend=" and " property="jobName">
+		job.JOB_NAME = #jobName#
+	</isNotNull>
+	<isNotNull prepend=" and " property="jobGroup">
+		job.JOB_GROUP = #jobGroup#
+	</isNotNull>
+  </select>
+  
+  
+  <select id="select" resultMap="scheExecuterResult" parameterClass="map" >
+    select ID, SCHE_JOB_ID, EXEC_NO, STATUS, BEGIN_TIME, END_TIME, REMOTE_EXEC_NO,
+      REMOTE_EXEC_BEGIN, REMOTE_EXEC_END, REMOTE_CANCEL_URL, RESULT, EXCEPTION, CREATE_DATE,
+      UPDATE_DATE
+    from SCHE_EXECUTER
+    where 1 = 1
+    <isNotNull prepend=" and " property="execNo">
+		EXEC_NO = #execNo#
+	</isNotNull>
+	
+	  <isNotNull prepend=" and " property="remoteExecNo">
+		REMOTE_EXEC_NO = #remoteExecNo#
+	</isNotNull>
+	
+     limit 1;
+  </select>
+  
+  <select id="query" resultMap="scheExecRecordResult" parameterClass="map" >
+	    SELECT
+			SCHE_JOB.APP_NAME,
+			SCHE_JOB.JOB_NAME,
+			SCHE_JOB.JOB_GROUP,
+			SCHE_JOB.ID,
+			SCHE_EXECUTER.EXEC_NO,
+			SCHE_EXECUTER.`STATUS`,
+			SCHE_EXECUTER.BEGIN_TIME,
+			SCHE_EXECUTER.END_TIME,
+			SCHE_EXECUTER.REMOTE_EXEC_NO,
+			SCHE_EXECUTER.REMOTE_EXEC_BEGIN,
+			SCHE_EXECUTER.REMOTE_EXEC_END,
+			SCHE_EXECUTER.RESULT,
+			SCHE_EXECUTER.EXCEPTION,
+			SCHE_EXECUTER.REMOTE_CANCEL_URL,
+			SCHE_EXECUTER.ID as EXEC_ID,
+			manual.TRIGGER_TYPE
+	FROM
+	SCHE_JOB INNER JOIN SCHE_EXECUTER force index(IDX_EXECUTER_BEGIN_TIME) ON SCHE_EXECUTER.SCHE_JOB_ID = SCHE_JOB.ID
+	LEFT JOIN (
+		select SCHE_EXEC_ID,TRIGGER_TYPE from SCHE_MANUAL_TRIGGER where TRIGGER_TYPE='m'
+		group by SCHE_EXEC_ID,TRIGGER_TYPE) manual
+	on SCHE_EXECUTER.ID=manual.SCHE_EXEC_ID
+
+    where 1 = 1
+     <isNotNull prepend=" and " property="appName">
+		APP_NAME like #appName#
+	</isNotNull>
+	
+	 <isNotNull prepend=" and " property="jobName">
+		JOB_NAME like #jobName#
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="jobGroup">
+		JOB_GROUP like #jobGroup#
+	</isNotNull>
+	
+    <isNotNull prepend=" and " property="execNo">
+		EXEC_NO like #execNo#
+	</isNotNull>
+	
+	  <isNotNull prepend=" and " property="status">
+		SCHE_EXECUTER.STATUS = #status#
+	</isNotNull>
+	
+	  <isNotNull prepend=" and " property="remoteExecNo">
+		REMOTE_EXEC_NO like #remoteExecNo#
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="beginTimeFrom">
+		SCHE_EXECUTER.BEGIN_TIME >= #beginTimeFrom#
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="beginTimeTo">
+		 #beginTimeTo# >= SCHE_EXECUTER.BEGIN_TIME
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="result">
+		RESULT = #result#
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="execId">
+		SCHE_EXECUTER.ID = #execId#
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="execIdList">
+	  SCHE_EXECUTER.ID in 
+	  <iterate property="execIdList" open="(" close=")" conjunction=","> #execIdList[]# </iterate>
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="jobId">
+		SCHE_EXECUTER.SCHE_JOB_ID = #jobId#
+	</isNotNull>
+	
+	ORDER BY SCHE_EXECUTER.BEGIN_TIME DESC
+	
+	<isNotNull prepend="  " property="pageSize">
+	   <isNotNull prepend="  " property="skip">
+	     LIMIT #skip#,#pageSize#
+	   </isNotNull>	
+	</isNotNull>
+	
+  </select>
+  
+  
+  <select id="count" resultClass="int" parameterClass="map" >
+	    SELECT
+			count(1)
+	FROM
+	SCHE_JOB INNER JOIN SCHE_EXECUTER ON SCHE_EXECUTER.SCHE_JOB_ID = SCHE_JOB.ID
+
+    where 1 = 1
+     <isNotNull prepend=" and " property="appName">
+		APP_NAME like #appName#
+	</isNotNull>
+	
+	 <isNotNull prepend=" and " property="jobName">
+		JOB_NAME like #jobName#
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="jobGroup">
+		JOB_GROUP like #jobGroup#
+	</isNotNull>
+	
+    <isNotNull prepend=" and " property="execNo">
+		EXEC_NO like #execNo#
+	</isNotNull>
+	
+	  <isNotNull prepend=" and " property="status">
+		SCHE_EXECUTER.STATUS = #status#
+	</isNotNull>
+	
+	  <isNotNull prepend=" and " property="remoteExecNo">
+		REMOTE_EXEC_NO like #remoteExecNo#
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="beginTimeFrom">
+		SCHE_EXECUTER.BEGIN_TIME >= #beginTimeFrom#
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="beginTimeTo">
+		 #beginTimeTo# >= SCHE_EXECUTER.BEGIN_TIME
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="result">
+		RESULT = #result#
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="execId">
+		SCHE_EXECUTER.ID = #execId#
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="execIdList">
+	  SCHE_EXECUTER.ID in 
+	  <iterate property="execIdList" open="(" close=")" conjunction=","> #execIdList[]# </iterate>
+	</isNotNull>
+	
+	<isNotNull prepend=" and " property="jobId">
+		SCHE_EXECUTER.SCHE_JOB_ID = #jobId#
+	</isNotNull>
+	
+	ORDER BY SCHE_EXECUTER.BEGIN_TIME DESC
+	
+	
+  </select>
+  
+   <update id="updateStatus" parameterClass="map" >
+    update SCHE_EXECUTER
+     set STATUS = #status#
+       where ABS(#status#) >= STATUS
+       and id=#id#
+      </update>
+  
+</sqlMap>

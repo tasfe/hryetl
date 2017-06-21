@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<bean id="transactionService"
+		class="com.banggo.scheduler.service.transaction.TransactionService">
+		<property name="transactionManager" ref="transactionManager" />
+	</bean>
+
+	<bean id="scheJobService" class="com.banggo.scheduler.service.impl.ScheJobServiceImpl"/>
+
+	<bean id="scheBaseService" class="com.banggo.scheduler.service.impl.ScheBaseServiceImpl"/>
+	
+	<bean id="scheChainService" class="com.banggo.scheduler.service.impl.ScheChainServiceImpl"/>
+	
+	<bean id="updateKettleDateService" class="com.banggo.scheduler.service.impl.UpdateKettleDateServiceImpl"/>
+	
+	<bean id="jobManager" class="com.banggo.scheduler.manager.impl.JobManagerImpl">
+	  <property name="quartzScheduler" ref="quartzScheduler"/>
+	</bean>
+	
+	<bean id="executeManager" class="com.banggo.scheduler.manager.impl.ExecuteManagerImpl">
+	 <property name="quartzScheduler" ref="quartzScheduler"/>
+	</bean>
+	
+	<bean id="asyncExecuteService" class="com.banggo.scheduler.async.service.impl.AsyncExecuteServiceImpl" destroy-method="stop">
+		<property name="corePoolSize" value="2" />
+		<property name="maximumPoolSize" value="10" />
+		<property name="keepAliveTime" value="30" />
+		<property name="workQueueSize" value="1000" />
+	</bean>
+	
+	
+	<bean id="chainScheJobBuilder" class="com.banggo.scheduler.job.builder.ChainScheJobBuilder"/>
+	<bean id="hessianScheJobBuilder" class="com.banggo.scheduler.job.builder.HessianScheJobBuilder"/>
+	<bean id="scheJobBuilderFactory" class="com.banggo.scheduler.job.builder.ScheJobBuilderFactory">
+    <property name="registeMap">
+	     <map>
+	        <entry key="-1"  value-ref="chainScheJobBuilder"/>
+	        <entry key="1"  value-ref="hessianScheJobBuilder"/>
+	     </map>
+	    </property>
+   
+    </bean>
+    
+    <bean id="scheAlarmService" class="com.banggo.scheduler.service.impl.ScheAlarmServiceImpl"/>
+    <bean id="scheUserGroupService" class="com.banggo.scheduler.service.impl.ScheUserGroupServiceImpl"/>
+ 	<bean id="scheUserService" class="com.banggo.scheduler.service.impl.ScheUserServiceImpl"/>
+</beans>

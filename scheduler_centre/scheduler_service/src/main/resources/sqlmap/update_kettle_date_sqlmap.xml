@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UPDATE_KETTLE_DATE" >
+
+  <resultMap id="UpdateKettleDateResult" class="com.banggo.scheduler.dao.dataobject.UpdateKettleDate" >
+    <result column="app_id" property="appId" jdbcType="INTEGER" />
+    <result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
+    <result column="summary" property="summary" jdbcType="STRING" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <update id="update" parameterClass="com.banggo.scheduler.dao.dataobject.UpdateKettleDate" >
+    UPDATE bgetl.bg_etl_time bet 
+	SET bet.app_id = #appId:INTEGER#, 
+	bet.last_time = #lastTime:DATETIME#,
+	bet.summary = #summary:VARCHAR#,
+	bet.modify_time = #modifyTime:TIMESTAMP#
+	WHERE bet.app_id = #appId:INTEGER#
+  </update>
+  
+   <select id="query" resultMap="UpdateKettleDateResult" parameterClass="map" >
+    select app_id, last_time, summary, modify_time
+    from bgetl.bg_etl_time
+  </select>
+</sqlMap>

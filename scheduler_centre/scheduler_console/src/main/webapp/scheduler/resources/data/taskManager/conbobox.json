@@ -1,0 +1,17 @@
+{
+    "ScheAppNames":[
+        {
+            "appName":"appName",
+            "value":"test01"
+        },{
+            "appName":"appName",
+            "value":"test02"
+        },{
+            "appName":"appName",
+            "value":"test03"
+        },{
+            "appName":"appName",
+            "value":"test04"
+        }
+    ]
+}

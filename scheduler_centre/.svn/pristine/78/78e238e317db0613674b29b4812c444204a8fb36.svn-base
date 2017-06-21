@@ -1,0 +1,8 @@
+app_id=11
+auth_center_url=http://10.100.200.26:9090/auth_center
+hessian_read_timeout=60000
+hessian_connect_timeout=30000
+#skip_auth_patterns=/user/test.htm;
+
+view_resolver_class_name=com.banggo.scheduler.common.ViewResolverImpl
+

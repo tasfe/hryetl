@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SCHE_CHAIN_EXECUTER_DETAIL">
+  <resultMap class="com.banggo.scheduler.dao.dataobject.ScheChainExecuterDetail" id="ScheChainExecuterDetailResult">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SCHE_CHAIN_EXECUTER_ID" jdbcType="INTEGER" property="scheChainExecuterId" />
+    <result column="SCHE_CHAIN_MEMEBER_ID" jdbcType="INTEGER" property="scheChainMemeberId" />
+    <result column="SCHE_EXECUTER_ID" jdbcType="INTEGER" property="scheExecuterId" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="CREATE_DATE" jdbcType="DATETIME" property="createDate" />
+    <result column="UPDATE_DATE" jdbcType="DATETIME" property="updateDate" />
+  </resultMap>
+  <select id="selectByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainExecuterDetail" resultMap="ScheChainExecuterDetailResult">
+    select ID, SCHE_CHAIN_EXECUTER_ID, SCHE_CHAIN_MEMEBER_ID, SCHE_EXECUTER_ID, STATUS, CREATE_DATE,
+      UPDATE_DATE
+    from SCHE_CHAIN_EXECUTER_DETAIL
+    where ID = #id:INTEGER#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainExecuterDetail">
+    delete from SCHE_CHAIN_EXECUTER_DETAIL
+    where ID = #id:INTEGER#
+  </delete>
+  <insert id="insert" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainExecuterDetail">
+    insert into SCHE_CHAIN_EXECUTER_DETAIL (SCHE_CHAIN_EXECUTER_ID, SCHE_CHAIN_MEMEBER_ID,
+      SCHE_EXECUTER_ID, STATUS, CREATE_DATE, UPDATE_DATE)
+    values ( #scheChainExecuterId:INTEGER#, #scheChainMemeberId:INTEGER#,
+      #scheExecuterId:INTEGER#, #status:CHAR#, now(), #updateDate:DATETIME#)
+  </insert>
+  <update id="updateByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainExecuterDetail">
+    update SCHE_CHAIN_EXECUTER_DETAIL
+    set SCHE_CHAIN_EXECUTER_ID = #scheChainExecuterId:INTEGER#,
+      SCHE_CHAIN_MEMEBER_ID = #scheChainMemeberId:INTEGER#,
+      SCHE_EXECUTER_ID = #scheExecuterId:INTEGER#,
+      STATUS = #status:CHAR#,
+      CREATE_DATE = #createDate:DATETIME#,
+      UPDATE_DATE = now()
+    where ID = #id:INTEGER#
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChainExecuterDetail">
+    update SCHE_CHAIN_EXECUTER_DETAIL
+    <dynamic prepend="set">
+      <isNotNull prepend="," property="scheChainExecuterId">
+        SCHE_CHAIN_EXECUTER_ID = #scheChainExecuterId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="scheChainMemeberId">
+        SCHE_CHAIN_MEMEBER_ID = #scheChainMemeberId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="scheExecuterId">
+        SCHE_EXECUTER_ID = #scheExecuterId:INTEGER#
+      </isNotNull>
+      <isNotNull prepend="," property="status">
+        STATUS = #status:CHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate">
+        CREATE_DATE = #createDate:DATETIME#
+      </isNotNull>
+      <isNotNull prepend="," property="updateDate">
+        UPDATE_DATE = #updateDate:DATETIME#
+      </isNotNull>
+    </dynamic>
+    where ID = #id:INTEGER#
+  </update>
+  
+   <select id="queryActivity" parameterClass="map" resultMap="ScheChainExecuterDetailResult">
+   SELECT ID, SCHE_CHAIN_EXECUTER_ID, SCHE_CHAIN_MEMEBER_ID, SCHE_EXECUTER_ID, STATUS, CREATE_DATE, UPDATE_DATE
+	FROM SCHE_CHAIN_EXECUTER_DETAIL detail
+	WHERE EXISTS (SELECT 1
+		FROM SCHE_CHAIN_EXECUTER e
+		WHERE e.ID = detail.SCHE_CHAIN_EXECUTER_ID
+			AND e.STATUS = 1)
+	 <isNotNull prepend=" and " property="status">STATUS = #status:CHAR# </isNotNull>	
+	 <isNotNull prepend=" and " property="scheExecuterId">SCHE_EXECUTER_ID = #scheExecuterId:INTEGER#</isNotNull>	
+  </select>
+</sqlMap>

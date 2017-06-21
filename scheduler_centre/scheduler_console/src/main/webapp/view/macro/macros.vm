@@ -1,0 +1,4 @@
+## formName 表单名
+#macro(page $formName)
+#parse("/page/page.vm")
+#end

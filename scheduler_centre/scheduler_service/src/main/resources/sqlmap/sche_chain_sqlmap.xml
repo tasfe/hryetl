@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SCHE_CHAIN">
+  <resultMap class="com.banggo.scheduler.dao.dataobject.ScheChain" id="ScheChainResult">
+    <result column="ID" jdbcType="INTEGER" property="id" />
+    <result column="CHAIN_NAME" jdbcType="VARCHAR" property="chainName" />
+    <result column="IS_DELETE" jdbcType="CHAR" property="isDelete" />
+    <result column="CREATE_DATE" jdbcType="DATETIME" property="createDate" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="UPDATE_DATE" jdbcType="DATETIME" property="updateDate" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="VERSION" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <select id="selectByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChain" resultMap="ScheChainResult">
+    select ID, CHAIN_NAME, IS_DELETE, CREATE_DATE, CREATE_BY, UPDATE_DATE, UPDATE_BY,VERSION
+    from SCHE_CHAIN
+    where ID = #id:INTEGER#
+  </select>
+  
+   <select id="selectByChainName"  resultMap="ScheChainResult">
+    select ID, CHAIN_NAME, IS_DELETE, CREATE_DATE, CREATE_BY, UPDATE_DATE, UPDATE_BY,VERSION
+    from SCHE_CHAIN
+    where CHAIN_NAME = #value#
+  </select>
+  <delete id="deleteByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChain">
+    delete from SCHE_CHAIN
+    where ID = #id:INTEGER#
+  </delete>
+  <insert id="insert" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChain">
+    insert into SCHE_CHAIN (CHAIN_NAME, IS_DELETE, CREATE_DATE, CREATE_BY, UPDATE_DATE,
+      UPDATE_BY,VERSION)
+    values ( #chainName:VARCHAR#, #isDelete:CHAR#, now(),
+      #createBy:VARCHAR#, #updateDate:DATETIME#, #updateBy:VARCHAR#,#version:INTEGER#)
+	 <selectKey resultClass="int" keyProperty="id"> 
+  		  select last_insert_id() as ID from SCHE_CHAIN limit 1 
+	  </selectKey> 
+  </insert>
+  <update id="updateByPrimaryKey" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChain">
+    update SCHE_CHAIN
+    set CHAIN_NAME = #chainName:VARCHAR#,
+      IS_DELETE = #isDelete:CHAR#,
+      CREATE_DATE = #createDate:DATETIME#,
+      CREATE_BY = #createBy:VARCHAR#,
+      UPDATE_DATE = now(),
+      UPDATE_BY = #updateBy:VARCHAR#,
+      VERSION = #version:INTEGER#
+    where ID = #id:INTEGER#
+    
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterClass="com.banggo.scheduler.dao.dataobject.ScheChain">
+    update SCHE_CHAIN
+    <dynamic prepend="set">
+      <isNotNull prepend="," property="chainName">
+        CHAIN_NAME = #chainName:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="isDelete">
+        IS_DELETE = #isDelete:CHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="createDate">
+        CREATE_DATE = #createDate:DATETIME#
+      </isNotNull>
+      <isNotNull prepend="," property="createBy">
+        CREATE_BY = #createBy:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="updateDate">
+        UPDATE_DATE = now()
+      </isNotNull>
+      <isNotNull prepend="," property="updateBy">
+        UPDATE_BY = #updateBy:VARCHAR#
+      </isNotNull>
+      <isNotNull prepend="," property="version">
+        VERSION = VERSION + 1
+      </isNotNull>
+    </dynamic>
+    where ID = #id:INTEGER#
+    <isNotNull prepend=" and " property="version">
+        VERSION = #version#
+      </isNotNull>
+  </update>
+  
+  <select id="selectActivityByJobId" resultMap="ScheChainResult"  >
+	    
+	select t1.* from SCHE_CHAIN t1, (
+	 select  CHAIN_NAME ,max(chain.VERSION) as maxVersion
+	       from SCHE_CHAIN chain, SCHE_JOB job, SCHE_JOB_PARAMS params
+		   where job.ID = params.SCHE_JOB_ID
+		   and params.NAME='chainName'
+		   and params.VALUE = chain.CHAIN_NAME
+		   and (chain.IS_DELETE is null or chain.IS_DELETE = '0')
+		   and job.ID = #value#
+	       group by chain.CHAIN_NAME
+	 ) t2
+	where t1.CHAIN_NAME = t2.CHAIN_NAME
+	and t1.VERSION = t2.maxVersion
+	limit 1
+
+   
+  </select>
+  
+  
+   <select id="query" resultMap="ScheChainResult" parameterClass="map" >
+	select distinct c.*
+      from SCHE_CHAIN c,SCHE_JOB j,SCHE_CHAIN_MEMBER m
+	 where j.ID = m.SCHE_JOB_ID
+      and m.SCHE_CHAIN_ID = c.ID
+     
+      <isNotNull prepend=" and " property="chainName">
+        c.CHAIN_NAME like #chainName#
+      </isNotNull>
+      <isNotNull prepend=" and " property="isDelete">
+        c.IS_DELETE = #isDelete#
+      </isNotNull>
+      <isNotNull prepend=" and " property="version">
+        c.VERSION = #version#
+      </isNotNull>
+       <isNotNull prepend=" and " property="queryVersion">
+        c.VERSION >= #queryVersion#
+        and  m.VERSION = #queryVersion#
+      </isNotNull>
+      <isNotNull prepend=" and " property="appName">
+			j.APP_NAME = #appName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobName">
+			j.JOB_NAME like #jobName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobGroup">
+			j.JOB_GROUP like
+			#jobGroup#
+		</isNotNull>
+      
+       order by c.CREATE_DATE desc
+		 
+		<isNotNull prepend="  " property="pageSize">
+			<isNotNull prepend="  " property="skip">
+				LIMIT #skip#,#pageSize#
+			</isNotNull>
+		</isNotNull>
+     
+  </select>
+  
+   <select id="count" resultClass="int" parameterClass="map" >
+	select count(distinct c.ID)
+      from SCHE_CHAIN c,SCHE_JOB j,SCHE_CHAIN_MEMBER m
+	 where j.ID = m.SCHE_JOB_ID
+      and m.SCHE_CHAIN_ID = c.ID
+     
+      <isNotNull prepend=" and " property="chainName">
+        c.CHAIN_NAME like #chainName#
+      </isNotNull>
+      <isNotNull prepend=" and " property="isDelete">
+        c.IS_DELETE = #isDelete#
+      </isNotNull>
+      <isNotNull prepend=" and " property="version">
+        c.VERSION = #version#
+      </isNotNull>
+       <isNotNull prepend=" and " property="queryVersion">
+        c.VERSION >= #queryVersion#
+        and  m.VERSION = #queryVersion#
+      </isNotNull>
+      <isNotNull prepend=" and " property="appName">
+			j.APP_NAME = #appName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobName">
+			j.JOB_NAME like #jobName#
+		</isNotNull>
+		<isNotNull prepend=" and " property="jobGroup">
+			j.JOB_GROUP like
+			#jobGroup#
+		</isNotNull>
+      
+      
+  </select>
+  
+  
+</sqlMap>

@@ -1,0 +1,206 @@
+<html>
+    <head>
+		<title>任务查询</title>
+        <META http-equiv=Content-Type content="text/html; charset=UTF-8">
+            <link rel="stylesheet" href="#springUrl('/common/css/style.css')"	type="text/css"  media="screen" />
+			<script type="text/javascript" src="#springUrl('/common/js/My97DatePicker/WdatePicker.js')"></script>
+            <script type="text/javascript" src="#springUrl('/common/js/common.js')"></script>
+            <script type="text/javascript" src="#springUrl('/common/js/jq/jquery.js')"></script>
+<script type="text/javascript">
+  function openWindow(url,name){
+    window.open(url,name,"height=200,width=200,status=yes,toolbar=no,menubar=no,location=no");
+  }
+  
+  function runonce(jobId, jobName, isAllowConcurrent){
+ 	if (window.confirm("确认立即执行任务:" + jobName + " ?")){
+	   var url = "#springUrl('/job/runOnce.htm?jobId=')" + jobId;
+       if (isAllowConcurrent != undefined && isAllowConcurrent == 1){
+           // 允许并行执行
+		   
+    	}else{
+    	    // 只允许串行
+			var ignore = window.confirm("任务:" + jobName + " 是否需要强制执行?");
+			if (ignore){
+			  url = url + "&ignoreConcurrent=true"
+			}
+    	}
+	 
+	  openWindow(url,"runonce");
+	}
+	
+  }
+  
+  function refresh(){
+    document.forms["queryForm"].submit();
+  }
+
+  function resume(jobId,jobName){
+    if (window.confirm("确认要恢复任务:" + jobName + " ?")){
+	   openWindow("#springUrl('/job/resume.htm?jobId=')" + jobId,"resume");
+	}
+  }
+  
+   function pause(jobId, jobName){
+    if (window.confirm("确认要暂停任务:" + jobName + " ?")){
+	    openWindow("#springUrl('/job/pause.htm?jobId=')" + jobId,"resume");
+	}
+   }
+   
+   function create(){
+        window.open("#springUrl('/job/new.htm')","create","height=800,width=1007,status=yes,toolbar=no,menubar=no,location=no");
+   }
+   
+   function openDetail(jobId){
+      window.open("#springUrl('/job/retrive.htm?jobId=')$!job.id" + jobId,"detail","height=800,width=1007,status=yes,toolbar=no,menubar=no,location=no");
+   }
+   
+   function del(jobId,jobName){
+    if (window.confirm("确认要删除任务:" + jobName + " ?")){
+  	  openWindow("#springUrl('/job/delete.htm?jobId=')" + jobId,"delete");
+	 }
+   }
+  
+   function execLog(jobId,jobName,appName,jobGroup){
+      var url = "#springUrl('/fired/query.htm')?jobId=" + jobId + "&jobName="+jobName + "&appName=" + appName + "&jobGroup=" + jobGroup;
+      window.location.href = url;
+   }
+</script>
+</head>
+<body id="body-wrapper">
+    <div id="main-content">
+        <div class="content-box">
+            <div class="content-box-header">
+                <h3>任务管理器>>维护任务</h3>
+                <div class="clear"></div>
+            </div>
+            <div class="content-box-content">
+                <div class="tab-content default-tab" id="tab1">
+					
+                    <form name="queryForm" action="#springUrl('/job/query.htm')" method="post">
+						<table cellpadding="0" cellspacing="0" >
+						  <tr>
+							<td><label>应用名称</label></td>
+									
+                            <td>
+                                <select id="appName" name="appName">
+                					<option value="-1"> 请选择  </option>
+                					#foreach($scheAppName in $scheAppNames)
+                						<option value="$!scheAppName"
+                							#if($!appName == $scheAppName)
+                								selected
+                								#end
+                							> $!scheAppName  </option>
+            						#end	
+        				          </select>
+							</td>
+							
+                            <td><label>任务名</label></td>
+                            <td><input type="text" name="jobName" id="jobName" value="$!jobName"/></td>
+                            <td><label>任务组名称</label></td>
+                            <td><input type="text" name="jobGroup" id="jobGroup" value="$!jobGroup" /></td>
+                            <td><label>任务状态</label></td>
+                            <td><select name="status" id="status">
+                                <option value="-1">请选择 </option>
+                                
+                                <option value="1" 
+    								#if ($status == "1")
+    								 selected
+    								#end
+    								> 正常
+                                </option>
+                                <option value="0"
+    								#if ($status == "0")
+    								 selected
+    								#end
+    								
+    								>停止
+                                </option>
+                            </select>
+						   </td>
+						  </tr>
+						  <tr>
+							 <td colspan="6">&nbsp;</td>
+							<td colspan="2" align="right"> 
+								<input type="submit" class="button" value="查  询"/>
+							    <input type="button" onclick="create()" class="button" value="新  增"/>
+							</td>
+						  </tr>
+                        </table>
+                       
+                        <div class="clear"></div>
+                    </form>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="8%">任务名称</th>
+								<th width="12%">任务组名称</th>
+                                <th width="8%">应用名称</th>
+                                <th width="10%">开始时间</th>
+                                <th width="10%">结束时间</th>
+                                <th width="10%">上次运行时间</th>
+                                <th width="10%">下次运行时间</th>
+                                <th width="8%">状态</th>
+                                <th width="26%">操作</th>
+                            </tr>
+                        </thead>
+                       
+                        <tbody>
+                                #foreach($job in $alljobs)
+                                    <tr>
+                                        <td align="center" >
+                                            <a onclick="openDetail('$!job.id')" href="#">$!job.jobName</a>
+                                        </td>
+										<td align="center" >$!job.jobGroup</td>
+                                        <td align="center" >$!job.appName</td>
+                                        <td align="center" >$dateUtil.format($!job.beginDate)</td>
+                                        <td align="center" >$dateUtil.format($!job.endDate)</td>
+                                        <td align="center" >$dateUtil.format($!job.previousFireTime)</td>
+                                        <td align="center" >$dateUtil.format($!job.nextFireTime)</td>
+                                        <td align="center" >#if($!job.status && $!job.status == 0)
+												停止
+											#else 
+												正常
+											#end
+										</td>
+                                               
+										<td align="center" >
+											#if( $!job.status == 0)
+                                                <input name="btnResume" type="button" value="恢复" class="button" onclick="resume('$!job.id','$!job.jobName')" />	
+											#else
+											    <input name="btnPause" type="button" value="暂停" class="button" onclick="pause('$!job.id','$!job.jobName')" />	
+											#end
+											 <input id="btnExec" name="btnExec" type="button" value="执行" class="button" onclick="
+											   #if ($job.isAllowConcurrent)
+												   runonce('$!job.id','$!job.jobName', '$!job.isAllowConcurrent')
+												#else
+													 runonce('$!job.id','$!job.jobName')
+												#end
+												" 
+											 />	
+											 <input id="btnDel" name="btnDel" type="button" value="删除" class="button" onclick="del('$!job.id','$!job.jobName')"/>
+											 <input id="btnDel" name="btnLog" type="button" value="执行记录" class="button" onclick="execLog('$!job.id','$!job.jobName','$!job.appName','$!job.jobGroup')"/>
+                                        </td>
+                                    </tr>
+                                #end
+                                				
+                        </tbody>
+						
+						 <tfoot>
+                            <tr>
+                                <td colspan="8">									
+                                    #page("queryForm")                                 
+                                    <div class="clear"></div>
+                                </td>
+                            </tr>
+                        </tfoot>
+						
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+	     
+   
+</body>
+</html>
