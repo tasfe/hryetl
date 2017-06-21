@@ -1,0 +1,21 @@
+CREATE TABLE K_LKP.BD_INFO
+(
+  EMAIL VARCHAR2(50 BYTE) NOT NULL PRIMARY KEY
+  ,NAME VARCHAR2(50 BYTE) NOT NULL
+  ,Central_Department VARCHAR2(50 BYTE)
+  ,DEPARTMENT VARCHAR2(50 BYTE)
+  ,LEADER_NAME VARCHAR2(50 BYTE)
+  ,LEADER_EMAIL VARCHAR2(50 BYTE)
+  ,DIRECTOR_NAME VARCHAR2(50 BYTE)
+  ,DIRECTOR_EMAIL VARCHAR2(50 BYTE)
+  ,DES  VARCHAR2(500 BYTE)
+)
+
+
+comment on table K_LKP.BD_INFO is 'BD 信息表';
+
+comment on column K_LKP.BD_INFO.EMAIL is 'BD 办公邮箱';
+comment on column K_LKP.BD_INFO.NAME is 'BD 姓名';
+comment on column K_LKP.BD_INFO.Central_Department is 'BD 所属中心';
+comment on column K_LKP.BD_INFO.DEPARTMENT IS 'BD 所属部门';
+comment on column K_LKP.BD_INFO.LEADER_NAME IS '直属上级';

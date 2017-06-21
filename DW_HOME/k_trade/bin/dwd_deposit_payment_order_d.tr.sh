@@ -1,0 +1,1 @@
+sh /home/bi/data-integration/kitchen.sh -rep=kettle_repo -param:start_date=${LAST_DATE} -param:id=2 -job=kjt/common_tasks_etl/job_common_tasks_etl

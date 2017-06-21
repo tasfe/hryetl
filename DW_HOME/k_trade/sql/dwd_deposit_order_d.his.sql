@@ -1,0 +1,12 @@
+TRUNCATE TABLE K_TRADE.DWD_DEPOSIT_ORDER_D;
+
+
+INSERT INTO K_TRADE.DWD_DEPOSIT_ORDER_D
+SELECT 
+  t.*
+  ,sysdate
+  ,sysdate
+FROM DEPOSIT.t_deposit_order@kjtdb t;
+
+
+select * from K_TRADE.DWD_DEPOSIT_ORDER_D;

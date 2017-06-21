@@ -1,0 +1,171 @@
+SELECT  * FROM K_TRADE.DWD_TRADE_DETAIL_D subpartition(P201703_TSS )
+where TRADE_TYPE is null
+PAYMENT_ORDER_NO ='301149562964837446402'
+
+GROUP BY TRADE_STATUS, TRADE_PAYMENT_STATUS
+
+交易类型 01普通转账交易11即时到账收单交易 12担保收单交易 13下订收单交易 14收单退款交易 15合并支付交易  由交易服务自动产生，网关不用关心
+
+SELECT  distinct TRADE_TYPE FROM K_TRADE.DWD_TRADE_DETAIL_D  partition(P201704  )
+WHERE 1=1
+--AND PAY_MODE IS NULL
+AND TRADE_payment_STATUS ='S'
+AND TRADE_STATUS = '952'
+
+
+SELECT * FROM K_TRADE.DWD_TRADE_DETAIL_D   
+ WHERE PAYMENT_VOUCHER_NO ='103149311171007402091'
+
+where TRADE_STATUS ='S' AND  TRADE_PAYMENT_STATUS ='P'
+
+
+ALTER TABLE K_TRADE.DWD_TRADE_DETAIL_D TRUNCATE SUBPARTITION P201706_FOS
+TRUNCATE TABLE K_TRADE.DWD_TRADE_DETAIL_D
+
+ 
+INSERT INTO "K_TRADE"."DWD_TRADE_DETAIL_D" 
+SELECT  
+     TRADE_VOUCHER_NO      
+    ,PAYMENT_VOUCHER_NO    
+    ,PAYMENT_SEQ_NO        
+    ,'FOS' TRADE_SOURCE          
+    ,'提现' TRADE_TYPE 
+    ,NULL TRADE_TYPE_DESC
+    ,NULL TRADE_PAYMENT_TYPE    
+    ,BIZ_PRODUCT_CODE      
+    ,BIZ_PRODUCT_CODE_DESC 
+    ,PRODUCT_CODE          
+    ,AMOUNT                
+    ,TRADE_FEE             
+    ,ACCESS_CHANNEL        
+    ,MEMBER_ID             
+    ,ACCOUNT_NO            
+    ,BANK_CODE        
+    ,TRADE_STATUS ORI_TRADE_STATUS          
+    ,TRADE_PAYMENT_STATUS ORI_TRADE_PAYMENT_STATUS      
+    ,CASE 
+      WHEN TRADE_STATUS = 'bankSuccess'  then 'S'    
+      --WHEN TRADE_STATUS = 'bankSuccess'  then 'S' 
+      ELSE 'F' 
+     END TRADE_STATUS          
+    ,CASE 
+      WHEN TRADE_PAYMENT_STATUS = 'bankSuccess'  then 'S'    
+      --WHEN TRADE_STATUS = 'bankSuccess'  then 'S' 
+      ELSE 'F' 
+     END TRADE_PAYMENT_STATUS  
+    ,PAY_MODE              
+    ,PAY_MODE_DESC         
+    ,PAY_CHANNEL           
+    ,PAYMENT_TYPE          
+    ,PAYMENT_CODE          
+    ,NULL PAYEE_MEMBER_ID       
+    ,NULL PAYEE_MEMBER_TYPE     
+    ,NULL PAYEE_ACCOUNT_NO      
+    ,NULL PAYEE_ACCOUNT_TYPE    
+    ,BANK_CODE PAYEE_BANK_CODE       
+    ,CARD_NO PAYEE_BANK_ACCOUNT_NO 
+    ,NULL PAYEE_FEE             
+    ,MEMBER_ID PAYER_MEMBER_ID       
+    ,MEMBER_TYPE PAYER_MEMBER_TYPE     
+    ,ACCOUNT_NO PAYER_ACCOUNT_NO      
+    ,NULL PAYER_ACCOUNT_TYPE    
+    ,NULL PAYER_BANK_CODE       
+    ,NULL PAYER_BANK_ACCOUNT_NO 
+    ,TRADE_FEE PAYER_FEE     
+    
+    ,channel.CMF_SEQ_NO
+    ,channel.CMF_ORDER_STATUS  
+    ,channel.INST_ORDER_NO 
+    ,channel.INST_ORDER_STATUS
+    ,channel.FUND_CHANNEL_CODE
+    ,channel.FUND_CHANNEL_NAME
+    ,channel.CHANNEL_ORDER_TYPE
+    ,channel.REAL_PAY_MODE        
+    
+    ,'提现' Accounting_TYPE
+    ,MEMBER_ID Accounting_OWNER_ID          
+    ,TRADE_GMT_CREATE      
+    ,TRADE_PAYMENT_GMT_CREATE
+    ,PAYMENT_GMT_CREATE  
+    ,CMF_GMT_CREATE  
+
+    ,sysdate DW_CREATE_TIME        
+    ,sysdate DW_MODIFIED_TIME       
+FROM   
+ (SELECT 
+           d.FUNDOUT_ORDER_NO  TRADE_VOUCHER_NO
+          ,d.PRODUCT_CODE  BIZ_PRODUCT_CODE
+          ,c.PRODUCT_CODE PRODUCT_CODE
+          ,c.MEMO BIZ_PRODUCT_CODE_DESC
+          --,d.AMOUNT  AMOUNT
+          --,d.ACCESS_CHANNEL ACCESS_CHANNEL
+          ,NULL ACCESS_CHANNEL
+          ,d.STATUS  TRADE_STATUS
+          ,d.GMT_CREATE TRADE_GMT_CREATE
+       FROM K_TRADE.DWD_FUNDOUT_ORDER_D d 
+        LEFT OUTER JOIN K_LKP.BUSINESS_PRODUCT_CODE c
+          ON d.PRODUCT_CODE = c.BIZ_PRODUCT_CODE
+        WHERE d.GMT_CREATE >= to_date('20170501','YYYYMMDD'）
+    ) fos_order
+LEFT OUTER JOIN 
+      (
+      SELECT 
+           d.PAYMENT_ORDER_NO  PAYMENT_VOUCHER_NO
+          ,d.FUNDOUT_ORDER_NO TRADE_VOUCHER_NO_P
+          --,d.PRODUCT_CODE  
+          ,d.MEMBER_ID   
+          ,u.MEMBER_TYPE
+          ,d.ACCOUNT_NO   
+          ,d.AMOUNT  
+          ,d.FEE  TRADE_FEE
+          ,d.BANK_CODE  
+          ,d.CARD_NO
+          --,d.PAY_CHANNEL  
+          ,d.STATUS  TRADE_PAYMENT_STATUS
+          ,d.GMT_CREATE TRADE_PAYMENT_GMT_CREATE
+       FROM K_TRADE.DWD_FUNDOUT_PAYMENT_ORDER_D d 
+        LEFT OUTER JOIN K_USER.DIM_USER u
+           on d.MEMBER_ID = u.member_id
+
+        WHERE d.GMT_CREATE >= to_date('20170501','YYYYMMDD'）  
+ 
+      ) fos_payment
+    ON fos_order.TRADE_VOUCHER_NO = fos_payment.TRADE_VOUCHER_NO_P
+
+LEFT OUTER JOIN 
+      (SELECT   
+            d.PAYMENT_SEQ_NO
+           ,d.PAYMENT_TYPE
+           ,d.PAYMENT_CODE
+           ,d.PAYMENT_ORDER_NO
+           ,d.PAY_MODE
+           ,c.REMARK PAY_MODE_DESC
+           ,d.PAY_CHANNEL 
+           ,d.GMT_CREATE PAYMENT_GMT_CREATE
+        FROM K_TRADE.DWD_PAYMENT_ORDER_D  d
+          LEFT OUTER JOIN k_lkp.pay_mode c
+            ON d.PAY_MODE = c.PAY_MODE
+         WHERE d.GMT_CREATE >= to_date('20170501','YYYYMMDD') 
+      )payment_order
+    ON fos_payment.PAYMENT_VOUCHER_NO = payment_order.PAYMENT_ORDER_NO        
+ 
+LEFT OUTER JOIN 
+ (
+  SELECT 
+     PAYMENT_SEQ_NO CHANNEL_PAYMENT_SEQ_NO
+    ,CMF_SEQ_NO
+    , CMF_ORDER_STATUS  
+    , INST_ORDER_NO 
+    , INST_ORDER_STATUS
+    , FUND_CHANNEL_CODE
+    , FUND_CHANNEL_NAME
+    , ORDER_TYPE CHANNEL_ORDER_TYPE
+    , REAL_PAY_MODE REAL_PAY_MODE  
+    ,GMT_CREATE CMF_GMT_CREATE
+  FROM K_CHANNEL.DWD_FUND_CHANNEL_ORDER_D 
+  WHERE  GMT_CREATE >= to_date('20170101','YYYYMMDD')
+ ) channel
+on payment_order.PAYMENT_SEQ_NO = channel.CHANNEL_PAYMENT_SEQ_NO;
+
+COMMIT;
+

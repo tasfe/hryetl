@@ -1,0 +1,8 @@
+INSERT INTO K_TRADE.DWD_TSS_PAYMENT_ORDER_D
+SELECT 
+  t.*
+  ,sysdate
+  ,sysdate
+FROM tss.T_PAYMENT_ORDER@kjtdb t
+WHERE GMT_CREATE >= to_date('20170101','YYYYMMDD') --and GMT_CREATE < to_date('20170201','YYYYMMDD');
+

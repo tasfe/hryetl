@@ -1,0 +1,351 @@
+
+-- 般选择晚上 比较空闲的时候 跑会比较快 
+--网关付款(pay)  约5分钟内 跑一个月数据
+
+SELECT 
+/*+ use_hash(DO) */
+TFC.NAME, L.INST_CODE,
+            PO.PAY_MODE,
+            PO.PAYMENT_SEQ_NO, 
+            T.TRADE_VOUCHER_NO,
+            T.TRADE_SRC_VOUCHER_NO,
+            DO.ACCOUNTING_DATE, 
+            TO_CHAR(T.GMT_CREATE, 'YYYY-MM-DD HH24:MI:SS') AS GMT_CREATE,
+            TO_CHAR(T.GMT_MODIFIED, 'YYYY-MM-DD HH24:MI:SS') AS GMT_MODIFIED,
+            T.TRADE_AMOUNT,
+            TF.AMOUNT,
+            TF.FEE_AMOUNT,
+            CO.AMOUNT,
+            (CASE WHEN PO.PAY_MODE = 'BALANCE' AND TF.AMOUNT IS NOT NULL THEN NVL(TF.FEE_AMOUNT,0)/TF.AMOUNT*100||'%' ELSE '0%' END) AS PERC, 
+            T.SELLER_NAME || '(' || C.IDENTITY || ')' AS SELLER_NAME,
+            (CASE
+                WHEN T.STATUS = '401' THEN
+                '结算成功'
+                WHEN T.STATUS = '100' THEN
+                '申请成功'
+                WHEN T.STATUS = '998' THEN
+                 '支付失败'
+                WHEN T.STATUS = '999' THEN
+                '支付关闭'
+            END) AS STATUS,
+            T.EXTENSION
+            FROM TSS.T_TRADE_ORDER T
+             JOIN TSS.T_TRADE_FEE TF
+              ON TF.TRADE_VOUCHER_NO = T.TRADE_VOUCHER_NO
+             AND TF.PARTY_ROLE = 'payee'
+             JOIN MEMBER.TM_MEMBER_IDENTITY C
+              ON C.MEMBER_ID = T.SELLER_ID
+             AND C.IDENTITY_TYPE = '1'
+             JOIN TSS.T_PAYMENT_ORDER P
+              ON P.TRADE_VOUCHER_NO = T.TRADE_VOUCHER_NO
+             AND P.PAYMENT_TYPE = '01'
+             AND P.STATUS = 'S'
+             JOIN PAYMENT.TB_PAYMENT_ORDER PO
+              ON PO.PAYMENT_ORDER_NO = P.PAYMENT_VOUCHER_NO AND PO.PAY_MODE = TF.PAY_MODE
+            LEFT JOIN CMF.TT_CMF_ORDER CO
+              ON CO.PAYMENT_SEQ_NO = PO.PAYMENT_SEQ_NO
+            LEFT JOIN CMF.TT_INST_ORDER L
+              ON L.INST_ORDER_ID = CO.INST_ORDER_ID
+            LEFT JOIN CMF.TM_FUND_CHANNEL TFC
+              ON TFC.FUND_CHANNEL_CODE = L.FUND_CHANNEL_CODE
+             JOIN DPM.T_DPM_ACCOUNT_ENTRY DO ON DO.SYS_TRACE_NO = PO.PAYMENT_SEQ_NO AND DO.TITLE_NO = '2020006001' AND DO.CLEARING_CODE in ('pay', 'ampay')
+           WHERE T.STATUS IN ('401','301')
+        AND T.Biz_Product_Code NOT IN ('90110')
+              AND DO.ACCOUNTING_DATE >= '20170401' AND DO.ACCOUNTING_DATE < '20170501'
+        
+        
+
+
+
+--网关结算
+--  约10分钟内 跑一个月数据
+SELECT 
+/*+ use_hash(DO) */
+            TFC.NAME, 
+            PO.PAY_MODE,
+            PO.PAYMENT_SEQ_NO, 
+            T.TRADE_VOUCHER_NO,
+            T.TRADE_SRC_VOUCHER_NO,
+            DO.ACCOUNTING_DATE, 
+            TO_CHAR(T.GMT_CREATE, 'YYYY-MM-DD HH24:MI:SS') AS GMT_CREATE,
+            TO_CHAR(T.GMT_MODIFIED, 'YYYY-MM-DD HH24:MI:SS') AS GMT_MODIFIED,
+            T.TRADE_AMOUNT,
+            TF.AMOUNT,
+            TF.FEE_AMOUNT,
+            CO.AMOUNT,
+            (CASE WHEN PO.PAY_MODE = 'BALANCE' AND TF.AMOUNT IS NOT NULL THEN NVL(TF.FEE_AMOUNT,0)/TF.AMOUNT*100||'%' ELSE '0%' END) AS PERC, 
+            T.SELLER_NAME || '(' || C.IDENTITY || ')' AS SELLER_NAME,
+            (CASE
+                WHEN T.STATUS = '401' THEN
+                '结算成功'
+                WHEN T.STATUS = '100' THEN
+                '申请成功'
+                WHEN T.STATUS = '998' THEN
+                 '支付失败'
+                WHEN T.STATUS = '999' THEN
+                '支付关闭'
+            END) AS STATUS,
+            T.EXTENSION
+            FROM TSS.T_TRADE_ORDER T
+            
+            LEFT JOIN MEMBER.TM_MEMBER_IDENTITY C
+              ON C.MEMBER_ID = T.SELLER_ID
+             AND C.IDENTITY_TYPE = '1'
+             JOIN TSS.T_PAYMENT_ORDER P
+              ON P.TRADE_VOUCHER_NO = T.TRADE_VOUCHER_NO
+             AND P.PAYMENT_TYPE = '02'
+             AND P.STATUS = 'S'
+             JOIN TSS.T_TRADE_FEE TF
+              ON TF.Payment_Voucher_No = p.payment_voucher_no
+             AND TF.PARTY_ROLE = 'payee'
+             JOIN PAYMENT.TB_PAYMENT_ORDER PO
+              ON PO.PAYMENT_ORDER_NO = P.PAYMENT_VOUCHER_NO 
+            LEFT JOIN CMF.TT_CMF_ORDER CO
+              ON CO.PAYMENT_SEQ_NO = PO.PAYMENT_SEQ_NO
+            LEFT JOIN CMF.TT_INST_ORDER L
+              ON L.INST_ORDER_ID = CO.INST_ORDER_ID
+            LEFT JOIN CMF.TM_FUND_CHANNEL TFC
+              ON TFC.FUND_CHANNEL_CODE = L.FUND_CHANNEL_CODE
+             JOIN DPM.T_DPM_ACCOUNT_ENTRY DO ON DO.SYS_TRACE_NO = PO.PAYMENT_SEQ_NO
+           WHERE T.STATUS IN ('401','301')
+        AND T.Biz_Product_Code NOT IN ('90110')
+              AND DO.ACCOUNTING_DATE >= '20170401' AND DO.ACCOUNTING_DATE < '20170501'
+               AND DO.TITLE_NO = '2020006001' AND DO.CLEARING_CODE in ('pay', 'ampay')
+          --  ORDER BY T.GMT_CREATE
+
+ 
+
+
+
+
+--账户内部结算(pay)
+-- 约5分钟内 跑一个月数据
+
+SELECT 
+TFC.NAME, 
+            PO.PAY_MODE,
+            PO.PAYMENT_SEQ_NO, 
+            T.TRADE_VOUCHER_NO,
+            T.TRADE_SRC_VOUCHER_NO,
+            DO.ACCOUNTING_DATE, 
+            TO_CHAR(T.GMT_CREATE, 'YYYY-MM-DD HH24:MI:SS') AS GMT_CREATE,
+            TO_CHAR(T.GMT_MODIFIED, 'YYYY-MM-DD HH24:MI:SS') AS GMT_MODIFIED,
+            T.TRADE_AMOUNT,
+            TF.AMOUNT,
+            TF.FEE_AMOUNT,
+            CO.AMOUNT,
+            (CASE WHEN PO.PAY_MODE = 'BALANCE' AND TF.AMOUNT IS NOT NULL THEN NVL(TF.FEE_AMOUNT,0)/TF.AMOUNT*100||'%' ELSE '0%' END) AS PERC, 
+            T.SELLER_NAME || '(' || C.IDENTITY || ')' AS SELLER_NAME,
+            (CASE
+                WHEN T.STATUS = '401' THEN
+                '结算成功'
+                WHEN T.STATUS = '100' THEN
+                '申请成功'
+                WHEN T.STATUS = '998' THEN
+                 '支付失败'
+                WHEN T.STATUS = '999' THEN
+                '支付关闭'
+            END) AS STATUS,
+            T.EXTENSION
+            FROM TSS.T_TRADE_ORDER T
+             JOIN TSS.T_TRADE_FEE TF
+              ON TF.TRADE_VOUCHER_NO = T.TRADE_VOUCHER_NO
+             AND TF.PARTY_ROLE = 'payee'
+             JOIN MEMBER.TM_MEMBER_IDENTITY C
+              ON C.MEMBER_ID = T.SELLER_ID
+             AND C.IDENTITY_TYPE = '1'
+             JOIN TSS.T_PAYMENT_ORDER P
+              ON P.TRADE_VOUCHER_NO = T.TRADE_VOUCHER_NO
+             AND P.PAYMENT_TYPE = '01'
+             AND P.STATUS = 'S'
+             JOIN PAYMENT.TB_PAYMENT_ORDER PO
+              ON PO.PAYMENT_ORDER_NO = P.PAYMENT_VOUCHER_NO AND PO.PAY_MODE = TF.PAY_MODE
+            LEFT JOIN CMF.TT_CMF_ORDER CO
+              ON CO.PAYMENT_SEQ_NO = PO.PAYMENT_SEQ_NO
+            LEFT JOIN CMF.TT_INST_ORDER L
+              ON L.INST_ORDER_ID = CO.INST_ORDER_ID
+            LEFT JOIN CMF.TM_FUND_CHANNEL TFC
+              ON TFC.FUND_CHANNEL_CODE = L.FUND_CHANNEL_CODE
+             JOIN DPM.T_DPM_ACCOUNT_ENTRY DO ON DO.SYS_TRACE_NO = PO.PAYMENT_SEQ_NO
+           WHERE T.STATUS IN ('401','301')
+        AND T.Biz_Product_Code IN ('90110')
+              AND DO.ACCOUNTING_DATE >= '20170401' AND DO.ACCOUNTING_DATE < '20170501'
+               AND DO.TITLE_NO = '2020006001' AND DO.CLEARING_CODE in ('pay') 
+         
+         
+         
+         
+
+--退款     
+-- 秒出     
+SELECT  
+DO.ACCOUNTING_DATE, 
+           TO_CHAR(T.Gmt_Create, 'YYYY-MM-DD HH24:MI:SS') AS Gmt_Create,
+           TO_CHAR(T.GMT_MODIFIED, 'YYYY-MM-DD HH24:MI:SS') AS GMT_MODIFIED,
+           PO.PAYMENT_SEQ_NO, 
+           T.TRADE_VOUCHER_NO,
+           T.TRADE_SRC_VOUCHER_NO,
+           T.SELLER_NAME||'('||C.IDENTITY||')' AS SELLER_NAME, 
+           TFC.NAME,
+           T.TRADE_AMOUNT,
+           TF.REFUNDED_FEE_AMOUNT,
+           (CASE
+             WHEN T.STATUS = '951' THEN
+              '退款成功'
+             WHEN T.STATUS = '952' THEN
+              '退款失败'
+           END) AS STATUS
+          FROM TSS.T_TRADE_ORDER T
+           JOIN TSS.T_TRADE_FEE TF
+            ON TF.TRADE_VOUCHER_NO = T.TRADE_VOUCHER_NO
+           AND TF.PARTY_ROLE = 'payee'
+           JOIN MEMBER.TM_MEMBER_IDENTITY C
+            ON C.MEMBER_ID = T.SELLER_ID
+           AND C.IDENTITY_TYPE = '1'
+           JOIN TSS.T_PAYMENT_ORDER P
+            ON P.TRADE_VOUCHER_NO = T.TRADE_VOUCHER_NO 
+           AND P.PAYMENT_TYPE = '04'
+           AND P.STATUS = 'S'
+           JOIN PAYMENT.TB_PAYMENT_ORDER PO
+            ON PO.PAYMENT_ORDER_NO = P.PAYMENT_VOUCHER_NO AND PO.PAY_MODE = TF.PAY_MODE
+          LEFT JOIN CMF.TT_CMF_ORDER CO
+            ON CO.PAYMENT_SEQ_NO = PO.PAYMENT_SEQ_NO
+          LEFT JOIN CMF.TT_INST_ORDER L
+            ON L.INST_ORDER_ID = CO.INST_ORDER_ID
+          LEFT JOIN CMF.TM_FUND_CHANNEL TFC
+            ON TFC.FUND_CHANNEL_CODE = L.FUND_CHANNEL_CODE
+           JOIN DPM.T_DPM_ACCOUNT_ENTRY DO ON DO.SYS_TRACE_NO = PO.PAYMENT_SEQ_NO AND DO.TITLE_NO = '2020006001' AND DO.CLEARING_CODE = 'returnPay'
+         WHERE T.STATUS in ('951') AND TFC.NAME IS NOT NULL
+          AND DO.ACCOUNTING_DATE >= '20170401' AND DO.ACCOUNTING_DATE < '20170501'    
+
+
+
+      
+
+--转账到卡
+-- 该 数据一次查半个月 或者10  的会比较快 ,约跑 10分钟
+    select 
+           /*+ use_hash(T,M,C,FPO,PO,PP) */
+          DO.ACCOUNTING_DATE, 
+           TO_CHAR(T.GMT_CREATE, 'YYYY-MM-DD HH24:MI:SS') AS GMT_CREATE,
+           T.FUNDOUT_ORDER_NO,
+           --M.MEMBER_NAME || C.IDENTITY  AS MEMBER_NAME,
+       M.MEMBER_NAME || '(' ||C.IDENTITY || ')' AS MEMBER_NAME,
+           T.NAME,
+           T.AMOUNT,
+           PP.CHARGE_FEE,
+           T.STATUS, PO.PAYMENT_ORDER_NO, PO.PAYMENT_TYPE, PP.PAYMENT_SEQ_NO 
+            FROM FOS.TT_FUNDOUT_ORDER T
+           JOIN MEMBER.TM_MEMBER M
+            ON M.MEMBER_ID = T.MEMBER_ID  
+           JOIN MEMBER.TM_MEMBER_IDENTITY C
+            ON C.MEMBER_ID = T.MEMBER_ID
+           AND （ C.IDENTITY_TYPE = '1' or  M.MEMBER_TYPE <> '3'）
+            JOIN FOS.TT_PAYMENT_ORDER FPO ON FPO.FUNDOUT_ORDER_NO = T.FUNDOUT_ORDER_NO 
+            JOIN PAYMENT.TB_PAYMENT_ORDER PO ON PO.PAYMENT_ORDER_NO = FPO.PAYMENT_ORDER_NO
+           JOIN PAYMENT.TB_PARTY_PAYMENT PP ON PP.PAYMENT_SEQ_NO = PO.PAYMENT_SEQ_NO AND PP.ROLE_CODE = 'payer'
+           JOIN DPM.T_DPM_ACCOUNT_ENTRY DO ON DO.SYS_TRACE_NO = PO.PAYMENT_SEQ_NO
+          WHERE T.PRODUCT_CODE IN ('10220', '10221', '10230', '90110')
+          AND DO.ACCOUNTING_DATE >= '20170401' AND DO.ACCOUNTING_DATE < '20170416'
+           AND DO.TITLE_NO = '2020002001' AND DO.DIRECTION = 1
+           
+                
+
+
+
+          
+--一次最多只能跑10天   约跑 10分钟
+--转账到快捷通账户  
+SELECT 
+/*+ use_hash(T,M,C,FPO,PO,PP) */
+DO.ACCOUNTING_DATE, 
+           TO_CHAR(T.GMT_CREATE, 'YYYY-MM-DD HH24:MI:SS') AS GMT_CREATE,
+           T.TRADE_VOUCHER_NO,
+           --M.MEMBER_NAME || C.IDENTITY  AS MEMBER_NAME,
+           M.MEMBER_NAME || '(' ||C.IDENTITY || ')' AS MEMBER_NAME,
+           M1.MEMBER_NAME || '(' ||C1.IDENTITY || ')' AS MEMBER_NAME1,
+           T.TRADE_AMOUNT,
+           PP.CHARGE_FEE,
+           T.STATUS, PO.PAYMENT_ORDER_NO, PO.PAYMENT_TYPE, PP.PAYMENT_SEQ_NO
+          FROM TSS.T_TRADE_ORDER T
+          JOIN MEMBER.TM_MEMBER M ON M.MEMBER_ID = T.BUYER_ID
+          JOIN MEMBER.TM_MEMBER_IDENTITY C  ON C.MEMBER_ID = T.BUYER_ID AND (C.IDENTITY_TYPE = '1' OR M.MEMBER_TYPE <> '3')
+          JOIN MEMBER.TM_MEMBER M1 ON M1.MEMBER_ID = T.SELLER_ID
+          JOIN MEMBER.TM_MEMBER_IDENTITY C1  ON C1.MEMBER_ID = T.SELLER_ID AND (C1.IDENTITY_TYPE = '1' OR M1.MEMBER_TYPE <> '3')
+          JOIN TSS.T_PAYMENT_ORDER TPO ON TPO.TRADE_VOUCHER_NO = T.TRADE_VOUCHER_NO
+          JOIN PAYMENT.TB_PAYMENT_ORDER PO ON PO.PAYMENT_ORDER_NO = TPO.PAYMENT_VOUCHER_NO
+          JOIN PAYMENT.TB_PARTY_PAYMENT PP ON PP.PAYMENT_SEQ_NO = PO.PAYMENT_SEQ_NO AND PP.ROLE_CODE = 'payer'
+          JOIN DPM.T_DPM_ACCOUNT_ENTRY DO ON DO.SYS_TRACE_NO = PO.PAYMENT_SEQ_NO AND DO.TITLE_NO = '2001003001' AND DO.DIRECTION = 1
+          WHERE T.BIZ_PRODUCT_CODE = '10310'
+                 AND T.TRADE_TYPE = '01'
+          AND DO.ACCOUNTING_DATE >='20170401' AND DO.ACCOUNTING_DATE < '20170501'         
+      
+         
+         
+
+
+----提现
+SELECT
+ DO.ACCOUNTING_DATE, 
+            TO_CHAR(T.GMT_CREATE, 'YYYY-MM-DD HH24:MI:SS') AS GMT_CREATE,
+            TO_CHAR(T.GMT_MODIFY, 'YYYY-MM-DD HH24:MI:SS') AS GMT_MODIFY,
+            FPO.ORDER_TIME,
+            T.FUNDOUT_ORDER_NO, 
+      --T.NAME,
+      T.NAME || '('||MI.IDENTITY||')' as NAME,      
+      T.AMOUNT, PP.CHARGE_FEE, T.STATUS, PO.PAYMENT_ORDER_NO, PP.PAYMENT_SEQ_NO  
+            FROM FOS.TT_FUNDOUT_ORDER T
+            JOIN FOS.TT_PAYMENT_ORDER TP
+                ON T.FUNDOUT_ORDER_NO = TP.FUNDOUT_ORDER_NO
+       JOIN MEMBER.TM_MEMBER M
+                ON M.MEMBER_ID = T.MEMBER_ID
+             JOIN MEMBER.TM_MEMBER_IDENTITY MI
+                ON MI.MEMBER_ID = T.MEMBER_ID
+            --AND MI.IDENTITY_TYPE = '1'
+      AND (MI.IDENTITY_TYPE = '1' OR M.MEMBER_TYPE <> '3')
+             JOIN FOS.TT_PAYMENT_ORDER FPO ON FPO.FUNDOUT_ORDER_NO = T.FUNDOUT_ORDER_NO 
+             JOIN PAYMENT.TB_PAYMENT_ORDER PO ON PO.PAYMENT_ORDER_NO = FPO.PAYMENT_ORDER_NO
+             JOIN PAYMENT.TB_PARTY_PAYMENT PP ON PP.PAYMENT_SEQ_NO = PO.PAYMENT_SEQ_NO AND PP.ROLE_CODE = 'payer'
+             JOIN DPM.T_DPM_ACCOUNT_ENTRY DO ON DO.SYS_TRACE_NO = PO.PAYMENT_SEQ_NO AND DO.TITLE_NO = '2020001001'  AND DO.DIRECTION = 1
+            WHERE T.PRODUCT_CODE IN ('10210', '10211')
+          AND DO.ACCOUNTING_DATE >= '20170401' AND DO.ACCOUNTING_DATE < '20170501'
+                   
+
+
+--账户变动-网关
+SELECT 
+AD.SYS_TRACE_NO,
+           AD.PRODUCT_CODE,
+           AD.PAY_CODE,
+           AD.TXN_AMT,
+           TO_CHAR(AD.TXN_TIME, 'YYYY-MM-DD HH24:MI:SS') AS TXN_TIME,
+           AD.DIRECTION,
+           AD.AFTER_AMT,
+           AD.TXN_DSCPT
+          FROM DPM.T_DPM_INNER_ACCOUNT_DETAIL AD
+          WHERE 
+            AD.ACCOUNT_NO IN ('20030010010101') 
+          AND AD.TXN_TIME > TO_DATE('20170401 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+           AND AD.TXN_TIME < TO_DATE('20170501 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+
+
+       
+--账户变动-转账提现
+SELECT AD.SYS_TRACE_NO,
+           AD.PRODUCT_CODE,
+           AD.PAY_CODE,
+           AD.TXN_AMT,
+           TO_CHAR(AD.TXN_TIME, 'YYYY-MM-DD HH24:MI:SS') AS TXN_TIME,
+           AD.DIRECTION,
+           AD.AFTER_AMT,
+           AD.TXN_DSCPT
+       
+          FROM DPM.T_DPM_INNER_ACCOUNT_DETAIL AD
+          
+          WHERE 
+            AD.ACCOUNT_NO IN ('20030010020101') 
+           AND  AD.TXN_TIME > TO_DATE('20170401 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+           AND AD.TXN_TIME < TO_DATE('20170501 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+       
+
+       

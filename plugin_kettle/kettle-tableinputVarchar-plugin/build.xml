@@ -1,0 +1,127 @@
+<project name="kettle-tableinputVarchar-plugin" default="default" basedir=".">
+
+	<description>
+	  	tii
+	    </description>
+
+	<tstamp prefix="start" />
+
+	<!-- system properties to use -->
+	<property name="cr" value="${line.separator}" />
+	<!-- set global properties for this build -->
+
+	<property name="src" location="src" />
+	<property name="classes" location="classes" />
+	<property name="lib" location="lib" />
+	<property name="dist" location="dist" />
+	<property name="dev-lib" location="dev-lib" />
+	<!-- <property name="libswt" location="libswt" /> -->
+	<property name="deploydir2" location="E:/tool/kettle/pdi-ce-5.2.0.0-209/data-integration/plugins/kettle-tableinputVarchar-plugin" />
+	<property name="deploydir3" location="E:/tool/kettle/pdi-ce-5.3.0.0-213/data-integration/plugins/kettle-tableinputVarchar-plugin" />
+	<property name="projectdir_plugin" location="D:/pentaho-kettle-5.3.0.0-R/plugins/kettle-tableinputVarchar-plugin/bin" />
+
+	<target name="init" description="create timestamp and directories">
+		<echo>Init...</echo>
+		<tstamp />
+		<mkdir dir="${classes}" />
+		<mkdir dir="${lib}" />
+		<mkdir dir="${dist}" />
+		<mkdir dir="${dev-lib}" />
+	</target>
+
+	<!--
+	       ==========================
+	            Compile the code
+	       ==========================
+	  -->
+
+	<target name="compile" depends="init" description="compile the source ">
+		<echo>Compiling Incremental Output Plugin...</echo>
+		<javac srcdir="${src}" destdir="${classes}">
+			<classpath id="cpath">
+				<fileset dir="${dev-lib}" includes="*.jar" />
+				<!-- <fileset dir="${libswt}" includes="*.jar" />
+				<fileset dir="${libswt}/win64/" includes="*.jar" /> -->
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- ==========================
+	          Copy additional files
+	       ==========================
+	  -->
+
+	<target name="copy" depends="compile" description="copy images etc to classes directory">
+		<echo>Copying images etc to classes directory...</echo>
+		<copy todir="${classes}">
+			<fileset dir="${src}" includes="**/*.png,**/*.xml,**/*.properties" />
+		</copy>
+		<copy todir="${projectdir_plugin}/classes">
+			<fileset dir="${classes}" includes="**/*" />
+		</copy>
+
+	</target>
+
+	<!--
+	       ==========================
+	                library
+	       ==========================
+	  -->
+
+	<target name="lib" depends="compile,copy" description="generate the kettle-tableinputVar-plugin.jar">
+		<echo>Generating the kettle-tableinputVarchar-plugin.jar ...</echo>
+		<jar jarfile="${dist}/kettle-tableinputVarchar-plugin.jar" basedir="${classes}" includes="**/*" />
+	</target>
+
+	<!--
+	       ==========================
+	           dist for plugin
+	       ==========================
+	  -->
+
+	<target name="dist" depends="lib" description="Create the distribution package...">
+		<echo>Copying libraries to dist directory...</echo>
+		<copy todir="${dist}">
+			 <fileset dir="${lib}" includes="**/*.jar" /> 
+			<fileset dir="." includes="*.xml *.png *.txt" excludes="build.xml" />
+		</copy>
+	</target>
+
+	<!--d:
+	       ==========================
+	            deploy to Kettle
+	       ==========================
+	  -->
+
+	<target name="deploy" depends="dist" description="Deploy distribution...">
+		<echo>deploying plugin...</echo>
+		<copy todir="${deploydir2}">
+			<fileset dir="${dist}" includes="**/*.*" />
+		</copy>
+		<copy todir="${deploydir3}">
+			<fileset dir="${dist}" includes="**/*.*" />
+		</copy>	
+		<copy todir="${projectdir_plugin}/stage">
+			<fileset dir="${dist}" includes="**/*.*" />
+		</copy>
+	</target>
+
+	<!--
+	       ==========================
+	          Default target: all
+	       ==========================
+	  -->
+	<target name="default" depends="deploy" description="default = build all" />
+
+	<!--
+	       ==========================
+	              C L E A N
+	       ==========================
+	  -->
+
+	<target name="clean" description="clean up generated files">
+		<delete dir="${classes}" />
+		<delete dir="${lib}" />
+	</target>
+
+</project>

@@ -1,0 +1,153 @@
+ /* 
+ 天天聚余额
+ create table tmp_TTJ_BAL_20170401 as   
+  select * from (
+  select  t.kjt_cust_id ,t.after_amt /100 after_amt ,
+  row_number() over (partition by t.kjt_cust_id order by t.create_time desc ) rn
+   from  bifund.S_FUD_T_FUND_SHARE_ORDER t 
+  where t.create_time  < to_date('20170401000001','yyyymmdd hh24miss')  
+   and  t.Bal_Status='Y'  ) t  where rn='1'
+*/
+/*  
+p2p余额
+create table tmp_p2p_bal_20170401 as 
+select 
+t.account_no
+,t.after_amt
+,row_number() over(partition by t.account_no order by  t.create_time  ) rn
+ from bipay.s_dpm_t_dpm_outer_account_sub_  t 
+ where t.create_time< to_date('20170401','yyyymmdd')
+ 
+ 
+ create table tmp_p2p_bal_20170401_01 as 
+ select t.account_no ,t.after_amt ,
+  max(t.rn)  keep(dense_rank last order by t.rn)    rn
+  ,row_number() over(partition by t.account_no   order by null  ) rn1
+   from tmp_p2p_bal_20170401  
+  t where t.account_no='200100100120000001001400001'
+  group by t.account_no ,t.after_amt
+*/
+
+
+
+with tab as (  
+select 
+t.hryid 
+,count(1) trans_count
+from 
+（select 
+ t.hryid
+from bidata.dw_order_p2p_list  t 
+where to_char(t.finish_time,'yyyymmdd' )   between '20170101'  and '20170331'
+ and  t.fangkuan_status='已放款'
+
+union all
+
+select t.hryid    from bidata.dw_order_fund_list  t 
+where t.date_key   between '20170101'  and '20170331'
+） t  group by t.hryid 
+
+) 
+
+,tab1 as  (
+ select
+ s0.hryid hryid
+,count(1) zichan
+from BIDATA.DW_REPAY_P2P_LIST s0
+left join bidata.dim_prod_p2p_list s1
+on s0.BID=s1.bid
+WHERE to_char( s1.start_time  ,'yyyymmdd')< '20170401' and  to_char(s1.end_time  ,'yyyymmdd')>= '20170101'
+
+group by  s0.hryid
+
+
+)
+
+,tab2 as 
+(
+select 
+t.hryid
+,sum(t.after_amt)  after_amt
+from 
+(select  a.hryid
+,sum(t.after_amt) after_amt 
+from 
+(
+select * from tmp_TTJ_BAL_20170401 t 
+union all 
+
+ select a.member_id, t.after_amt  ,t.rn1
+  from  tmp_p2p_bal_20170401_01  t 
+ join bipay.s_dpm_t_dpm_outer_account  a on t.account_no=a.account_no
+
+-- 待添加余额
+
+) t join dim_user_hry_users a on t.kjt_cust_id =a.kjtid
+group by a.hryid
+
+union all 
+
+select
+ s0.hryid hryid
+,sum(s0.repay_amount) repay_amount
+from BIDATA.DW_REPAY_P2P_LIST s0
+left join bidata.dim_prod_p2p_list s1
+on s0.BID=s1.bid
+WHERE to_char( s1.start_time,'yyyymmdd')<= '20170331'
+AND  s0.REPAY_REAL_TIME is null
+and s0.repay_status_name='未还款'
+group by  s0.hryid) t 
+group by t.hryid
+having sum(t.after_amt) >'0'
+
+) 
+
+,tab3 as 
+(select a.hryid,count(1) user_login   from bidata.bi_user_loginuser_dt t
+join dim_user_hry_users a on t.kjtid=a.kjtid 
+ where t.dt  between '20170101' and '20170331'
+ group by  a.hryid
+ )
+ 
+ ,tab4 as 
+ (select  t.promoter_id hryid ,count(1)  promoter_count from bidata.dim_promo_promotion_relation  t 
+ where to_char(t.created_time,'yyyymmdd') <='20170331'
+ group by t.promoter_id  having count(1)>=2
+ ) 
+ 
+ ,tab5 as (
+ select t.hryid ,count(1) aa  from bidata.dim_user_hry_users t 
+ --where t.hryid='31053'
+ group by t.hryid
+ )
+ 
+ 
+ select 
+/* t.hryid
+,e.trans_count
+,a.promoter_count
+,b.user_login
+,d.zichan
+,c.after_amt
+,*/ count( case when  e.trans_count>'0' and a.promoter_count>='2' then t.hryid end )  zhongcheng
+,count( case when  e.trans_count>='2' and b.user_login >'0' then t.hryid end)      huoyue
+,count( case when  e.hryid is null and d.zichan >'0'  and c.after_amt>'0' and b.user_login >'0' then t.hryid end)      buhuoyue
+,count( case when  e.hryid is null and (d.zichan >'0'  or c.after_amt>'0') and b.hryid is null then t.hryid end)      chenmo
+,count( case when  e.hryid is null and d.hryid is null and c.hryid is null and b.hryid is null then t.hryid end)      liushi
+        
+  from tab5  t  /*所有用户*/
+  left join tab4  a  on  t.hryid=a.hryid   /*推荐大于等于2用户*/
+  left join tab3  b  on  t.hryid=b.hryid  /*有登录用户*/
+  left join tab2  c  on  t.hryid=c.hryid  /*有余额用户*/
+  left join tab1  d  on  t.hryid=d.hryid  /*有资产用户*/
+  left join tab   e  on  t.hryid=e.hryid  /*有交易用户*/
+/*  where t.hryid='10915816'
+  group by 
+   t.hryid
+,e.trans_count
+,a.promoter_count
+,b.user_login
+,d.zichan
+,c.after_amt
+*/
+
