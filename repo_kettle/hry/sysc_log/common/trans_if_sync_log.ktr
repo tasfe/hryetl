@@ -1,12 +1,12 @@
 <transformation>
   <info>
-    <name>trans_add_table_comment</name>
+    <name>trans_if_sync_log</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
-    <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
+    <directory>&#x2f;hry&#x2f;sysc_log&#x2f;common</directory>
     <parameters>
     </parameters>
     <log>
@@ -66,21 +66,21 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2017&#x2f;05&#x2f;24 13&#x3a;41&#x3a;01.366</created_date>
+  <created_date>2017&#x2f;04&#x2f;26 14&#x3a;03&#x3a;20.491</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;22 11&#x3a;04&#x3a;18.510</modified_date>
+  <modified_date>2017&#x2f;04&#x2f;26 14&#x3a;26&#x3a;25.348</modified_date>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>bidb90</name>
-    <server>10.228.7.90</server>
+    <name>bidb</name>
+    <server>&#x24;&#x7b;bidb_hostname&#x7d;</server>
     <type>ORACLE</type>
     <access>Native</access>
-    <database>bidb</database>
-    <port>1521</port>
-    <username>bidata</username>
-    <password>Encrypted 2be98afc802ce9394bb48fc238ac7f999</password>
+    <database>&#x24;&#x7b;bidb_database&#x7d;</database>
+    <port>&#x24;&#x7b;bidb_port&#x7d;</port>
+    <username>&#x24;&#x7b;bidb_username&#x7d;</username>
+    <password>&#x24;&#x7b;bidb_password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -88,144 +88,22 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;bidb_port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>bipay</name>
-    <server>&#x24;&#x7b;bipay_hostname&#x7d;</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;bipay_database&#x7d;</database>
-    <port>&#x24;&#x7b;bipay_port&#x7d;</port>
-    <username>&#x24;&#x7b;bipay_username&#x7d;</username>
-    <password>&#x24;&#x7b;bipay_password&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;bipay_port&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>kettle_log</name>
-    <server>&#x24;&#x7b;kettle_log_hostname&#x7d;</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;kettle_log_database&#x7d;</database>
-    <port>&#x24;&#x7b;kettle_log_port&#x7d;</port>
-    <username>&#x24;&#x7b;kettle_log_username&#x7d;</username>
-    <password>&#x24;&#x7b;kettle_log_password&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;kettle_log_port&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>mysql_db</name>
-    <server>&#x24;&#x7b;O_HOSTNAME&#x7d;</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;O_DATABASE&#x7d;</database>
-    <port>&#x24;&#x7b;O_PORT&#x7d;</port>
-    <username>&#x24;&#x7b;O_USERNAME&#x7d;</username>
-    <password>&#x24;&#x7b;O_PASSWORD&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;O_PORT&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>oracle_db</name>
-    <server>&#x24;&#x7b;O_HOSTNAME&#x7d;</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;O_DATABASE&#x7d;</database>
-    <port>&#x24;&#x7b;O_PORT&#x7d;</port>
-    <username>&#x24;&#x7b;O_USERNAME&#x7d;</username>
-    <password>&#x24;&#x7b;O_PASSWORD&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;O_PORT&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>research</name>
-    <server>&#x24;&#x7b;research_hostname&#x7d;</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;research_database&#x7d;</database>
-    <port>3306</port>
-    <username>&#x24;&#x7b;research_username&#x7d;</username>
-    <password>&#x24;&#x7b;research_password&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input</from><to>Write to log</to><enabled>Y</enabled> </hop>
-  <hop> <from>Write to log</from><to>Execute row SQL script</to><enabled>Y</enabled> </hop>
+  <hop> <from>Table input</from><to>set boolean</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get System Info</from><to>Table input</to><enabled>Y</enabled> </hop>
+  <hop> <from>set boolean</from><to>Set Variables</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Execute row SQL script</name>
-    <type>ExecSQLRow</type>
+    <name>Get System Info</name>
+    <type>SystemInfo</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -234,19 +112,44 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <commit>50</commit>
-    <connection>bipay</connection>
-    <sql_field>column_name</sql_field>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <sqlFromfile>N</sqlFromfile>
-    <sendOneStatement>Y</sendOneStatement>
+    <fields>
+      <field>
+        <name>logfile</name>
+        <type>command line argument 1</type>
+        </field>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>570</xloc>
-      <yloc>141</yloc>
+      <xloc>144</xloc>
+      <yloc>271</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Set Variables</name>
+    <type>SetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <field_name>flag</field_name>
+        <variable_name>FLAG</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
+      </fields>
+    <use_formatting>Y</use_formatting>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>649</xloc>
+      <yloc>229</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -262,24 +165,24 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>oracle_db</connection>
-    <sql>select &#x27;COMMENT ON COLUMN &#x24;&#x7b;T_SCHEMA&#x7d;.&#x24;&#x7b;T_TABLE_NAME&#x7d;.&#x27;&#x7c;&#x7c;column_name&#x7c;&#x7c;&#x27; is &#x27;&#x7c;&#x7c;&#x27;&#x27;&#x27;&#x27;&#x7c;&#x7c; comments &#x7c;&#x7c;&#x27;&#x27;&#x27;&#x27; as column_name from all_col_comments&#xd;&#xa;where owner&#x3d; upper&#x28;&#x27;&#x24;&#x7b;S_SCHEMA&#x7d;&#x27;&#x29; and comments is not null and table_name&#x3d;upper&#x28;&#x27;&#x24;&#x7b;S_TABLE_NAME&#x7d;&#x27;&#x29;&#xd;&#xa;</sql>
+    <connection>bidb</connection>
+    <sql>SELECT count&#x28;1&#x29; nums from k_sync_log_log where sync_key&#x3d;&#x3f;</sql>
     <limit>0</limit>
-    <lookup/>
+    <lookup>Get System Info</lookup>
     <execute_each_row>N</execute_each_row>
     <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>223</xloc>
-      <yloc>164</yloc>
+      <xloc>310</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write to log</name>
-    <type>WriteToLog</type>
+    <name>set boolean</name>
+    <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -288,20 +191,21 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <loglevel>log_level_basic</loglevel>
-      <displayHeader>Y</displayHeader>
-      <limitRows>N</limitRows>
-      <limitRowsNumber>0</limitRowsNumber>
-      <logmessage>&#x8868; &#x24;&#x7b;T_TABLE_NAME&#x7d; &#x589e;&#x52a0;&#x6ce8;&#x91ca;</logmessage>
-    <fields>
-      <field>
-        <name>column_name</name>
-        </field>
-      </fields>
-     <cluster_schema/>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;&#xd;&#xa;var flag&#x3d;false&#x3b;&#xd;&#xa;if&#x28;NUMS&#x3e;0&#x29;&#x7b;flag&#x3d;true&#x3b;&#x7d;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>flag</name>
+        <rename>flag</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>389</xloc>
-      <yloc>253</yloc>
+      <xloc>487</xloc>
+      <yloc>200</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

@@ -1,16 +1,40 @@
 <job>
-  <name>job_export_one</name>
+  <name>job_export_one_table</name>
     <description/>
     <extended_description/>
     <job_version/>
-    <job_status>0</job_status>
-  <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
+    <job_status>2</job_status>
+  <directory>&#x2f;hry&#x2f;bi_report&#x2f;export_data&#x2f;hryjdbc</directory>
   <created_user>-</created_user>
-  <created_date>2017&#x2f;05&#x2f;24 10&#x3a;24&#x3a;43.410</created_date>
+  <created_date>2015&#x2f;10&#x2f;26 12&#x3a;39&#x3a;00.791</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;22 11&#x3a;02&#x3a;01.367</modified_date>
+  <modified_date>2017&#x2f;06&#x2f;22 10&#x3a;39&#x3a;02.225</modified_date>
     <parameters>
     </parameters>
+  <connection>
+    <name>bidb</name>
+    <server>&#x24;&#x7b;bidb_hostname&#x7d;</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;bidb_database&#x7d;</database>
+    <port>&#x24;&#x7b;bidb_port&#x7d;</port>
+    <username>&#x24;&#x7b;bidb_username&#x7d;</username>
+    <password>&#x24;&#x7b;bidb_password&#x7d;</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;bidb_port&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>bidb90</name>
     <server>10.228.7.90</server>
@@ -197,8 +221,42 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>103</xloc>
-      <yloc>172</yloc>
+      <xloc>23</xloc>
+      <yloc>168</yloc>
+      </entry>
+    <entry>
+      <name>trans_create_table</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>rep_name</specification_method>
+      <trans_object_id/>
+      <filename/>
+      <transname>trans_create_table</transname>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;export_data&#x2f;hryjdbc</directory>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>464</xloc>
+      <yloc>333</yloc>
       </entry>
     <entry>
       <name>trans_set_variables</name>
@@ -208,7 +266,7 @@
       <trans_object_id/>
       <filename/>
       <transname>trans_set_variables</transname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;export_data&#x2f;hryjdbc</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -231,18 +289,18 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>165</xloc>
-      <yloc>330</yloc>
+      <xloc>95</xloc>
+      <yloc>282</yloc>
       </entry>
     <entry>
-      <name>trans_get_s_table_meta</name>
+      <name>trans_table_mysql_oracle</name>
       <description/>
       <type>TRANS</type>
       <specification_method>rep_name</specification_method>
       <trans_object_id/>
       <filename/>
-      <transname>trans_get_s_table_meta</transname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
+      <transname>trans_table_mysql_oracle</transname>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;export_data&#x2f;hryjdbc</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -265,18 +323,90 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>244</xloc>
-      <yloc>203</yloc>
+      <xloc>842</xloc>
+      <yloc>240</yloc>
       </entry>
     <entry>
-      <name>trans_get_t_table_meta</name>
+      <name>&#x540c;&#x6b65;&#x6210;&#x529f;</name>
+      <description/>
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1046</xloc>
+      <yloc>521</yloc>
+      </entry>
+    <entry>
+      <name>Simple evaluation &#x6e90;&#x8868;&#x8bb0;&#x5f55;&#x5927;&#x4e8e;0</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname>&#x24;&#x7b;source_size&#x7d;</fieldname>
+      <variablename>&#x24;&#x7b;TABLE_ROWS&#x7d;</variablename>
+      <fieldtype>number</fieldtype>
+      <mask/>
+      <comparevalue>0</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>greater</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>571</xloc>
+      <yloc>45</yloc>
+      </entry>
+    <entry>
+      <name>&#x6e90;&#x8868;&#x6570;&#x636e;&#x4e3a;&#x7a7a;</name>
+      <description/>
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>676</xloc>
+      <yloc>12</yloc>
+      </entry>
+    <entry>
+      <name>Evaluate rows number in a table</name>
+      <description/>
+      <type>EVAL_TABLE_CONTENT</type>
+      <connection>bidb</connection>
+      <schemaname/>
+      <tablename>&#x24;&#x7b;NEW_TABLE_NAME&#x7d;</tablename>
+      <success_condition>rows_count_different</success_condition>
+      <limit>&#x24;&#x7b;TABLE_ROWS&#x7d;</limit>
+      <is_custom_sql>N</is_custom_sql>
+      <is_usevars>N</is_usevars>
+      <custom_sql/>
+      <add_rows_result>N</add_rows_result>
+      <clear_result_rows>Y</clear_result_rows>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>712</xloc>
+      <yloc>154</yloc>
+      </entry>
+    <entry>
+      <name>&#x6e90;&#x8868;&#x4e0e;&#x76ee;&#x6807;&#x8bb0;&#x5f55;&#x6570;&#x76f8;&#x540c;&#x4e0d;&#x540c;&#x6b65;</name>
+      <description/>
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>993</xloc>
+      <yloc>174</yloc>
+      </entry>
+    <entry>
+      <name>trans_get_table_counts</name>
       <description/>
       <type>TRANS</type>
       <specification_method>rep_name</specification_method>
       <trans_object_id/>
       <filename/>
-      <transname>trans_get_t_table_meta</transname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
+      <transname>trans_get_table_counts</transname>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;export_data&#x2f;hryjdbc</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -299,8 +429,99 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>284</xloc>
-      <yloc>322</yloc>
+      <xloc>447</xloc>
+      <yloc>19</yloc>
+      </entry>
+    <entry>
+      <name>trans_addcomment_one_table</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>rep_name</specification_method>
+      <trans_object_id/>
+      <filename/>
+      <transname>trans_addcomment_one_table</transname>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;export_data&#x2f;hryjdbc</directory>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>584</xloc>
+      <yloc>316</yloc>
+      </entry>
+    <entry>
+      <name>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname>&#x24;&#x7b;source_size&#x7d;</fieldname>
+      <variablename>&#x24;&#x7b;TARGET_FLAG&#x7d;</variablename>
+      <fieldtype>boolean</fieldtype>
+      <mask/>
+      <comparevalue>0</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>greater</successnumbercondition>
+      <successbooleancondition>true</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>245</xloc>
+      <yloc>251</yloc>
+      </entry>
+    <entry>
+      <name>&#x8868;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>&#x24;&#x7b;TARGET_COLS_FLAG&#x7d;</variablename>
+      <fieldtype>boolean</fieldtype>
+      <mask/>
+      <comparevalue/>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>287</xloc>
+      <yloc>162</yloc>
+      </entry>
+    <entry>
+      <name>Write To Log</name>
+      <description/>
+      <type>WRITE_TO_LOG</type>
+      <logmessage>&#x76ee;&#x6807;&#x8868;&#xff1a;&#x24;&#x7b;NEW_TABLE_NAME&#x7d; &#xd;&#xa;&#x6e90;&#x8868;&#xff1a; &#x24;&#x7b;TABLE_SCHEMA&#x7d;.&#x24;&#x7b;TABLE_NAME&#x7d;&#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#x662f;&#x5426;&#x5b58;&#x5728;&#xff1a;&#x24;&#x7b;TARGET_FLAG&#x7d;&#xd;&#xa;&#x8868;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;&#xff1a;&#x24;&#x7b;TARGET_COLS_FLAG&#x7d;&#xd;&#xa;&#x662f;&#x5426;&#x589e;&#x91cf;&#x540c;&#x6b65; &#xff1a;&#x2a;&#x2a;&#x2a;&#x2a;&#x2a;&#x2a;&#x2a;&#x2a;&#x24;&#x7b;SYNC_FLAG&#x7d; &#x2a;&#x2a;&#x2a;&#x2a;&#x2a;&#x2a;&#x2a;&#x2a;&#x2a;&#x2a;&#xd;&#xa;&#xd;&#xa;&#x6761;&#x4ef6;&#xff1a;&#x24;&#x7b;CONDITION&#x7d; &#x2a; &#x24;&#x7b;CONDITION2&#x7d;&#xd;&#xa;&#x4efb;&#x52a1;ID&#x3a; &#x24;&#x7b;TASKID&#x7d;&#xd;&#xa;&#x6bd4;&#x8f83;&#x7d22;&#x5f15;&#xff1a;&#x24;&#x7b;IDX&#x7d; , &#x24;&#x7b;IDX2&#x7d; , &#x24;&#x7b;IDX3&#x7d;&#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#x8bed;&#x53e5; &#xff1a;&#x24;&#x7b;TARGET_TABLE_MAX&#x7d;&#xd;&#xa;&#x6e90;&#x8868;&#x8bed;&#x53e5; &#xff1a;&#x24;&#x7b;SOURCE_TABLE_MAX&#x7d;</logmessage>
+      <loglevel>Basic</loglevel>
+      <logsubject/>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>226</xloc>
+      <yloc>368</yloc>
       </entry>
     <entry>
       <name>Mail Failed</name>
@@ -313,11 +534,11 @@
       <destinationBCc/>
       <replyto>&#x24;&#x7b;email_sender_address&#x7d;</replyto>
       <replytoname>&#x24;&#x7b;email_sender_name&#x7d;</replytoname>
-      <subject>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;S_SCHEMA&#x7d;.&#x24;&#x7b;S_TABLE_NAME&#x7d;  -  &#x5931;&#x8d25;</subject>
+      <subject>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;TABLE_NAME&#x7d; &#x24;&#x7b;start_date&#x7d;  -  &#x5931;&#x8d25;</subject>
       <include_date>N</include_date>
       <contact_person/>
       <contact_phone/>
-      <comment>&#x24;&#x7b;S_SCHEMA&#x7d;.&#x24;&#x7b;S_TABLE_NAME&#x7d; &#x540c;&#x6b65;&#x5931;&#x8d25;&#xd;&#xa;&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;</comment>
+      <comment>&#x540c;&#x6b65;&#x8868;&#xff1a;&#x24;&#x7b;TABLE_NAME&#x7d; &#x5230; &#x24;&#x7b;NEW_TABLE_NAME&#x7d;&#xd;&#xa;&#x540c;&#x6b65;&#x5e93; &#x24;&#x7b;database&#x7d;  &#xff0c;&#x8868;&#xff1a;&#x24;&#x7b;tablename&#x7d;   &#xff0c;&#x8fc7;&#x6ee4;&#x8868;&#xff1a;&#x24;&#x7b;tablename_no&#x7d;&#xd;&#xa;&#xd;&#xa;&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;&#xd;&#xa;</comment>
       <include_files>Y</include_files>
       <zip_files>N</zip_files>
       <zip_name/>
@@ -340,68 +561,41 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>299</xloc>
-      <yloc>732</yloc>
+      <xloc>385</xloc>
+      <yloc>616</yloc>
       </entry>
     <entry>
-      <name>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;</name>
+      <name>job_sync_one_table</name>
       <description/>
-      <type>SIMPLE_EVAL</type>
-      <valuetype>variable</valuetype>
-      <fieldname>&#x24;&#x7b;source_size&#x7d;</fieldname>
-      <variablename>&#x24;&#x7b;T_TABLE_EXISTS&#x7d;</variablename>
-      <fieldtype>boolean</fieldtype>
-      <mask/>
-      <comparevalue>0</comparevalue>
-      <minvalue/>
-      <maxvalue/>
-      <successcondition>equal</successcondition>
-      <successnumbercondition>greater</successnumbercondition>
-      <successbooleancondition>true</successbooleancondition>
-      <successwhenvarset>N</successwhenvarset>
+      <type>JOB</type>
+      <specification_method>rep_name</specification_method>
+      <job_object_id/>
+      <filename/>
+      <jobname>job_sync_one_table</jobname>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;export_data&#x2f;hryjdbc</directory>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <expand_remote_job>N</expand_remote_job>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <force_separate_logging>N</force_separate_logging>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>396</xloc>
-      <yloc>241</yloc>
-      </entry>
-    <entry>
-      <name>&#x8868;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;</name>
-      <description/>
-      <type>SIMPLE_EVAL</type>
-      <valuetype>variable</valuetype>
-      <fieldname/>
-      <variablename>&#x24;&#x7b;CHECK_FIELD&#x7d;</variablename>
-      <fieldtype>boolean</fieldtype>
-      <mask/>
-      <comparevalue/>
-      <minvalue/>
-      <maxvalue/>
-      <successcondition>equal</successcondition>
-      <successnumbercondition>equal</successnumbercondition>
-      <successbooleancondition>true</successbooleancondition>
-      <successwhenvarset>N</successwhenvarset>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>517</xloc>
-      <yloc>151</yloc>
-      </entry>
-    <entry>
-      <name>drop table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>truncate table &#x24;&#x7b;T_SCHEMA&#x7d;.&#x24;&#x7b;T_TABLE_NAME&#x7d;&#x3b;&#xd;&#xa;drop table &#x24;&#x7b;T_SCHEMA&#x7d;.&#x24;&#x7b;T_TABLE_NAME&#x7d;&#x3b;</sql>
-      <useVariableSubstitution>T</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>bipay</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>545</xloc>
-      <yloc>266</yloc>
+      <xloc>760</xloc>
+      <yloc>402</yloc>
       </entry>
     <entry>
       <name>&#x662f;&#x5426;&#x52a0;&#x5165;&#x589e;&#x91cf;&#x540c;&#x6b65;</name>
@@ -422,131 +616,111 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>623</xloc>
-      <yloc>102</yloc>
+      <xloc>307</xloc>
+      <yloc>65</yloc>
       </entry>
     <entry>
-      <name>job_sync_one_table</name>
+      <name>&#x68c0;&#x9a8c;&#x67e5;&#x8be2;</name>
       <description/>
-      <type>JOB</type>
-      <specification_method>rep_name</specification_method>
-      <job_object_id/>
-      <filename/>
-      <jobname>job_sync_one_table</jobname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <force_separate_logging>N</force_separate_logging>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname>&#x24;&#x7b;source_size&#x7d;</fieldname>
+      <variablename>&#x24;&#x7b;check&#x7d;</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>Y</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>greater</successnumbercondition>
+      <successbooleancondition>true</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>999</xloc>
-      <yloc>71</yloc>
-      </entry>
-    <entry>
-      <name>trans_table_oracle_oracle</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>rep_name</specification_method>
-      <trans_object_id/>
-      <filename/>
-      <transname>trans_table_oracle_oracle</transname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>924</xloc>
-      <yloc>363</yloc>
+      <yloc>361</yloc>
       </entry>
     <entry>
-      <name>job_export_create_table</name>
+      <name>SQL</name>
       <description/>
-      <type>JOB</type>
-      <specification_method>rep_name</specification_method>
-      <job_object_id/>
-      <filename/>
-      <jobname>job_export_create_table</jobname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <force_separate_logging>N</force_separate_logging>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>572</xloc>
-      <yloc>437</yloc>
-      </entry>
-    <entry>
-      <name>Success</name>
-      <description/>
-      <type>SUCCESS</type>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>1095</xloc>
-      <yloc>440</yloc>
-      </entry>
-    <entry>
-      <name>Write To Log 2</name>
-      <description/>
-      <type>WRITE_TO_LOG</type>
-      <logmessage>&#x4efb;&#x52a1;ID&#x3a; &#x24;&#x7b;ID&#x7d;&#xd;&#xa;&#x6e90;&#x8868;&#x540d;&#xff1a;  &#x24;&#x7b;S_SCHEMA&#x7d;.&#x24;&#x7b;S_TABLE_NAME&#x7d;&#x40;&#x24;&#x7b;DBLINK&#x7d;   &#x5b57;&#x6bb5;&#x6570;&#xff1a;&#x24;&#x7b;S_COLS&#x7d; ,&#x6570;&#x636e;&#x6e90;&#xff1a;&#x24;&#x7b;S_DATASOURCE&#x7d;&#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#x540d;&#xff1a; &#x24;&#x7b;T_SCHEMA&#x7d;.&#x24;&#x7b;T_TABLE_NAME&#x7d; &#x5b57;&#x6bb5;&#x6570;&#xff1a;&#x24;&#x7b;T_COLS&#x7d; , &#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#x662f;&#x5426;&#x5b58;&#x5728;&#xff1a;&#x24;&#x7b;T_TABLE_EXISTS&#x7d;&#xd;&#xa;&#x68c0;&#x67e5;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;&#xff1a;&#x24;&#x7b;CHECK_FIELD&#x7d;&#xd;&#xa;&#x662f;&#x5426;&#x589e;&#x91cf;&#x540c;&#x6b65;&#xff1a;&#x24;&#x7b;SYNC_FLAG&#x7d;&#xd;&#xa;&#x89c4;&#x5219;&#xff1a;&#xd;&#xa;&#x6e90;&#x8868;&#xff1a;&#x24;&#x7b;S_TABLE_MAX&#x7d;&#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#xff1a;&#x24;&#x7b;T_TABLE_MAX&#x7d;&#xd;&#xa;s_sql&#x3a;  &#x24;&#x7b;S_SQL&#x7d;&#xd;&#xa;&#xd;&#xa;CONDITION &#x3a; &#x24;&#x7b;CONDITION&#x7d;&#xd;&#xa;CONDITION2 &#x3a; &#x24;&#x7b;CONDITION2&#x7d;&#xd;&#xa;&#x24;&#x7b;ISDEL&#x7d;</logmessage>
-      <loglevel>Basic</loglevel>
-      <logsubject/>
+      <type>SQL</type>
+      <sql>truncate table &#x24;&#x7b;NEW_TABLE_NAME&#x7d;&#x3b;&#xd;&#xa;drop table &#x24;&#x7b;NEW_TABLE_NAME&#x7d;&#x3b;</sql>
+      <useVariableSubstitution>T</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>bidb</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>347</xloc>
-      <yloc>447</yloc>
+      <yloc>220</yloc>
+      </entry>
+    <entry>
+      <name>SQL 2</name>
+      <description/>
+      <type>SQL</type>
+      <sql>insert into k_sync_tables_log&#xd;&#xa;  &#x28;tid,datasource,s_table, t_table, t_table_exist, field_change, auto_add,ifcheck&#x29;&#xd;&#xa;values&#xd;&#xa;  &#x28;&#x24;&#x7b;TID&#x7d;,&#x27;&#x24;&#x7b;datasource&#x7d;&#x27;,&#x27;&#x24;&#x7b;TABLE_SCHEMA&#x7d;.&#x24;&#x7b;TABLE_NAME&#x7d;&#x27;, &#x27;&#x24;&#x7b;NEW_TABLE_NAME&#x7d;&#x27;, &#x27;&#x24;&#x7b;TARGET_FLAG&#x7d;&#x27;, &#x27;&#x24;&#x7b;TARGET_COLS_FLAG&#x7d;&#x27;, &#x27;&#x24;&#x7b;SYNC_FLAG&#x7d;&#x27;,&#x27;&#x24;&#x7b;check&#x7d;&#x27;&#x29;&#x3b;</sql>
+      <useVariableSubstitution>T</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>bidb</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>158</xloc>
+      <yloc>374</yloc>
+      </entry>
+    <entry>
+      <name>job_export_check_table</name>
+      <description/>
+      <type>JOB</type>
+      <specification_method>rep_name</specification_method>
+      <job_object_id/>
+      <filename/>
+      <jobname>job_export_check_table</jobname>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;export_data&#x2f;hryjdbc</directory>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <expand_remote_job>N</expand_remote_job>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <force_separate_logging>N</force_separate_logging>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1102</xloc>
+      <yloc>396</yloc>
+      </entry>
+    <entry>
+      <name>&#x5168;&#x91cf;&#x68c0;&#x67e5;&#xff0c;&#x63d2;&#x5165;&#x65e5;&#x5fd7;</name>
+      <description/>
+      <type>SQL</type>
+      <sql>update K_SYNC_TABLES_LOG set s_t_rows &#x3d; &#x24;&#x7b;TABLE_ROWS&#x7d; ,t_t_rows &#x3d; &#x24;&#x7b;TABLE_ROWS&#x7d;   where tid&#x3d;&#x24;&#x7b;TID&#x7d;&#x3b;</sql>
+      <useVariableSubstitution>T</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>bidb</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>889</xloc>
+      <yloc>117</yloc>
       </entry>
   </entries>
   <hops>
@@ -560,30 +734,48 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>trans_set_variables</from>
-      <to>trans_get_s_table_meta</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>trans_get_s_table_meta</from>
-      <to>trans_get_t_table_meta</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>trans_set_variables</from>
-      <to>Mail Failed</to>
+      <from>Simple evaluation &#x6e90;&#x8868;&#x8bb0;&#x5f55;&#x5927;&#x4e8e;0</from>
+      <to>&#x6e90;&#x8868;&#x6570;&#x636e;&#x4e3a;&#x7a7a;</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_get_table_counts</from>
+      <to>Simple evaluation &#x6e90;&#x8868;&#x8bb0;&#x5f55;&#x5927;&#x4e8e;0</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_create_table</from>
+      <to>trans_addcomment_one_table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_addcomment_one_table</from>
+      <to>trans_table_mysql_oracle</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Evaluate rows number in a table</from>
+      <to>trans_table_mysql_oracle</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
@@ -596,8 +788,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>&#x8868;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;</from>
-      <to>drop table</to>
+      <from>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;</from>
+      <to>trans_create_table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Simple evaluation &#x6e90;&#x8868;&#x8bb0;&#x5f55;&#x5927;&#x4e8e;0</from>
+      <to>Evaluate rows number in a table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -605,8 +806,71 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
+      <from>Write To Log</from>
+      <to>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_create_table</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_addcomment_one_table</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_table_mysql_oracle</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_get_table_counts</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>job_sync_one_table</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>&#x8868;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;</from>
       <to>&#x662f;&#x5426;&#x52a0;&#x5165;&#x589e;&#x91cf;&#x540c;&#x6b65;</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>&#x662f;&#x5426;&#x52a0;&#x5165;&#x589e;&#x91cf;&#x540c;&#x6b65;</from>
+      <to>trans_get_table_counts</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -623,44 +887,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>&#x662f;&#x5426;&#x52a0;&#x5165;&#x589e;&#x91cf;&#x540c;&#x6b65;</from>
-      <to>trans_table_oracle_oracle</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;</from>
-      <to>job_export_create_table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>drop table</from>
-      <to>job_export_create_table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>job_export_create_table</from>
-      <to>trans_table_oracle_oracle</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>job_sync_one_table</from>
-      <to>Success</to>
+      <to>&#x68c0;&#x9a8c;&#x67e5;&#x8be2;</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -668,8 +896,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_get_t_table_meta</from>
-      <to>Write To Log 2</to>
+      <from>&#x8868;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;</from>
+      <to>SQL</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>SQL</from>
+      <to>trans_create_table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -677,8 +914,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Write To Log 2</from>
-      <to>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;</to>
+      <from>SQL</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_set_variables</from>
+      <to>SQL 2</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -686,8 +932,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_table_oracle_oracle</from>
-      <to>Success</to>
+      <from>SQL 2</from>
+      <to>Write To Log</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -695,7 +941,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_export_create_table</from>
+      <from>SQL 2</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -704,7 +950,25 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_table_oracle_oracle</from>
+      <from>trans_table_mysql_oracle</from>
+      <to>&#x68c0;&#x9a8c;&#x67e5;&#x8be2;</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>&#x68c0;&#x9a8c;&#x67e5;&#x8be2;</from>
+      <to>job_export_check_table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>job_export_check_table</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -713,8 +977,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_sync_one_table</from>
-      <to>Mail Failed</to>
+      <from>job_export_check_table</from>
+      <to>&#x540c;&#x6b65;&#x6210;&#x529f;</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>&#x68c0;&#x9a8c;&#x67e5;&#x8be2;</from>
+      <to>&#x540c;&#x6b65;&#x6210;&#x529f;</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -722,8 +995,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>drop table</from>
-      <to>Mail Failed</to>
+      <from>Evaluate rows number in a table</from>
+      <to>&#x5168;&#x91cf;&#x68c0;&#x67e5;&#xff0c;&#x63d2;&#x5165;&#x65e5;&#x5fd7;</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -731,16 +1004,16 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_get_s_table_meta</from>
-      <to>Mail Failed</to>
+      <from>&#x5168;&#x91cf;&#x68c0;&#x67e5;&#xff0c;&#x63d2;&#x5165;&#x65e5;&#x5fd7;</from>
+      <to>&#x6e90;&#x8868;&#x4e0e;&#x76ee;&#x6807;&#x8bb0;&#x5f55;&#x6570;&#x76f8;&#x540c;&#x4e0d;&#x540c;&#x6b65;</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
-      <evaluation>N</evaluation>
+      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_get_t_table_meta</from>
+      <from>&#x5168;&#x91cf;&#x68c0;&#x67e5;&#xff0c;&#x63d2;&#x5165;&#x65e5;&#x5fd7;</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -750,6 +1023,27 @@
     </hop>
   </hops>
   <notepads>
+    <notepad>
+      <note>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;&#xff0c;&#x5b57;&#x6bb5;&#x6bd4;&#x8f83;&#x65e0;&#x53d8;&#x5316;&#xff0c;&#x5224;&#x65ad;&#x8bb0;&#x5f55;&#x6570;&#x7b49;&#x4e8e;0 &#xff0c;&#x6e90;&#x8868;&#x4e0d;&#x540c;&#x6b65;&#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;&#xff0c;&#x5b57;&#x6bb5;&#x6bd4;&#x8f83;&#x65e0;&#x53d8;&#x5316;&#xff0c;&#x5224;&#x65ad;&#x8bb0;&#x5f55;&#x6570;&#x5927;&#x4e8e;0&#x4e14;&#x4e0e;&#x76ee;&#x6807;&#x8868;&#x8bb0;&#x5f55;&#x6570;&#x4e0d;&#x76f8;&#x540c;&#xff0c;&#x540c;&#x6b65;&#x8868;&#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;&#xff0c;&#x5b57;&#x6bb5;&#x6bd4;&#x8f83;&#x65e0;&#x53d8;&#x5316;&#xff0c;&#x5224;&#x65ad;&#x8bb0;&#x5f55;&#x6570;&#x5927;&#x4e8e;0&#x4e14;&#x4e0e;&#x76ee;&#x6807;&#x8868;&#x8bb0;&#x5f55;&#x6570;&#x76f8;&#x540c; &#xff0c;&#x4e0d;&#x540c;&#x6b65;&#x8868;&#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;&#xff0c;&#x5b57;&#x6bb5;&#x6bd4;&#x8f83;&#x6709;&#x53d8;&#x5316;&#xff0c;drop&#x76ee;&#x6807;&#x8868;&#xff0c;&#x91cd;&#x65b0;&#x521b;&#x5efa;&#x76ee;&#x6807;&#x8868;&#xff0c;&#x5e76;&#x4e14;&#x540c;&#x6b65;&#x6ce8;&#x91ca;&#xff0c;&#x540c;&#x6b65;&#x8868;&#x6570;&#x636e;&#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#x4e0d;&#x5b58;&#x5728;&#xff0c;&#x521b;&#x5efa;&#x76ee;&#x6807;&#x8868;&#xff0c;&#x5e76;&#x4e14;&#x540c;&#x6b65;&#x6ce8;&#x91ca;&#xff0c;&#x540c;&#x6b65;&#x8868;&#x6570;&#x636e;</note>
+      <xloc>995</xloc>
+      <yloc>29</yloc>
+      <width>495</width>
+      <heigth>90</heigth>
+      <fontname>&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
 
 </job>

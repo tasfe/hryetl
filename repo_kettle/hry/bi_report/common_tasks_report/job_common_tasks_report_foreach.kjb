@@ -1,14 +1,14 @@
 <job>
-  <name>job_common_tasks_etl_foreach</name>
+  <name>job_common_tasks_report_foreach</name>
     <description/>
     <extended_description/>
     <job_version/>
     <job_status>0</job_status>
-  <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+  <directory>&#x2f;hry&#x2f;bi_report&#x2f;common_tasks_report</directory>
   <created_user>-</created_user>
-  <created_date>2017&#x2f;01&#x2f;23 14&#x3a;16&#x3a;24.453</created_date>
+  <created_date>2016&#x2f;12&#x2f;29 10&#x3a;56&#x3a;18.569</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;23 09&#x3a;46&#x3a;56.165</modified_date>
+  <modified_date>2017&#x2f;06&#x2f;22 10&#x3a;37&#x3a;57.315</modified_date>
     <parameters>
     </parameters>
   <connection>
@@ -197,18 +197,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>166</xloc>
-      <yloc>177</yloc>
+      <xloc>236</xloc>
+      <yloc>164</yloc>
       </entry>
     <entry>
-      <name>trans_common_tasks_etl_setVariables</name>
+      <name>trans_common_tasks_report_setvariable</name>
       <description/>
       <type>TRANS</type>
       <specification_method>rep_name</specification_method>
       <trans_object_id/>
       <filename/>
-      <transname>trans_common_tasks_etl_setVariables</transname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <transname>trans_common_tasks_report_setvariable</transname>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;common_tasks_report</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -231,51 +231,71 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>331</xloc>
-      <yloc>214</yloc>
+      <xloc>332</xloc>
+      <yloc>90</yloc>
       </entry>
     <entry>
-      <name>job_common_tasks_one</name>
+      <name>trans_common_tasks_report_autoreport</name>
       <description/>
-      <type>JOB</type>
+      <type>TRANS</type>
       <specification_method>rep_name</specification_method>
-      <job_object_id/>
+      <trans_object_id/>
       <filename/>
-      <jobname>job_common_tasks_one</jobname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <transname>trans_common_tasks_report_autoreport</transname>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;common_tasks_report</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
       <logfile/>
       <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
       <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
       <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <force_separate_logging>N</force_separate_logging>
+      <logging_remote_work>N</logging_remote_work>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>544</xloc>
-      <yloc>209</yloc>
+      <xloc>863</xloc>
+      <yloc>95</yloc>
       </entry>
     <entry>
-      <name>Success</name>
+      <name>Write To Log</name>
       <description/>
-      <type>SUCCESS</type>
+      <type>WRITE_TO_LOG</type>
+      <logmessage>&#x6807;&#x8bc6;&#xff1a;&#x24;&#x7b;ID&#x7d;&#xd;&#xa;&#x62a5;&#x8868;&#x76ee;&#x5f55;&#xff1a;&#x24;&#x7b;REPORT_DIR&#x7d;&#xd;&#xa;&#x62a5;&#x8868;&#x6587;&#x4ef6;&#x540d;&#xff1a;&#x24;&#x7b;REPORT_FILENAME&#x7d;&#xd;&#xa;&#x62a5;&#x8868;&#x6587;&#x4ef6;&#x540d;&#xff1a;&#x24;&#x7b;REPORT_FILE&#x7d;&#xd;&#xa;&#x62a5;&#x8868;HTML&#x6587;&#x4ef6;&#x540d;&#xff1a;&#x24;&#x7b;REPORT_HTML_FILE&#x7d;&#xd;&#xa;</logmessage>
+      <loglevel>Basic</loglevel>
+      <logsubject>&#x62a5;&#x8868;&#x53c2;&#x6570;</logsubject>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>732</xloc>
-      <yloc>211</yloc>
+      <xloc>455</xloc>
+      <yloc>108</yloc>
+      </entry>
+    <entry>
+      <name>Checks if files exist</name>
+      <description/>
+      <type>FILES_EXIST</type>
+      <filename/>
+      <fields>
+        <field>
+          <name>&#x24;&#x7b;REPORT_FILE&#x7d;</name>
+        </field>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>606</xloc>
+      <yloc>86</yloc>
       </entry>
     <entry>
       <name>Mail Failed</name>
@@ -288,11 +308,53 @@
       <destinationBCc/>
       <replyto>&#x24;&#x7b;email_sender_address&#x7d;</replyto>
       <replytoname>&#x24;&#x7b;email_sender_name&#x7d;</replytoname>
-      <subject>&#x24;&#x7b;TITLE&#x7d; &#x24;&#x7b;ID&#x7d; - &#x5931;&#x8d25; &#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d;</subject>
+      <subject>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d;  -  &#x5931;&#x8d25;</subject>
+      <include_date>N</include_date>
+      <contact_person>&#x24;&#x7b;email_sender_name&#x7d;</contact_person>
+      <contact_phone/>
+      <comment>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d;  -  &#x5931;&#x8d25;&#xd;&#xa;&#x24;&#x7b;REPORT_FILE&#x7d; &#x4e0d;&#x5b58;&#x5728;&#xff1f;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;</comment>
+      <include_files>N</include_files>
+      <zip_files>N</zip_files>
+      <zip_name/>
+      <use_auth>Y</use_auth>
+      <use_secure_auth>N</use_secure_auth>
+      <auth_user>&#x24;&#x7b;email_smtp_username&#x7d;</auth_user>
+      <auth_password>&#x24;&#x7b;email_smtp_password&#x7d;</auth_password>
+      <only_comment>N</only_comment>
+      <use_HTML>N</use_HTML>
+      <use_Priority>N</use_Priority>
+      <encoding>UTF-8</encoding>
+      <priority>normal</priority>
+      <importance>normal</importance>
+      <sensitivity>normal</sensitivity>
+      <secureconnectiontype>SSL</secureconnectiontype>
+      <replyToAddresses/>
+      <filetypes>        <filetype>ERRORLINE</filetype>
+        <filetype>ERROR</filetype>
+      </filetypes>      <embeddedimages>
+      </embeddedimages>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>555</xloc>
+      <yloc>236</yloc>
+      </entry>
+    <entry>
+      <name>Mail Successed</name>
+      <description/>
+      <type>MAIL</type>
+      <server>&#x24;&#x7b;email_smtp_server&#x7d;</server>
+      <port>&#x24;&#x7b;email_smtp_port&#x7d;</port>
+      <destination>&#x24;&#x7b;EMAIL&#x7d;</destination>
+      <destinationCc/>
+      <destinationBCc/>
+      <replyto>&#x24;&#x7b;email_sender_address&#x7d;</replyto>
+      <replytoname>&#x24;&#x7b;Internal.Job.Filename.Name&#x7d;</replytoname>
+      <subject>&#x24;&#x7b;TITLE&#x7d; - &#x24;&#x7b;ID&#x7d; &#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d; </subject>
       <include_date>N</include_date>
       <contact_person/>
       <contact_phone/>
-      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;&#xd;&#xa;&#x6267;&#x884c;&#x8bed;&#x53e5;&#xff1a;&#xd;&#xa;&#x24;&#x7b;SOURCE_TABLE_MAX&#x7d;</comment>
+      <comment>&#x24;&#x7b;HTML_CONTENT&#x7d;&#xd;&#xa;&#xd;&#xa;&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;</comment>
       <include_files>N</include_files>
       <zip_files>N</zip_files>
       <zip_name/>
@@ -301,7 +363,7 @@
       <auth_user>&#x24;&#x7b;email_smtp_username&#x7d;</auth_user>
       <auth_password>&#x24;&#x7b;email_smtp_password&#x7d;</auth_password>
       <only_comment>Y</only_comment>
-      <use_HTML>N</use_HTML>
+      <use_HTML>Y</use_HTML>
       <use_Priority>N</use_Priority>
       <encoding>UTF-8</encoding>
       <priority>normal</priority>
@@ -315,14 +377,24 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>458</xloc>
-      <yloc>333</yloc>
+      <xloc>963</xloc>
+      <yloc>219</yloc>
+      </entry>
+    <entry>
+      <name>Success</name>
+      <description/>
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1193</xloc>
+      <yloc>189</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
       <from>START</from>
-      <to>trans_common_tasks_etl_setVariables</to>
+      <to>trans_common_tasks_report_setvariable</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -330,8 +402,8 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>trans_common_tasks_etl_setVariables</from>
-      <to>job_common_tasks_one</to>
+      <from>trans_common_tasks_report_setvariable</from>
+      <to>Write To Log</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -339,30 +411,57 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_common_tasks_one</from>
+      <from>Write To Log</from>
+      <to>Checks if files exist</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Checks if files exist</from>
+      <to>trans_common_tasks_report_autoreport</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Checks if files exist</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_common_tasks_report_autoreport</from>
+      <to>Mail Successed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_common_tasks_report_autoreport</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Mail Successed</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>trans_common_tasks_etl_setVariables</from>
-      <to>Mail Failed</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>job_common_tasks_one</from>
-      <to>Mail Failed</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>

@@ -1,12 +1,12 @@
 <transformation>
   <info>
-    <name>trans_add_table_comment</name>
+    <name>trans_common_tasks_report_get_tasks</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
-    <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
+    <directory>&#x2f;hry&#x2f;bi_report&#x2f;common_tasks_report</directory>
     <parameters>
     </parameters>
     <log>
@@ -66,21 +66,21 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2017&#x2f;05&#x2f;24 13&#x3a;41&#x3a;01.366</created_date>
+  <created_date>2016&#x2f;12&#x2f;29 10&#x3a;40&#x3a;30.764</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;22 11&#x3a;04&#x3a;18.510</modified_date>
+  <modified_date>2016&#x2f;12&#x2f;29 14&#x3a;41&#x3a;12.185</modified_date>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>bidb90</name>
-    <server>10.228.7.90</server>
+    <name>bidb</name>
+    <server>&#x24;&#x7b;bidb_hostname&#x7d;</server>
     <type>ORACLE</type>
     <access>Native</access>
-    <database>bidb</database>
-    <port>1521</port>
-    <username>bidata</username>
-    <password>Encrypted 2be98afc802ce9394bb48fc238ac7f999</password>
+    <database>&#x24;&#x7b;bidb_database&#x7d;</database>
+    <port>&#x24;&#x7b;bidb_port&#x7d;</port>
+    <username>&#x24;&#x7b;bidb_username&#x7d;</username>
+    <password>&#x24;&#x7b;bidb_password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -88,144 +88,22 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;bidb_port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
       <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>bipay</name>
-    <server>&#x24;&#x7b;bipay_hostname&#x7d;</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;bipay_database&#x7d;</database>
-    <port>&#x24;&#x7b;bipay_port&#x7d;</port>
-    <username>&#x24;&#x7b;bipay_username&#x7d;</username>
-    <password>&#x24;&#x7b;bipay_password&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;bipay_port&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>kettle_log</name>
-    <server>&#x24;&#x7b;kettle_log_hostname&#x7d;</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;kettle_log_database&#x7d;</database>
-    <port>&#x24;&#x7b;kettle_log_port&#x7d;</port>
-    <username>&#x24;&#x7b;kettle_log_username&#x7d;</username>
-    <password>&#x24;&#x7b;kettle_log_password&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;kettle_log_port&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>mysql_db</name>
-    <server>&#x24;&#x7b;O_HOSTNAME&#x7d;</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;O_DATABASE&#x7d;</database>
-    <port>&#x24;&#x7b;O_PORT&#x7d;</port>
-    <username>&#x24;&#x7b;O_USERNAME&#x7d;</username>
-    <password>&#x24;&#x7b;O_PASSWORD&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;O_PORT&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>oracle_db</name>
-    <server>&#x24;&#x7b;O_HOSTNAME&#x7d;</server>
-    <type>ORACLE</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;O_DATABASE&#x7d;</database>
-    <port>&#x24;&#x7b;O_PORT&#x7d;</port>
-    <username>&#x24;&#x7b;O_USERNAME&#x7d;</username>
-    <password>&#x24;&#x7b;O_PASSWORD&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;O_PORT&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>research</name>
-    <server>&#x24;&#x7b;research_hostname&#x7d;</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;research_database&#x7d;</database>
-    <port>3306</port>
-    <username>&#x24;&#x7b;research_username&#x7d;</username>
-    <password>&#x24;&#x7b;research_password&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input</from><to>Write to log</to><enabled>Y</enabled> </hop>
-  <hop> <from>Write to log</from><to>Execute row SQL script</to><enabled>Y</enabled> </hop>
+  <hop> <from>Table input</from><to>User Defined Java Class</to><enabled>Y</enabled> </hop>
+  <hop> <from>User Defined Java Class</from><to>Modified Java Script Value</to><enabled>Y</enabled> </hop>
+  <hop> <from>Modified Java Script Value</from><to>Copy rows to result</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Execute row SQL script</name>
-    <type>ExecSQLRow</type>
+    <name>Copy rows to result</name>
+    <type>RowsToResult</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -234,19 +112,58 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <commit>50</commit>
-    <connection>bipay</connection>
-    <sql_field>column_name</sql_field>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <sqlFromfile>N</sqlFromfile>
-    <sendOneStatement>Y</sendOneStatement>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>570</xloc>
-      <yloc>141</yloc>
+      <xloc>756</xloc>
+      <yloc>175</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Modified Java Script Value</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xd;&#xa;&#xd;&#xa;&#x2f;&#x2f; &#x589e;&#x52a0;&#x7edd;&#x5bf9;&#x8def;&#x5f84;&#x76ee;&#x5f55;&#xd;&#xa;&#xd;&#xa;var rootdir &#x3d; getVariable&#x28;&#x22;root_dir&#x22;,&#x22;&#x22;&#x29;&#x2b;&#x22;&#x5c;&#x2f;&#x22;&#x2b;REPORT_DIR&#x3b;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;&#x2f;&#x2f; Alert&#x28;getVariable&#x28;&#x22;dir2&#x22;,&#x22;&#x22;&#x29;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;&#x2f;&#x2f;&#x622a;&#x53d6;&#x751f;&#x6210;&#x7684;html&#x6587;&#x4ef6;&#x540d;&#xd;&#xa;var file&#x3d;REPORT_FILENAME&#x3b;&#xd;&#xa;var REPORT_HTML &#x3d; substr&#x28;file,0,indexOf&#x28;file,&#x22;.&#x22;&#x29;&#x29;&#x2b;&#x22;.html&#x22;&#x3b;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;&#x2f;&#x2f; report_file&#xd;&#xa;var report_file &#x3d; rootdir&#x2b;&#x22;&#x5c;&#x2f;&#x22;&#x2b;REPORT_FILENAME&#x3b;&#xd;&#xa;var report_html_file&#x3d;rootdir&#x2b;&#x22;&#x5c;&#x2f;&#x22;&#x2b;REPORT_HTML&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>REPORT_HTML</name>
+        <rename>REPORT_HTML</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>rootdir</name>
+        <rename>REPORT_DIR</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>report_file</name>
+        <rename>report_file</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>report_html_file</name>
+        <rename>report_html_file</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>584</xloc>
+      <yloc>191</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -262,8 +179,8 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>oracle_db</connection>
-    <sql>select &#x27;COMMENT ON COLUMN &#x24;&#x7b;T_SCHEMA&#x7d;.&#x24;&#x7b;T_TABLE_NAME&#x7d;.&#x27;&#x7c;&#x7c;column_name&#x7c;&#x7c;&#x27; is &#x27;&#x7c;&#x7c;&#x27;&#x27;&#x27;&#x27;&#x7c;&#x7c; comments &#x7c;&#x7c;&#x27;&#x27;&#x27;&#x27; as column_name from all_col_comments&#xd;&#xa;where owner&#x3d; upper&#x28;&#x27;&#x24;&#x7b;S_SCHEMA&#x7d;&#x27;&#x29; and comments is not null and table_name&#x3d;upper&#x28;&#x27;&#x24;&#x7b;S_TABLE_NAME&#x7d;&#x27;&#x29;&#xd;&#xa;</sql>
+    <connection>bidb</connection>
+    <sql>-- SELECT &#x2a; FROM &#x24;&#x7b;tablename&#x7d; where status&#x3d;1 and upper&#x28;PLAY_CYCLE&#x29;&#x3d;upper&#x28;&#x27;&#x24;&#x7b;play&#x7d;&#x27;&#x29; order by to_number&#x28;id&#x29;&#xd;&#xa;-- SELECT &#x2a; FROM BI_DAILY_TASKS_REPORT where status&#x3d;1 and upper&#x28;PLAY_CYCLE&#x29;&#x3d;upper&#x28;&#x27;&#x24;&#x7b;play&#x7d;&#x27;&#x29; order by to_number&#x28;id&#x29;&#xd;&#xa;SELECT &#x2a; FROM &#x24;&#x7b;tablename&#x7d; where status&#x3d;1 and upper&#x28;PLAY_CYCLE&#x29;&#x3d;upper&#x28;&#x27;&#x24;&#x7b;play&#x7d;&#x27;&#x29; order by to_number&#x28;id&#x29;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -271,15 +188,15 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>223</xloc>
-      <yloc>164</yloc>
+      <xloc>265</xloc>
+      <yloc>189</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write to log</name>
-    <type>WriteToLog</type>
+    <name>User Defined Java Class</name>
+    <type>UserDefinedJavaClass</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -288,20 +205,124 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <loglevel>log_level_basic</loglevel>
-      <displayHeader>Y</displayHeader>
-      <limitRows>N</limitRows>
-      <limitRowsNumber>0</limitRowsNumber>
-      <logmessage>&#x8868; &#x24;&#x7b;T_TABLE_NAME&#x7d; &#x589e;&#x52a0;&#x6ce8;&#x91ca;</logmessage>
+
+    <definitions>
+        <definition>
+        <class_type>TRANSFORM_CLASS</class_type>
+
+        <class_name>Processor</class_name>
+
+        <class_source><![CDATA[static  String[] tList = null;
+static  String[] tnList =null;
+static String con=null;
+
+public boolean processRow(StepMetaInterface smi, StepDataInterface sdi) throws KettleException
+{
+    
+
+	if (first){
+	  first = false;
+	  String tablename = getVariable("id", "");
+	  tList = (null == tablename || "".equals(tablename)) ? null : tablename.split(",");
+
+      con = getVariable("cond", "");
+
+	  String tablename_no = getVariable("id_no", "");
+	  tnList = (null == tablename_no || "".equals(tablename_no)) ? null : tablename_no.split(","); 		
+
+	}
+   
+
+	Object[] r = getRow();
+
+	if (r == null) {
+	  setOutputDone();
+	  return false;
+	}
+
+	// It is always safest to call createOutputRow() to ensure that your output row's Object[] is large
+    // enough to handle any new fields you are creating in this step.
+    r = createOutputRow(r, data.outputRowMeta.size());
+	
+    String tn= get(Fields.In, "ID").getString(r);
+
+if(con != null && con.length()>0){
+
+String ids=tList[0];
+if(">".equalsIgnoreCase(con)){
+if(Integer.valueOf(tn)>Integer.valueOf(ids)){ putRow(data.outputRowMeta, r); }
+
+}else if(">=".equalsIgnoreCase(con)){
+if(Integer.valueOf(tn)>=Integer.valueOf(ids)){ putRow(data.outputRowMeta, r); }
+
+}else if("=".equalsIgnoreCase(con)){
+if(Integer.valueOf(tn)==Integer.valueOf(ids)){ putRow(data.outputRowMeta, r); }
+
+}else if("<".equalsIgnoreCase(con)){
+if(Integer.valueOf(tn)<Integer.valueOf(ids)){ putRow(data.outputRowMeta, r); }
+
+}else if("<=".equalsIgnoreCase(con)){
+if(Integer.valueOf(tn)<=Integer.valueOf(ids)){ putRow(data.outputRowMeta, r); }
+
+}else {
+logError("有问题");
+}	
+
+}else {
+	
+	if(null != tList && tList.length>0){
+		for (int i = 0; i < tList.length; i++) {
+			String tnp = tList[i];
+			if(null != tn && tnp.equalsIgnoreCase(tn)){
+              
+				    // 过滤的表
+					if(null != tnList && tnList.length>0){
+						boolean flag = true;
+						for (int j = 0; j < tnList.length; j++) {
+							String tnp2 = tnList[j];
+							if(null != tn && tnp2.equalsIgnoreCase(tn)){ flag=false; break;}
+						}
+							if(flag){ putRow(data.outputRowMeta, r); }
+					}else{
+							putRow(data.outputRowMeta, r);
+					}
+				    // 过滤的表
+
+
+			  break;
+			}
+			
+		}
+	}else{ 
+
+// 过滤的表
+		if(null != tnList && tnList.length>0){
+            boolean flag = true;
+			for (int i = 0; i < tnList.length; i++) {
+				String tnp2 = tnList[i];
+				if(null != tn && tnp2.equalsIgnoreCase(tn)){ flag=false; break;}
+		
+			}
+			if(flag){ putRow(data.outputRowMeta, r); }
+
+		}else{
+			putRow(data.outputRowMeta, r);
+		}
+// 过滤的表
+
+	}
+}
+	return true;
+}
+]]></class_source>
+        </definition>
+    </definitions>
     <fields>
-      <field>
-        <name>column_name</name>
-        </field>
-      </fields>
-     <cluster_schema/>
+    </fields><clear_result_fields>N</clear_result_fields>
+<info_steps></info_steps><target_steps></target_steps><usage_parameters></usage_parameters>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>389</xloc>
-      <yloc>253</yloc>
+      <xloc>444</xloc>
+      <yloc>189</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
