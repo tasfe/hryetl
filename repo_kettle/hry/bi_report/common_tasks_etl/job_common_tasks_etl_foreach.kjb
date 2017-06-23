@@ -4,11 +4,11 @@
     <extended_description/>
     <job_version/>
     <job_status>0</job_status>
-  <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+  <directory>&#x2f;hry&#x2f;bi_report&#x2f;common_tasks_etl</directory>
   <created_user>-</created_user>
   <created_date>2017&#x2f;01&#x2f;23 14&#x3a;16&#x3a;24.453</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;23 09&#x3a;46&#x3a;56.165</modified_date>
+  <modified_date>2017&#x2f;06&#x2f;22 10&#x3a;37&#x3a;09.336</modified_date>
     <parameters>
     </parameters>
   <connection>
@@ -208,7 +208,7 @@
       <trans_object_id/>
       <filename/>
       <transname>trans_common_tasks_etl_setVariables</transname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;common_tasks_etl</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -242,7 +242,7 @@
       <job_object_id/>
       <filename/>
       <jobname>job_common_tasks_one</jobname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;common_tasks_etl</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -290,17 +290,17 @@
       <replytoname>&#x24;&#x7b;email_sender_name&#x7d;</replytoname>
       <subject>&#x24;&#x7b;TITLE&#x7d; &#x24;&#x7b;ID&#x7d; - &#x5931;&#x8d25; &#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d;</subject>
       <include_date>N</include_date>
-      <contact_person/>
+      <contact_person>liuchunping</contact_person>
       <contact_phone/>
-      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;&#xd;&#xa;&#x6267;&#x884c;&#x8bed;&#x53e5;&#xff1a;&#xd;&#xa;&#x24;&#x7b;SOURCE_TABLE_MAX&#x7d;</comment>
-      <include_files>N</include_files>
+      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;</comment>
+      <include_files>Y</include_files>
       <zip_files>N</zip_files>
       <zip_name/>
       <use_auth>Y</use_auth>
       <use_secure_auth>N</use_secure_auth>
       <auth_user>&#x24;&#x7b;email_smtp_username&#x7d;</auth_user>
       <auth_password>&#x24;&#x7b;email_smtp_password&#x7d;</auth_password>
-      <only_comment>Y</only_comment>
+      <only_comment>N</only_comment>
       <use_HTML>N</use_HTML>
       <use_Priority>N</use_Priority>
       <encoding>UTF-8</encoding>

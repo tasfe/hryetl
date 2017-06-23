@@ -1,15 +1,75 @@
 <job>
-  <name>job_common_tasks_etl_foreach</name>
+  <name>job_app_log</name>
     <description/>
     <extended_description/>
     <job_version/>
-    <job_status>0</job_status>
-  <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+    <job_status>2</job_status>
+  <directory>&#x2f;hry&#x2f;sysc_log&#x2f;app_log_offline</directory>
   <created_user>-</created_user>
-  <created_date>2017&#x2f;01&#x2f;23 14&#x3a;16&#x3a;24.453</created_date>
+  <created_date>2016&#x2f;05&#x2f;18 16&#x3a;15&#x3a;48.200</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;23 09&#x3a;46&#x3a;56.165</modified_date>
+  <modified_date>2017&#x2f;06&#x2f;22 10&#x3a;44&#x3a;52.188</modified_date>
     <parameters>
+        <parameter>
+            <name>dir_host</name>
+            <default_value>5</default_value>
+            <description>&#x4e3b;&#x673a;</description>
+        </parameter>
+        <parameter>
+            <name>dir_source</name>
+            <default_value>&#x2f;data&#x2f;bi&#x2f;app&#x2f;zips</default_value>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>dir_target</name>
+            <default_value>&#x2f;data&#x2f;bi&#x2f;app&#x2f;zips</default_value>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>file_extension</name>
+            <default_value>.&#x2a;.zip</default_value>
+            <description>&#x76ee;&#x6807;&#x6587;&#x4ef6;&#x6269;&#x5c55;&#x540d;</description>
+        </parameter>
+        <parameter>
+            <name>file_size</name>
+            <default_value>22</default_value>
+            <description>&#x7a7a;&#x6587;&#x4ef6;&#x5927;&#x5c0f;</description>
+        </parameter>
+        <parameter>
+            <name>filenum</name>
+            <default_value>50</default_value>
+            <description>&#x9650;&#x5236;&#x5904;&#x7406;zip&#x6587;&#x4ef6;&#x4e2a;&#x6570;</description>
+        </parameter>
+        <parameter>
+            <name>host_web</name>
+            <default_value>10.228.13.5</default_value>
+            <description>&#x4e3b;&#x673a;ip</description>
+        </parameter>
+        <parameter>
+            <name>hours_num</name>
+            <default_value>2</default_value>
+            <description>&#x63a7;&#x5236;&#x5c0f;&#x65f6;&#x6587;&#x4ef6;&#x5165;&#x5e93;</description>
+        </parameter>
+        <parameter>
+            <name>mins</name>
+            <default_value>56</default_value>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>password</name>
+            <default_value>1234567</default_value>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>start_date</name>
+            <default_value/>
+            <description>&#x5f53;&#x524d;&#x65e5;&#x671f;</description>
+        </parameter>
+        <parameter>
+            <name>username</name>
+            <default_value>root</default_value>
+            <description/>
+        </parameter>
     </parameters>
   <connection>
     <name>bidb90</name>
@@ -181,6 +241,36 @@
    <shared_objects_file/>
   <entries>
     <entry>
+      <name>Get a file with SFTP</name>
+      <description/>
+      <type>SFTP</type>
+      <servername>&#x24;&#x7b;host_web&#x7d;</servername>
+      <serverport>22</serverport>
+      <username>&#x24;&#x7b;username&#x7d;</username>
+      <password>&#x24;&#x7b;password&#x7d;</password>
+      <sftpdirectory>&#x24;&#x7b;dir_source&#x7d;</sftpdirectory>
+      <targetdirectory>&#x24;&#x7b;dir_target&#x7d;&#x24;&#x7b;dir_host&#x7d;</targetdirectory>
+      <wildcard>&#x24;&#x7b;file_extension&#x7d;</wildcard>
+      <remove>Y</remove>
+      <isaddresult>Y</isaddresult>
+      <createtargetfolder>Y</createtargetfolder>
+      <copyprevious>N</copyprevious>
+      <usekeyfilename>N</usekeyfilename>
+      <keyfilename/>
+      <keyfilepass>Encrypted </keyfilepass>
+      <compression>none</compression>
+      <proxyType/>
+      <proxyHost/>
+      <proxyPort/>
+      <proxyUsername/>
+      <proxyPassword>Encrypted </proxyPassword>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>172</xloc>
+      <yloc>108</yloc>
+      </entry>
+    <entry>
       <name>START</name>
       <description/>
       <type>SPECIAL</type>
@@ -197,23 +287,66 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>166</xloc>
-      <yloc>177</yloc>
+      <xloc>52</xloc>
+      <yloc>200</yloc>
       </entry>
     <entry>
-      <name>trans_common_tasks_etl_setVariables</name>
+      <name>Evaluate files metrics</name>
+      <description/>
+      <type>EVAL_FILES_METRICS</type>
+      <result_filenames_wildcard/>
+      <Result_field_file/>
+      <Result_field_wildcard/>
+      <Result_field_includesubfolders/>
+      <fields>
+      </fields>
+      <comparevalue>1</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successnumbercondition>greaterequal</successnumbercondition>
+      <source_files>filenamesresult</source_files>
+      <evaluation_type>count</evaluation_type>
+      <scale>bytes</scale>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>267</xloc>
+      <yloc>271</yloc>
+      </entry>
+    <entry>
+      <name>DUMMY</name>
+      <description/>
+      <type>SPECIAL</type>
+      <start>N</start>
+      <dummy>Y</dummy>
+      <repeat>N</repeat>
+      <schedulerType>0</schedulerType>
+      <intervalSeconds>0</intervalSeconds>
+      <intervalMinutes>60</intervalMinutes>
+      <hour>12</hour>
+      <minutes>0</minutes>
+      <weekDay>1</weekDay>
+      <DayOfMonth>1</DayOfMonth>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>342</xloc>
+      <yloc>82</yloc>
+      </entry>
+    <entry>
+      <name>trans_limit_filenum</name>
       <description/>
       <type>TRANS</type>
       <specification_method>rep_name</specification_method>
       <trans_object_id/>
       <filename/>
-      <transname>trans_common_tasks_etl_setVariables</transname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <transname>trans_limit_filenum</transname>
+      <directory>&#x2f;hry&#x2f;sysc_log&#x2f;app_log_offline</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
+      <clear_rows>Y</clear_rows>
+      <clear_files>Y</clear_files>
       <set_logfile>N</set_logfile>
       <logfile/>
       <logext/>
@@ -231,20 +364,117 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>331</xloc>
-      <yloc>214</yloc>
+      <xloc>540</xloc>
+      <yloc>308</yloc>
       </entry>
     <entry>
-      <name>job_common_tasks_one</name>
+      <name>job_app_log_foreach</name>
       <description/>
       <type>JOB</type>
       <specification_method>rep_name</specification_method>
       <job_object_id/>
       <filename/>
-      <jobname>job_common_tasks_one</jobname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <jobname>job_app_log_foreach</jobname>
+      <directory>&#x2f;hry&#x2f;sysc_log&#x2f;app_log_offline</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
+      <exec_per_row>Y</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <expand_remote_job>N</expand_remote_job>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <force_separate_logging>N</force_separate_logging>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+            <parameter>            <name>filename</name>
+            <stream_name>filename</stream_name>
+            <value/>
+            </parameter>            <parameter>            <name>size</name>
+            <stream_name>size</stream_name>
+            <value/>
+            </parameter>            <parameter>            <name>path</name>
+            <stream_name>path</stream_name>
+            <value/>
+            </parameter>            <parameter>            <name>id</name>
+            <stream_name>id</stream_name>
+            <value/>
+            </parameter>      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>656</xloc>
+      <yloc>135</yloc>
+      </entry>
+    <entry>
+      <name>trans_app_log_save_file</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>rep_name</specification_method>
+      <trans_object_id/>
+      <filename/>
+      <transname>trans_app_log_save_file</transname>
+      <directory>&#x2f;hry&#x2f;sysc_log&#x2f;app_log_offline</directory>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>Y</clear_rows>
+      <clear_files>Y</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>810</xloc>
+      <yloc>252</yloc>
+      </entry>
+    <entry>
+      <name>Delete folders</name>
+      <description/>
+      <type>DELETE_FOLDERS</type>
+      <arg_from_previous>N</arg_from_previous>
+      <success_condition>success_if_no_errors</success_condition>
+      <limit_folders>10</limit_folders>
+      <fields>
+        <field>
+          <name>&#x24;&#x7b;dir_target&#x7d;&#x2f;..&#x2f;unzip&#x2f;&#x24;&#x7b;dir_host&#x7d;</name>
+        </field>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>413</xloc>
+      <yloc>235</yloc>
+      </entry>
+    <entry>
+      <name>job_load_app_log</name>
+      <description/>
+      <type>JOB</type>
+      <specification_method>rep_name</specification_method>
+      <job_object_id/>
+      <filename/>
+      <jobname>job_load_app_log</jobname>
+      <directory>&#x2f;hry&#x2f;sysc_log&#x2f;app_log_offline</directory>
+      <arg_from_previous>Y</arg_from_previous>
+      <params_from_previous>Y</params_from_previous>
       <exec_per_row>N</exec_per_row>
       <set_logfile>N</set_logfile>
       <logfile/>
@@ -264,18 +494,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>544</xloc>
-      <yloc>209</yloc>
-      </entry>
-    <entry>
-      <name>Success</name>
-      <description/>
-      <type>SUCCESS</type>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>732</xloc>
-      <yloc>211</yloc>
+      <xloc>881</xloc>
+      <yloc>109</yloc>
       </entry>
     <entry>
       <name>Mail Failed</name>
@@ -288,11 +508,11 @@
       <destinationBCc/>
       <replyto>&#x24;&#x7b;email_sender_address&#x7d;</replyto>
       <replytoname>&#x24;&#x7b;email_sender_name&#x7d;</replytoname>
-      <subject>&#x24;&#x7b;TITLE&#x7d; &#x24;&#x7b;ID&#x7d; - &#x5931;&#x8d25; &#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d;</subject>
+      <subject>&#x24;&#x7b;Internal.Job.Filename.Name&#x7d;-&#x24;&#x7b;dir_host&#x7d; -  &#x5931;&#x8d25;</subject>
       <include_date>N</include_date>
       <contact_person/>
       <contact_phone/>
-      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;&#xd;&#xa;&#x6267;&#x884c;&#x8bed;&#x53e5;&#xff1a;&#xd;&#xa;&#x24;&#x7b;SOURCE_TABLE_MAX&#x7d;</comment>
+      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;</comment>
       <include_files>N</include_files>
       <zip_files>N</zip_files>
       <zip_name/>
@@ -300,7 +520,7 @@
       <use_secure_auth>N</use_secure_auth>
       <auth_user>&#x24;&#x7b;email_smtp_username&#x7d;</auth_user>
       <auth_password>&#x24;&#x7b;email_smtp_password&#x7d;</auth_password>
-      <only_comment>Y</only_comment>
+      <only_comment>N</only_comment>
       <use_HTML>N</use_HTML>
       <use_Priority>N</use_Priority>
       <encoding>UTF-8</encoding>
@@ -309,20 +529,30 @@
       <sensitivity>normal</sensitivity>
       <secureconnectiontype>SSL</secureconnectiontype>
       <replyToAddresses/>
-      <filetypes>        <filetype>GENERAL</filetype>
+      <filetypes>        <filetype>LOG</filetype>
       </filetypes>      <embeddedimages>
       </embeddedimages>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>458</xloc>
-      <yloc>333</yloc>
+      <xloc>535</xloc>
+      <yloc>483</yloc>
+      </entry>
+    <entry>
+      <name>Success</name>
+      <description/>
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1015</xloc>
+      <yloc>190</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
       <from>START</from>
-      <to>trans_common_tasks_etl_setVariables</to>
+      <to>Get a file with SFTP</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -330,8 +560,8 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>trans_common_tasks_etl_setVariables</from>
-      <to>job_common_tasks_one</to>
+      <from>Get a file with SFTP</from>
+      <to>Evaluate files metrics</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -339,8 +569,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_common_tasks_one</from>
-      <to>Success</to>
+      <from>Evaluate files metrics</from>
+      <to>DUMMY</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_limit_filenum</from>
+      <to>job_app_log_foreach</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -348,7 +587,52 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_common_tasks_etl_setVariables</from>
+      <from>job_app_log_foreach</from>
+      <to>trans_app_log_save_file</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Evaluate files metrics</from>
+      <to>Delete folders</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Delete folders</from>
+      <to>trans_limit_filenum</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Delete folders</from>
+      <to>DUMMY</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_app_log_save_file</from>
+      <to>job_load_app_log</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_app_log_save_file</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -357,7 +641,43 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_common_tasks_one</from>
+      <from>job_app_log_foreach</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_limit_filenum</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>job_load_app_log</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Get a file with SFTP</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>job_load_app_log</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -367,6 +687,27 @@
     </hop>
   </hops>
   <notepads>
+    <notepad>
+      <note>&#x53c2;&#x6570;&#x8bf4;&#x660e;&#xff1a;&#xd;&#xa;dir_host &#x4e3b;&#x673a;&#x53f7;&#x76ee;&#x524d;&#x6709;&#xff1a;4&#xff0c;5&#xd;&#xa;dir_source &#x6e90;&#x6587;&#x4ef6;&#x7684;&#x76ee;&#x5f55; &#x2f;data&#x2f;bi&#x2f;app&#x2f;zips	&#xd;&#xa;dir_target &#x628a;&#x6e90;&#x6587;&#x4ef6;&#x4e0b;&#x8f7d;&#x5230;&#x76ee;&#x6807;&#x76ee;&#x5f55;	C&#x3a;&#x5c;Users&#x5c;aa&#x5c;Desktop&#x5c;app_log&#x5c;	&#xd;&#xa;file_extension	&#x76ee;&#x6807;&#x6587;&#x4ef6;&#x6269;&#x5c55;&#x540d;.&#x2a;.zip&#xd;&#xa;file_size &#x89e3;&#x51b3;&#x7a7a;&#x6587;&#x4ef6;&#x95ee;&#x9898;&#xff0c;&#x5927;&#x5c0f;22&#xd;&#xa;filenum &#x9650;&#x5236;&#x5904;&#x7406;zip&#x6587;&#x4ef6;&#x4e2a;&#x6570;&#xd;&#xa;host_web	 &#x6e90;&#x4e3b;&#x673a;ip 10.228.13.4	&#xd;&#xa;start_date &#x5f53;&#x524d;&#x65e5;&#x671f;	&#xd;&#xa;hours_num &#x63a7;&#x5236;&#x6587;&#x4ef6;&#x5165;&#x5e93;&#xff0c;&#x5f53;&#x524d;&#x5c0f;&#x65f6;&#x6570;&#x25;hours_num&#xd;&#xa;</note>
+      <xloc>1168</xloc>
+      <yloc>4</yloc>
+      <width>442</width>
+      <heigth>191</heigth>
+      <fontname>&#x5fae;&#x8f6f;&#x96c5;&#x9ed1;</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
 
 </job>

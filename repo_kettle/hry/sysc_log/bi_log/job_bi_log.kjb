@@ -1,16 +1,70 @@
 <job>
-  <name>job_export_one</name>
+  <name>job_bi_log</name>
     <description/>
     <extended_description/>
     <job_version/>
     <job_status>0</job_status>
-  <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
+  <directory>&#x2f;hry&#x2f;sysc_log&#x2f;bi_log</directory>
   <created_user>-</created_user>
-  <created_date>2017&#x2f;05&#x2f;24 10&#x3a;24&#x3a;43.410</created_date>
+  <created_date>2015&#x2f;09&#x2f;02 14&#x3a;24&#x3a;27.890</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;22 11&#x3a;02&#x3a;01.367</modified_date>
+  <modified_date>2017&#x2f;06&#x2f;22 10&#x3a;45&#x3a;43.767</modified_date>
     <parameters>
+        <parameter>
+            <name>file_profix</name>
+            <default_value>bi</default_value>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>host_name</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>host_num</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>mid_dir</name>
+            <default_value>&#x2f;data&#x2f;bi&#x2f;mid_log</default_value>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>source_dir</name>
+            <default_value>&#x2f;opt&#x2f;logs&#x2f;java&#x2f;zhuanle&#x2f;history</default_value>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>start_date_dfs</name>
+            <default_value/>
+            <description/>
+        </parameter>
     </parameters>
+  <connection>
+    <name>bidb</name>
+    <server>&#x24;&#x7b;bidb_hostname&#x7d;</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;bidb_database&#x7d;</database>
+    <port>&#x24;&#x7b;bidb_port&#x7d;</port>
+    <username>&#x24;&#x7b;bidb_username&#x7d;</username>
+    <password>&#x24;&#x7b;bidb_password&#x7d;</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;bidb_port&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>N</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>N</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>bidb90</name>
     <server>10.228.7.90</server>
@@ -197,18 +251,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>103</xloc>
-      <yloc>172</yloc>
+      <xloc>113</xloc>
+      <yloc>35</yloc>
       </entry>
     <entry>
-      <name>trans_set_variables</name>
+      <name>trans_bi_log</name>
       <description/>
       <type>TRANS</type>
       <specification_method>rep_name</specification_method>
       <trans_object_id/>
       <filename/>
-      <transname>trans_set_variables</transname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
+      <transname>trans_bi_log</transname>
+      <directory>&#x2f;hry&#x2f;sysc_log&#x2f;bi_log</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -231,76 +285,24 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>165</xloc>
-      <yloc>330</yloc>
+      <xloc>814</xloc>
+      <yloc>181</yloc>
       </entry>
     <entry>
-      <name>trans_get_s_table_meta</name>
+      <name>&#x5220;&#x9664;&#x5b58;&#x5728;&#x6570;&#x636e;</name>
       <description/>
-      <type>TRANS</type>
-      <specification_method>rep_name</specification_method>
-      <trans_object_id/>
-      <filename/>
-      <transname>trans_get_s_table_meta</transname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
+      <type>SQL</type>
+      <sql>DELETE FROM bi_log WHERE fname&#x3d;&#x27;bi_&#x24;&#x7b;host_num&#x7d;.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz&#x27; and log_time&#x3e;sysdate-2&#x3b;&#xd;&#xa;-- DELETE FROM bi_log WHERE fname&#x3d;&#x27;bi_6.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz&#x27; and log_time&#x3e;sysdate-2&#x3b;</sql>
+      <useVariableSubstitution>T</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>bidb</connection>
+      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>244</xloc>
-      <yloc>203</yloc>
-      </entry>
-    <entry>
-      <name>trans_get_t_table_meta</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>rep_name</specification_method>
-      <trans_object_id/>
-      <filename/>
-      <transname>trans_get_t_table_meta</transname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>284</xloc>
-      <yloc>322</yloc>
+      <xloc>639</xloc>
+      <yloc>237</yloc>
       </entry>
     <entry>
       <name>Mail Failed</name>
@@ -312,12 +314,128 @@
       <destinationCc/>
       <destinationBCc/>
       <replyto>&#x24;&#x7b;email_sender_address&#x7d;</replyto>
-      <replytoname>&#x24;&#x7b;email_sender_name&#x7d;</replytoname>
-      <subject>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;S_SCHEMA&#x7d;.&#x24;&#x7b;S_TABLE_NAME&#x7d;  -  &#x5931;&#x8d25;</subject>
-      <include_date>N</include_date>
+      <replytoname>&#x24;&#x7b;email_sender_name&#x7d;-&#x24;&#x7b;Internal.Job.Name&#x7d;</replytoname>
+      <subject>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date_dfs&#x7d; - &#x24;&#x7b;host_name&#x7d;  - &#x5931;&#x8d25;</subject>
+      <include_date>Y</include_date>
       <contact_person/>
       <contact_phone/>
-      <comment>&#x24;&#x7b;S_SCHEMA&#x7d;.&#x24;&#x7b;S_TABLE_NAME&#x7d; &#x540c;&#x6b65;&#x5931;&#x8d25;&#xd;&#xa;&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;</comment>
+      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;</comment>
+      <include_files>N</include_files>
+      <zip_files>N</zip_files>
+      <zip_name/>
+      <use_auth>Y</use_auth>
+      <use_secure_auth>N</use_secure_auth>
+      <auth_user>&#x24;&#x7b;email_smtp_username&#x7d;</auth_user>
+      <auth_password>&#x24;&#x7b;email_smtp_password&#x7d;</auth_password>
+      <only_comment>N</only_comment>
+      <use_HTML>N</use_HTML>
+      <use_Priority>N</use_Priority>
+      <encoding>UTF-8</encoding>
+      <priority>normal</priority>
+      <importance>normal</importance>
+      <sensitivity>normal</sensitivity>
+      <secureconnectiontype>SSL</secureconnectiontype>
+      <replyToAddresses/>
+      <filetypes>        <filetype>ERRORLINE</filetype>
+      </filetypes>      <embeddedimages>
+      </embeddedimages>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>707</xloc>
+      <yloc>676</yloc>
+      </entry>
+    <entry>
+      <name>Success</name>
+      <description/>
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1129</xloc>
+      <yloc>209</yloc>
+      </entry>
+    <entry>
+      <name>Shell &#x4e0b;&#x8f7d;&#x4e2d;&#x95f4;&#x5c42;&#x65e5;&#x5fd7;</name>
+      <description/>
+      <type>SHELL</type>
+      <filename/>
+      <work_directory>&#x2f;home&#x2f;bi&#x2f;</work_directory>
+      <arg_from_previous>N</arg_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <set_append_logfile>N</set_append_logfile>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <insertScript>Y</insertScript>
+      <script>scp &#x24;&#x7b;host_name&#x7d;&#x3a;&#x24;&#x7b;source_dir&#x7d;&#x2f;&#x24;&#x7b;file_profix&#x7d;.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz  &#x2f;data&#x2f;bi&#x2f;mid_log&#x2f;&#x24;&#x7b;file_profix&#x7d;_&#x24;&#x7b;host_num&#x7d;.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz&#x3b;</script>
+      <loglevel>Basic</loglevel>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>229</xloc>
+      <yloc>289</yloc>
+      </entry>
+    <entry>
+      <name>Add filenames to result &#x68c0;&#x67e5;&#x6587;&#x4ef6;&#x6570;</name>
+      <description/>
+      <type>ADD_RESULT_FILENAMES</type>
+      <arg_from_previous>N</arg_from_previous>
+      <include_subfolders>N</include_subfolders>
+      <delete_all_before>N</delete_all_before>
+      <fields>
+        <field>
+          <name>&#x24;&#x7b;mid_dir&#x7d;</name>
+          <filemask>&#x24;&#x7b;file_profix&#x7d;_&#x24;&#x7b;host_num&#x7d;.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz</filemask>
+        </field>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>342</xloc>
+      <yloc>153</yloc>
+      </entry>
+    <entry>
+      <name>Evaluate files metrics</name>
+      <description/>
+      <type>EVAL_FILES_METRICS</type>
+      <result_filenames_wildcard/>
+      <Result_field_file/>
+      <Result_field_wildcard/>
+      <Result_field_includesubfolders/>
+      <fields>
+      </fields>
+      <comparevalue>1</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successnumbercondition>equal</successnumbercondition>
+      <source_files>filenamesresult</source_files>
+      <evaluation_type>count</evaluation_type>
+      <scale>bytes</scale>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>467</xloc>
+      <yloc>232</yloc>
+      </entry>
+    <entry>
+      <name>Mail Successed</name>
+      <description/>
+      <type>MAIL</type>
+      <server>&#x24;&#x7b;email_smtp_server&#x7d;</server>
+      <port>&#x24;&#x7b;email_smtp_port&#x7d;</port>
+      <destination>&#x24;&#x7b;email_ok&#x7d;</destination>
+      <destinationCc/>
+      <destinationBCc/>
+      <replyto>&#x24;&#x7b;email_sender_address&#x7d;</replyto>
+      <replytoname>&#x24;&#x7b;email_sender_name&#x7d;</replytoname>
+      <subject>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date_dfs&#x7d; - &#x24;&#x7b;host_name&#x7d; - &#x6210;&#x529f;</subject>
+      <include_date>Y</include_date>
+      <contact_person/>
+      <contact_phone/>
+      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;</comment>
       <include_files>Y</include_files>
       <zip_files>N</zip_files>
       <zip_name/>
@@ -334,139 +452,40 @@
       <sensitivity>normal</sensitivity>
       <secureconnectiontype>SSL</secureconnectiontype>
       <replyToAddresses/>
-      <filetypes>        <filetype>LOG</filetype>
+      <filetypes>        <filetype>ERRORLINE</filetype>
       </filetypes>      <embeddedimages>
       </embeddedimages>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>299</xloc>
-      <yloc>732</yloc>
+      <xloc>1126</xloc>
+      <yloc>334</yloc>
       </entry>
     <entry>
-      <name>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;</name>
-      <description/>
-      <type>SIMPLE_EVAL</type>
-      <valuetype>variable</valuetype>
-      <fieldname>&#x24;&#x7b;source_size&#x7d;</fieldname>
-      <variablename>&#x24;&#x7b;T_TABLE_EXISTS&#x7d;</variablename>
-      <fieldtype>boolean</fieldtype>
-      <mask/>
-      <comparevalue>0</comparevalue>
-      <minvalue/>
-      <maxvalue/>
-      <successcondition>equal</successcondition>
-      <successnumbercondition>greater</successnumbercondition>
-      <successbooleancondition>true</successbooleancondition>
-      <successwhenvarset>N</successwhenvarset>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>396</xloc>
-      <yloc>241</yloc>
-      </entry>
-    <entry>
-      <name>&#x8868;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;</name>
-      <description/>
-      <type>SIMPLE_EVAL</type>
-      <valuetype>variable</valuetype>
-      <fieldname/>
-      <variablename>&#x24;&#x7b;CHECK_FIELD&#x7d;</variablename>
-      <fieldtype>boolean</fieldtype>
-      <mask/>
-      <comparevalue/>
-      <minvalue/>
-      <maxvalue/>
-      <successcondition>equal</successcondition>
-      <successnumbercondition>equal</successnumbercondition>
-      <successbooleancondition>true</successbooleancondition>
-      <successwhenvarset>N</successwhenvarset>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>517</xloc>
-      <yloc>151</yloc>
-      </entry>
-    <entry>
-      <name>drop table</name>
+      <name>SQL oracle 2</name>
       <description/>
       <type>SQL</type>
-      <sql>truncate table &#x24;&#x7b;T_SCHEMA&#x7d;.&#x24;&#x7b;T_TABLE_NAME&#x7d;&#x3b;&#xd;&#xa;drop table &#x24;&#x7b;T_SCHEMA&#x7d;.&#x24;&#x7b;T_TABLE_NAME&#x7d;&#x3b;</sql>
+      <sql>-- &#x8fd9;&#x4e2a;&#x5730;&#x65b9;&#x4e0d;&#x7528;&#x5220;&#x9664;&#x6570;&#x636e;&#xff0c;&#x56e0;&#x4e3a;&#x540c;&#x6b65;&#x7684;&#x65f6;&#x5019;&#x4f1a;&#x5bf9;fname&#x505a;&#x5168;&#x90e8;&#x5220;&#x9664;&#x3002;&#x5305;&#x62ec;&#x8fd9;&#x90e8;&#x5206;&#x6570;&#x636e;&#xd;&#xa;insert into bi_log &#x28;sid, network, network_manager, log_time, channel, device_id, user_id, sys_name, log_version, ip_add, app_version, event_type, event_status, event_desc, event_context, event_context_one, &#xd;&#xa;  event_context_two, event_context_three, event_context_four, event_context_fire, event_context_sixe, fname, create_time,country, province, city&#x29;&#xd;&#xa;select &#xd;&#xa;sid, network, network_manager, log_time, channel, device_id, user_id, sys_name, log_version, ip_add, app_version, &#x27;login&#x27; as event_type, event_status, event_desc, &#xd;&#xa;event_context, event_context_one, event_context_two, event_context_three, event_context_four, event_context_fire, &#x27;auto_login&#x27;as event_context_sixe, fname, create_time,country, province,city&#xd;&#xa; from&#xd;&#xa;&#x28;&#xd;&#xa;select t.&#x2a;,row_number&#x28;&#x29; over&#x28;partition by user_id order by log_time&#x29; as rn&#xd;&#xa; from bi_log t where to_char&#x28;log_time,&#x27;YYYY-MM-DD&#x27;&#x29; &#x3d; &#x27;&#x24;&#x7b;start_date_dfs&#x7d;&#x27; and user_id is not null and event_type &#x3d;&#x27;register&#x27; and event_status &#x3d;&#x27;success&#x27;&#xd;&#xa;&#x29; t where rn&#x3d;1&#x3b;</sql>
       <useVariableSubstitution>T</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
       <sendOneStatement>F</sendOneStatement>
-      <connection>bipay</connection>
+      <connection>bidb</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>545</xloc>
-      <yloc>266</yloc>
+      <xloc>968</xloc>
+      <yloc>242</yloc>
       </entry>
     <entry>
-      <name>&#x662f;&#x5426;&#x52a0;&#x5165;&#x589e;&#x91cf;&#x540c;&#x6b65;</name>
-      <description/>
-      <type>SIMPLE_EVAL</type>
-      <valuetype>variable</valuetype>
-      <fieldname/>
-      <variablename>&#x24;&#x7b;SYNC_FLAG&#x7d;</variablename>
-      <fieldtype>boolean</fieldtype>
-      <mask/>
-      <comparevalue/>
-      <minvalue/>
-      <maxvalue/>
-      <successcondition>equal</successcondition>
-      <successnumbercondition>equal</successnumbercondition>
-      <successbooleancondition>true</successbooleancondition>
-      <successwhenvarset>N</successwhenvarset>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>623</xloc>
-      <yloc>102</yloc>
-      </entry>
-    <entry>
-      <name>job_sync_one_table</name>
-      <description/>
-      <type>JOB</type>
-      <specification_method>rep_name</specification_method>
-      <job_object_id/>
-      <filename/>
-      <jobname>job_sync_one_table</jobname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <force_separate_logging>N</force_separate_logging>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>999</xloc>
-      <yloc>71</yloc>
-      </entry>
-    <entry>
-      <name>trans_table_oracle_oracle</name>
+      <name>trans_if_sync_log</name>
       <description/>
       <type>TRANS</type>
       <specification_method>rep_name</specification_method>
       <trans_object_id/>
       <filename/>
-      <transname>trans_table_oracle_oracle</transname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
+      <transname>trans_if_sync_log</transname>
+      <directory>&#x2f;hry&#x2f;sysc_log&#x2f;common</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -474,7 +493,7 @@
       <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
       <logfile/>
-      <logext/>
+      <logext>log</logext>
       <add_date>N</add_date>
       <add_time>N</add_time>
       <loglevel>Basic</loglevel>
@@ -483,76 +502,77 @@
       <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
+      <create_parent_folder>Y</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
+      <argument0>bi_&#x24;&#x7b;host_num&#x7d;.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz</argument0>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>924</xloc>
-      <yloc>363</yloc>
+      <xloc>519</xloc>
+      <yloc>115</yloc>
       </entry>
     <entry>
-      <name>job_export_create_table</name>
+      <name>Simple evaluation</name>
       <description/>
-      <type>JOB</type>
-      <specification_method>rep_name</specification_method>
-      <job_object_id/>
-      <filename/>
-      <jobname>job_export_create_table</jobname>
-      <directory>&#x2f;kjt&#x2f;export_data&#x2f;kjtpay_jdbc</directory>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <force_separate_logging>N</force_separate_logging>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>&#x24;&#x7b;FLAG&#x7d;</variablename>
+      <fieldtype>boolean</fieldtype>
+      <mask/>
+      <comparevalue/>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>true</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>572</xloc>
-      <yloc>437</yloc>
+      <xloc>622</xloc>
+      <yloc>137</yloc>
       </entry>
     <entry>
-      <name>Success</name>
+      <name>&#x6267;&#x884c;&#x6210;&#x529f;&#x63d2;&#x5165;&#x65e5;&#x5fd7;</name>
       <description/>
-      <type>SUCCESS</type>
+      <type>SQL</type>
+      <sql>insert into k_sync_log_log &#x28;sync_key&#x29; values &#x28;&#x27;bi_&#x24;&#x7b;host_num&#x7d;.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz&#x27;&#x29;&#x3b;</sql>
+      <useVariableSubstitution>T</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>bidb</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1095</xloc>
-      <yloc>440</yloc>
-      </entry>
-    <entry>
-      <name>Write To Log 2</name>
-      <description/>
-      <type>WRITE_TO_LOG</type>
-      <logmessage>&#x4efb;&#x52a1;ID&#x3a; &#x24;&#x7b;ID&#x7d;&#xd;&#xa;&#x6e90;&#x8868;&#x540d;&#xff1a;  &#x24;&#x7b;S_SCHEMA&#x7d;.&#x24;&#x7b;S_TABLE_NAME&#x7d;&#x40;&#x24;&#x7b;DBLINK&#x7d;   &#x5b57;&#x6bb5;&#x6570;&#xff1a;&#x24;&#x7b;S_COLS&#x7d; ,&#x6570;&#x636e;&#x6e90;&#xff1a;&#x24;&#x7b;S_DATASOURCE&#x7d;&#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#x540d;&#xff1a; &#x24;&#x7b;T_SCHEMA&#x7d;.&#x24;&#x7b;T_TABLE_NAME&#x7d; &#x5b57;&#x6bb5;&#x6570;&#xff1a;&#x24;&#x7b;T_COLS&#x7d; , &#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#x662f;&#x5426;&#x5b58;&#x5728;&#xff1a;&#x24;&#x7b;T_TABLE_EXISTS&#x7d;&#xd;&#xa;&#x68c0;&#x67e5;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;&#xff1a;&#x24;&#x7b;CHECK_FIELD&#x7d;&#xd;&#xa;&#x662f;&#x5426;&#x589e;&#x91cf;&#x540c;&#x6b65;&#xff1a;&#x24;&#x7b;SYNC_FLAG&#x7d;&#xd;&#xa;&#x89c4;&#x5219;&#xff1a;&#xd;&#xa;&#x6e90;&#x8868;&#xff1a;&#x24;&#x7b;S_TABLE_MAX&#x7d;&#xd;&#xa;&#x76ee;&#x6807;&#x8868;&#xff1a;&#x24;&#x7b;T_TABLE_MAX&#x7d;&#xd;&#xa;s_sql&#x3a;  &#x24;&#x7b;S_SQL&#x7d;&#xd;&#xa;&#xd;&#xa;CONDITION &#x3a; &#x24;&#x7b;CONDITION&#x7d;&#xd;&#xa;CONDITION2 &#x3a; &#x24;&#x7b;CONDITION2&#x7d;&#xd;&#xa;&#x24;&#x7b;ISDEL&#x7d;</logmessage>
-      <loglevel>Basic</loglevel>
-      <logsubject/>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>347</xloc>
-      <yloc>447</yloc>
+      <xloc>719</xloc>
+      <yloc>139</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
+      <from>&#x5220;&#x9664;&#x5b58;&#x5728;&#x6570;&#x636e;</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_bi_log</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>START</from>
-      <to>trans_set_variables</to>
+      <to>Shell &#x4e0b;&#x8f7d;&#x4e2d;&#x95f4;&#x5c42;&#x65e5;&#x5fd7;</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -560,25 +580,7 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>trans_set_variables</from>
-      <to>trans_get_s_table_meta</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>trans_get_s_table_meta</from>
-      <to>trans_get_t_table_meta</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>trans_set_variables</from>
+      <from>Shell &#x4e0b;&#x8f7d;&#x4e2d;&#x95f4;&#x5c42;&#x65e5;&#x5fd7;</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -587,26 +589,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;</from>
-      <to>&#x8868;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>&#x8868;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;</from>
-      <to>drop table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>&#x8868;&#x5b57;&#x6bb5;&#x662f;&#x5426;&#x53d8;&#x5316;</from>
-      <to>&#x662f;&#x5426;&#x52a0;&#x5165;&#x589e;&#x91cf;&#x540c;&#x6b65;</to>
+      <from>Add filenames to result &#x68c0;&#x67e5;&#x6587;&#x4ef6;&#x6570;</from>
+      <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -614,8 +598,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>&#x662f;&#x5426;&#x52a0;&#x5165;&#x589e;&#x91cf;&#x540c;&#x6b65;</from>
-      <to>job_sync_one_table</to>
+      <from>Add filenames to result &#x68c0;&#x67e5;&#x6587;&#x4ef6;&#x6570;</from>
+      <to>Evaluate files metrics</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -623,8 +607,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>&#x662f;&#x5426;&#x52a0;&#x5165;&#x589e;&#x91cf;&#x540c;&#x6b65;</from>
-      <to>trans_table_oracle_oracle</to>
+      <from>Shell &#x4e0b;&#x8f7d;&#x4e2d;&#x95f4;&#x5c42;&#x65e5;&#x5fd7;</from>
+      <to>Add filenames to result &#x68c0;&#x67e5;&#x6587;&#x4ef6;&#x6570;</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Evaluate files metrics</from>
+      <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -632,8 +625,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;</from>
-      <to>job_export_create_table</to>
+      <from>Success</from>
+      <to>Mail Successed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Mail Successed</from>
+      <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -641,8 +643,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>drop table</from>
-      <to>job_export_create_table</to>
+      <from>&#x5220;&#x9664;&#x5b58;&#x5728;&#x6570;&#x636e;</from>
+      <to>trans_bi_log</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -650,16 +652,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_export_create_table</from>
-      <to>trans_table_oracle_oracle</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>job_sync_one_table</from>
+      <from>SQL oracle 2</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -668,8 +661,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_get_t_table_meta</from>
-      <to>Write To Log 2</to>
+      <from>SQL oracle 2</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Evaluate files metrics</from>
+      <to>trans_if_sync_log</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -677,8 +679,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Write To Log 2</from>
-      <to>&#x76ee;&#x6807;&#x8868;&#x5b58;&#x5728;</to>
+      <from>trans_if_sync_log</from>
+      <to>Simple evaluation</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -686,8 +688,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_table_oracle_oracle</from>
-      <to>Success</to>
+      <from>Simple evaluation</from>
+      <to>&#x5220;&#x9664;&#x5b58;&#x5728;&#x6570;&#x636e;</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -695,7 +697,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_export_create_table</from>
+      <from>trans_if_sync_log</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -704,7 +706,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_table_oracle_oracle</from>
+      <from>&#x6267;&#x884c;&#x6210;&#x529f;&#x63d2;&#x5165;&#x65e5;&#x5fd7;</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -713,8 +715,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_sync_one_table</from>
-      <to>Mail Failed</to>
+      <from>Simple evaluation</from>
+      <to>&#x6267;&#x884c;&#x6210;&#x529f;&#x63d2;&#x5165;&#x65e5;&#x5fd7;</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -722,34 +724,109 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>drop table</from>
-      <to>Mail Failed</to>
+      <from>&#x6267;&#x884c;&#x6210;&#x529f;&#x63d2;&#x5165;&#x65e5;&#x5fd7;</from>
+      <to>trans_bi_log</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
-      <evaluation>N</evaluation>
+      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_get_s_table_meta</from>
-      <to>Mail Failed</to>
+      <from>trans_bi_log</from>
+      <to>SQL oracle 2</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>trans_get_t_table_meta</from>
-      <to>Mail Failed</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
+      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>
   <notepads>
+    <notepad>
+      <note>&#x4e0b;&#x8f7d;&#x4e2d;&#x95f4;&#x5c42;&#x65e5;&#x5fd7;&#x6587;&#x4ef6;</note>
+      <xloc>138</xloc>
+      <yloc>178</yloc>
+      <width>118</width>
+      <heigth>26</heigth>
+      <fontname/>
+      <fontsize>-1</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>&#x5220;&#x9664;&#x5f53;&#x524d;&#x7684;&#x65e5;&#x5fd7;&#x6587;&#x4ef6;&#x540d;&#xff0c;&#x9632;&#x6b62;&#x91cd;&#x590d;&#x63d0;&#x4ea4;&#x6570;&#x636e;</note>
+      <xloc>497</xloc>
+      <yloc>49</yloc>
+      <width>238</width>
+      <heigth>26</heigth>
+      <fontname/>
+      <fontsize>-1</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>scp &#x24;&#x7b;host_mid5&#x7d;&#x3a;&#x2f;opt&#x2f;website&#x2f;log&#x2f;javaapps&#x2f;history&#x2f;zhuanle-bi.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz  &#x2f;data&#x2f;bi&#x2f;mid_log&#x2f;zhuanle-bi_5.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz&#x3b;&#xd;&#xa; scp &#x24;&#x7b;host_mid6&#x7d;&#x3a;&#x2f;opt&#x2f;website&#x2f;log&#x2f;javaapps&#x2f;history&#x2f;zhuanle-bi.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz  &#x2f;data&#x2f;bi&#x2f;mid_log&#x2f;zhuanle-bi_6.&#x24;&#x7b;start_date_dfs&#x7d;.log.gz&#x3b;</note>
+      <xloc>278</xloc>
+      <yloc>403</yloc>
+      <width>839</width>
+      <heigth>42</heigth>
+      <fontname/>
+      <fontsize>-1</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
+    <notepad>
+      <note>update bi_login_h5_app set network_manager&#x3d;&#x27;&#x4e2d;&#x56fd;&#x79fb;&#x52a8;&#x27; where network_manager&#x3d;&#x27;CMCC&#x27;&#x3b;&#xd;&#xa;commit&#x3b;&#xd;&#xa;update bi_login_h5_app set network_manager&#x3d;&#x27;&#x4e2d;&#x56fd;&#x8054;&#x901a;&#x27; where network_manager&#x3d;&#x27;CUCC&#x27;&#x3b;&#xd;&#xa;commit&#x3b;&#xd;&#xa;update bi_login_h5_app set network_manager&#x3d;&#x27;&#x4e2d;&#x56fd;&#x7535;&#x4fe1;&#x27; where network_manager&#x3d;&#x27;CTCC&#x27;&#x3b;&#xd;&#xa;commit&#x3b;&#xd;&#xa;update bi_login_h5_app set network_manager&#x3d;&#x27;&#x4e2d;&#x56fd;&#x79fb;&#x52a8;&#x27; where network_manager&#x3d;&#x27;China Mobile&#x27;&#x3b;&#xd;&#xa;commit&#x3b;&#xd;&#xa;</note>
+      <xloc>869</xloc>
+      <yloc>36</yloc>
+      <width>581</width>
+      <heigth>155</heigth>
+      <fontname/>
+      <fontsize>-1</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
 
 </job>

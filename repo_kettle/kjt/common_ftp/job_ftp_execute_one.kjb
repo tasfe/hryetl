@@ -1,14 +1,14 @@
 <job>
-  <name>job_common_tasks_etl_foreach</name>
+  <name>job_ftp_execute_one</name>
     <description/>
     <extended_description/>
     <job_version/>
     <job_status>0</job_status>
-  <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+  <directory>&#x2f;kjt&#x2f;common_ftp</directory>
   <created_user>-</created_user>
-  <created_date>2017&#x2f;01&#x2f;23 14&#x3a;16&#x3a;24.453</created_date>
+  <created_date>2017&#x2f;05&#x2f;19 10&#x3a;32&#x3a;06.930</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;23 09&#x3a;46&#x3a;56.165</modified_date>
+  <modified_date>2017&#x2f;06&#x2f;22 10&#x3a;54&#x3a;58.456</modified_date>
     <parameters>
     </parameters>
   <connection>
@@ -197,18 +197,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>166</xloc>
-      <yloc>177</yloc>
+      <xloc>121</xloc>
+      <yloc>282</yloc>
       </entry>
     <entry>
-      <name>trans_common_tasks_etl_setVariables</name>
+      <name>trans_ftp_execute_oracle</name>
       <description/>
       <type>TRANS</type>
       <specification_method>rep_name</specification_method>
       <trans_object_id/>
       <filename/>
-      <transname>trans_common_tasks_etl_setVariables</transname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <transname>trans_ftp_execute_oracle</transname>
+      <directory>&#x2f;kjt&#x2f;common_ftp</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -231,41 +231,55 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>331</xloc>
-      <yloc>214</yloc>
+      <xloc>646</xloc>
+      <yloc>62</yloc>
       </entry>
     <entry>
-      <name>job_common_tasks_one</name>
+      <name>Write To Log</name>
       <description/>
-      <type>JOB</type>
-      <specification_method>rep_name</specification_method>
-      <job_object_id/>
-      <filename/>
-      <jobname>job_common_tasks_one</jobname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <force_separate_logging>N</force_separate_logging>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <type>WRITE_TO_LOG</type>
+      <logmessage>&#x24;&#x7b;DB_TYPE&#x7d;&#xd;&#xa;&#x51c6;&#x5907;&#x6267;&#x884c;&#x8bed;&#x53e5;&#xff1a;&#xd;&#xa;&#x24;&#x7b;FTP_FILENAME&#x7d;&#xd;&#xa;&#x24;&#x7b;FTP_TYPE&#x7d;</logmessage>
+      <loglevel>Basic</loglevel>
+      <logsubject/>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>544</xloc>
-      <yloc>209</yloc>
+      <xloc>320</xloc>
+      <yloc>90</yloc>
+      </entry>
+    <entry>
+      <name>Put a file with SFTP</name>
+      <description/>
+      <type>SFTPPUT</type>
+      <servername>&#x24;&#x7b;FTP_HOSTNAME&#x7d;</servername>
+      <serverport>&#x24;&#x7b;FTP_PORT&#x7d;</serverport>
+      <username>&#x24;&#x7b;FTP_USERNAME&#x7d;</username>
+      <password>&#x24;&#x7b;FTP_PASSWORD&#x7d;</password>
+      <sftpdirectory>&#x24;&#x7b;FTP_DIR&#x7d;</sftpdirectory>
+      <localdirectory/>
+      <wildcard/>
+      <copyprevious>N</copyprevious>
+      <copypreviousfiles>Y</copypreviousfiles>
+      <addFilenameResut>N</addFilenameResut>
+      <usekeyfilename>N</usekeyfilename>
+      <keyfilename/>
+      <keyfilepass>Encrypted </keyfilepass>
+      <compression>none</compression>
+      <proxyType/>
+      <proxyHost/>
+      <proxyPort/>
+      <proxyUsername/>
+      <proxyPassword>Encrypted </proxyPassword>
+      <createRemoteFolder>Y</createRemoteFolder>
+      <aftersftpput>nothing</aftersftpput>
+      <destinationfolder/>
+      <createdestinationfolder>N</createdestinationfolder>
+      <successWhenNoFile>N</successWhenNoFile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>875</xloc>
+      <yloc>146</yloc>
       </entry>
     <entry>
       <name>Success</name>
@@ -274,8 +288,147 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>732</xloc>
-      <yloc>211</yloc>
+      <xloc>1169</xloc>
+      <yloc>436</yloc>
+      </entry>
+    <entry>
+      <name>trans_set_varabiles</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>rep_name</specification_method>
+      <trans_object_id/>
+      <filename/>
+      <transname>trans_set_varabiles</transname>
+      <directory>&#x2f;kjt&#x2f;common_ftp</directory>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>198</xloc>
+      <yloc>149</yloc>
+      </entry>
+    <entry>
+      <name>Simple evaluation</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>&#x24;&#x7b;DB_TYPE&#x7d;</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>oracle,mysql</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>inlist</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>385</xloc>
+      <yloc>177</yloc>
+      </entry>
+    <entry>
+      <name>&#x4e0d;&#x652f;&#x6301;&#x6570;&#x636e;&#x5e93;&#x7c7b;&#x578b;</name>
+      <description/>
+      <type>WRITE_TO_LOG</type>
+      <logmessage>&#x4e0d;&#x652f;&#x6301;&#x6570;&#x636e;&#x5e93;&#x7c7b;&#x578b;&#xff1a;&#x24;&#x7b;DB_TYPE&#x7d;</logmessage>
+      <loglevel>Basic</loglevel>
+      <logsubject/>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>479</xloc>
+      <yloc>25</yloc>
+      </entry>
+    <entry>
+      <name>&#x9009;&#x62e9;mysql_oracle</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>&#x24;&#x7b;DB_TYPE&#x7d;</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>oracle</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>equal</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>515</xloc>
+      <yloc>186</yloc>
+      </entry>
+    <entry>
+      <name>trans_ftp_execute_mysql</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>rep_name</specification_method>
+      <trans_object_id/>
+      <filename/>
+      <transname>trans_ftp_execute_mysql</transname>
+      <directory>&#x2f;kjt&#x2f;common_ftp</directory>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>680</xloc>
+      <yloc>187</yloc>
+      </entry>
+    <entry>
+      <name>Delete filenames from result</name>
+      <description/>
+      <type>DELETE_RESULT_FILENAMES</type>
+      <foldername/>
+      <specify_wildcard>N</specify_wildcard>
+      <wildcard/>
+      <wildcardexclude/>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1176</xloc>
+      <yloc>91</yloc>
       </entry>
     <entry>
       <name>Mail Failed</name>
@@ -283,16 +436,16 @@
       <type>MAIL</type>
       <server>&#x24;&#x7b;email_smtp_server&#x7d;</server>
       <port>&#x24;&#x7b;email_smtp_port&#x7d;</port>
-      <destination>&#x24;&#x7b;email_error&#x7d;</destination>
+      <destination>&#x24;&#x7b;email_error&#x7d; &#x24;&#x7b;EMAIL_ERROR&#x7d;</destination>
       <destinationCc/>
       <destinationBCc/>
       <replyto>&#x24;&#x7b;email_sender_address&#x7d;</replyto>
       <replytoname>&#x24;&#x7b;email_sender_name&#x7d;</replytoname>
-      <subject>&#x24;&#x7b;TITLE&#x7d; &#x24;&#x7b;ID&#x7d; - &#x5931;&#x8d25; &#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d;</subject>
+      <subject>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d; - &#x24;&#x7b;ID&#x7d; -  FTP&#x4e0a;&#x4f20;&#x5931;&#x8d25;</subject>
       <include_date>N</include_date>
       <contact_person/>
       <contact_phone/>
-      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;&#xd;&#xa;&#x6267;&#x884c;&#x8bed;&#x53e5;&#xff1a;&#xd;&#xa;&#x24;&#x7b;SOURCE_TABLE_MAX&#x7d;</comment>
+      <comment>FTP&#x4e0a;&#x4f20;&#x5931;&#x8d25;&#x21;&#xd;&#xa;&#x4efb;&#x52a1;ID&#xff1a;&#x24;&#x7b;ID&#x7d;&#xd;&#xa;FPT&#x4e3b;&#x673a;&#x540d;&#xff1a;&#x24;&#x7b;FTP_HOSTNAME&#x7d;&#xd;&#xa;&#x6587;&#x4ef6;&#x540d;&#xff1a;&#x24;&#x7b;FTP_FILENAME&#x7d;&#xd;&#xa;&#xd;&#xa;&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;</comment>
       <include_files>N</include_files>
       <zip_files>N</zip_files>
       <zip_name/>
@@ -315,14 +468,130 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>458</xloc>
-      <yloc>333</yloc>
+      <xloc>583</xloc>
+      <yloc>553</yloc>
+      </entry>
+    <entry>
+      <name>Mail Success</name>
+      <description/>
+      <type>MAIL</type>
+      <server>&#x24;&#x7b;email_smtp_server&#x7d;</server>
+      <port>&#x24;&#x7b;email_smtp_port&#x7d;</port>
+      <destination>&#x24;&#x7b;EMAIL_OK&#x7d;</destination>
+      <destinationCc/>
+      <destinationBCc/>
+      <replyto>&#x24;&#x7b;email_sender_address&#x7d;</replyto>
+      <replytoname>&#x24;&#x7b;email_sender_name&#x7d;</replytoname>
+      <subject>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d;  -&#x24;&#x7b;TITLE&#x7d;-&#x24;&#x7b;ID&#x7d; -  FTP&#x4e0a;&#x4f20;&#x6210;&#x529f;</subject>
+      <include_date>Y</include_date>
+      <contact_person/>
+      <contact_phone/>
+      <comment>FTP&#x4e0a;&#x4f20;&#x6210;&#x529f; ,&#xd;&#xa;&#x4efb;&#x52a1;ID&#xff1a;&#x24;&#x7b;ID&#x7d; - &#x24;&#x7b;TITLE&#x7d;&#xd;&#xa;FPT&#x4e3b;&#x673a;&#x540d;&#xff1a;&#x24;&#x7b;FTP_HOSTNAME&#x7d;&#xd;&#xa;&#x6587;&#x4ef6;&#x540d;&#xff1a;&#x24;&#x7b;FTP_FILENAME&#x7d;&#xd;&#xa;&#xd;&#xa;&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;</comment>
+      <include_files>N</include_files>
+      <zip_files>N</zip_files>
+      <zip_name/>
+      <use_auth>Y</use_auth>
+      <use_secure_auth>N</use_secure_auth>
+      <auth_user>&#x24;&#x7b;email_smtp_username&#x7d;</auth_user>
+      <auth_password>&#x24;&#x7b;email_smtp_password&#x7d;</auth_password>
+      <only_comment>Y</only_comment>
+      <use_HTML>N</use_HTML>
+      <use_Priority>N</use_Priority>
+      <encoding>UTF-8</encoding>
+      <priority>normal</priority>
+      <importance>normal</importance>
+      <sensitivity>normal</sensitivity>
+      <secureconnectiontype>SSL</secureconnectiontype>
+      <replyToAddresses/>
+      <filetypes>        <filetype>GENERAL</filetype>
+      </filetypes>      <embeddedimages>
+      </embeddedimages>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1104</xloc>
+      <yloc>245</yloc>
+      </entry>
+    <entry>
+      <name>&#x6210;&#x529f;&#x662f;&#x5426;&#x53d1;&#x90ae;&#x4ef6;</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>&#x24;&#x7b;EMAIL_OK&#x7d;</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>&#x40;</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>contains</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1265</xloc>
+      <yloc>159</yloc>
+      </entry>
+    <entry>
+      <name>Put a file with FTP</name>
+      <description/>
+      <type>FTP_PUT</type>
+      <servername>&#x24;&#x7b;FTP_HOSTNAME&#x7d;</servername>
+      <serverport>&#x24;&#x7b;FTP_PORT&#x7d;</serverport>
+      <username>&#x24;&#x7b;FTP_USERNAME&#x7d;</username>
+      <password>&#x24;&#x7b;FTP_PASSWORD&#x7d;</password>
+      <remoteDirectory>&#x24;&#x7b;FTP_DIR&#x7d;</remoteDirectory>
+      <localDirectory>&#x24;&#x7b;data_dir&#x7d;</localDirectory>
+      <wildcard>&#x24;&#x7b;FTP_FILENAME&#x7d;.csv</wildcard>
+      <binary>N</binary>
+      <timeout>0</timeout>
+      <remove>N</remove>
+      <only_new>N</only_new>
+      <active>N</active>
+      <control_encoding>UTF-8</control_encoding>
+      <proxy_host/>
+      <proxy_port/>
+      <proxy_username/>
+      <proxy_password>Encrypted </proxy_password>
+      <socksproxy_host/>
+      <socksproxy_port>1080</socksproxy_port>
+      <socksproxy_username/>
+      <socksproxy_password>Encrypted </socksproxy_password>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>869</xloc>
+      <yloc>37</yloc>
+      </entry>
+    <entry>
+      <name>&#x9009;&#x62e9;sftp</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>&#x24;&#x7b;FTP_TYPE&#x7d;</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue>sftp</comparevalue>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>inlist</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>757</xloc>
+      <yloc>119</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
       <from>START</from>
-      <to>trans_common_tasks_etl_setVariables</to>
+      <to>trans_set_varabiles</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -330,8 +599,8 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>trans_common_tasks_etl_setVariables</from>
-      <to>job_common_tasks_one</to>
+      <from>trans_set_varabiles</from>
+      <to>Write To Log</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -339,8 +608,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_common_tasks_one</from>
-      <to>Success</to>
+      <from>Write To Log</from>
+      <to>Simple evaluation</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -348,7 +617,52 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_common_tasks_etl_setVariables</from>
+      <from>Simple evaluation</from>
+      <to>&#x4e0d;&#x652f;&#x6301;&#x6570;&#x636e;&#x5e93;&#x7c7b;&#x578b;</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Simple evaluation</from>
+      <to>&#x9009;&#x62e9;mysql_oracle</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>&#x9009;&#x62e9;mysql_oracle</from>
+      <to>trans_ftp_execute_oracle</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>&#x9009;&#x62e9;mysql_oracle</from>
+      <to>trans_ftp_execute_mysql</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Put a file with SFTP</from>
+      <to>Delete filenames from result</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_set_varabiles</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -357,7 +671,133 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_common_tasks_one</from>
+      <from>trans_ftp_execute_oracle</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_ftp_execute_mysql</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Delete filenames from result</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Delete filenames from result</from>
+      <to>&#x6210;&#x529f;&#x662f;&#x5426;&#x53d1;&#x90ae;&#x4ef6;</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>&#x6210;&#x529f;&#x662f;&#x5426;&#x53d1;&#x90ae;&#x4ef6;</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>&#x6210;&#x529f;&#x662f;&#x5426;&#x53d1;&#x90ae;&#x4ef6;</from>
+      <to>Mail Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Mail Success</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Mail Success</from>
+      <to>Success</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Put a file with FTP</from>
+      <to>Delete filenames from result</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_ftp_execute_oracle</from>
+      <to>&#x9009;&#x62e9;sftp</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>trans_ftp_execute_mysql</from>
+      <to>&#x9009;&#x62e9;sftp</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>&#x9009;&#x62e9;sftp</from>
+      <to>Put a file with SFTP</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>&#x9009;&#x62e9;sftp</from>
+      <to>Put a file with FTP</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Put a file with FTP</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Put a file with SFTP</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>

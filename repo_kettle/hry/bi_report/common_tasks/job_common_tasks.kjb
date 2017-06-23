@@ -1,15 +1,55 @@
 <job>
-  <name>job_common_tasks_etl_foreach</name>
+  <name>job_common_tasks</name>
     <description/>
     <extended_description/>
     <job_version/>
     <job_status>0</job_status>
-  <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+  <directory>&#x2f;hry&#x2f;bi_report&#x2f;common_tasks</directory>
   <created_user>-</created_user>
-  <created_date>2017&#x2f;01&#x2f;23 14&#x3a;16&#x3a;24.453</created_date>
+  <created_date>2016&#x2f;03&#x2f;24 09&#x3a;17&#x3a;03.310</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;23 09&#x3a;46&#x3a;56.165</modified_date>
+  <modified_date>2017&#x2f;06&#x2f;22 10&#x3a;35&#x3a;45.992</modified_date>
     <parameters>
+        <parameter>
+            <name>cond</name>
+            <default_value/>
+            <description>condition &#x3e; &#x3d; &#x3c;</description>
+        </parameter>
+        <parameter>
+            <name>end_date</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>hand</name>
+            <default_value>1</default_value>
+            <description>&#x662f;&#x5426;&#x624b;&#x52a8;&#x6267;&#x884c;&#xff0c;1&#x624b;&#x52a8;&#x5f3a;&#x5236;&#x6267;&#x884c;&#xff0c;&#x9ed8;&#x8ba4;0&#xff1a;&#x6709;&#x7cfb;&#x7edf;&#x81ea;&#x5df1;&#x5224;&#x65ad;&#x51b3;&#x5b9a;</description>
+        </parameter>
+        <parameter>
+            <name>id</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>id_no</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>play</name>
+            <default_value>D</default_value>
+            <description>&#x6267;&#x884c;&#x8ba1;&#x5212;&#xff1a;D&#x6309;&#x65e5;</description>
+        </parameter>
+        <parameter>
+            <name>start_date</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>tablename</name>
+            <default_value>BI_DAILY_TASKS</default_value>
+            <description/>
+        </parameter>
     </parameters>
   <connection>
     <name>bidb90</name>
@@ -197,18 +237,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>166</xloc>
-      <yloc>177</yloc>
+      <xloc>124</xloc>
+      <yloc>108</yloc>
       </entry>
     <entry>
-      <name>trans_common_tasks_etl_setVariables</name>
+      <name>trans_common_tasks_get_tasks</name>
       <description/>
       <type>TRANS</type>
       <specification_method>rep_name</specification_method>
       <trans_object_id/>
       <filename/>
-      <transname>trans_common_tasks_etl_setVariables</transname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <transname>trans_common_tasks_get_tasks</transname>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;common_tasks</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -231,21 +271,21 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>331</xloc>
-      <yloc>214</yloc>
+      <xloc>304</xloc>
+      <yloc>155</yloc>
       </entry>
     <entry>
-      <name>job_common_tasks_one</name>
+      <name>job_common_tasks_foreach</name>
       <description/>
       <type>JOB</type>
       <specification_method>rep_name</specification_method>
       <job_object_id/>
       <filename/>
-      <jobname>job_common_tasks_one</jobname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <jobname>job_common_tasks_foreach</jobname>
+      <directory>&#x2f;hry&#x2f;bi_report&#x2f;common_tasks</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
+      <exec_per_row>Y</exec_per_row>
       <set_logfile>N</set_logfile>
       <logfile/>
       <logext/>
@@ -264,18 +304,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>544</xloc>
-      <yloc>209</yloc>
-      </entry>
-    <entry>
-      <name>Success</name>
-      <description/>
-      <type>SUCCESS</type>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>732</xloc>
-      <yloc>211</yloc>
+      <xloc>480</xloc>
+      <yloc>82</yloc>
       </entry>
     <entry>
       <name>Mail Failed</name>
@@ -288,11 +318,11 @@
       <destinationBCc/>
       <replyto>&#x24;&#x7b;email_sender_address&#x7d;</replyto>
       <replytoname>&#x24;&#x7b;email_sender_name&#x7d;</replytoname>
-      <subject>&#x24;&#x7b;TITLE&#x7d; &#x24;&#x7b;ID&#x7d; - &#x5931;&#x8d25; &#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d;</subject>
+      <subject>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d;  -  &#x5931;&#x8d25;</subject>
       <include_date>N</include_date>
-      <contact_person/>
+      <contact_person>&#x24;&#x7b;email_sender_name&#x7d;</contact_person>
       <contact_phone/>
-      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;&#xd;&#xa;&#x6267;&#x884c;&#x8bed;&#x53e5;&#xff1a;&#xd;&#xa;&#x24;&#x7b;SOURCE_TABLE_MAX&#x7d;</comment>
+      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;</comment>
       <include_files>N</include_files>
       <zip_files>N</zip_files>
       <zip_name/>
@@ -300,7 +330,7 @@
       <use_secure_auth>N</use_secure_auth>
       <auth_user>&#x24;&#x7b;email_smtp_username&#x7d;</auth_user>
       <auth_password>&#x24;&#x7b;email_smtp_password&#x7d;</auth_password>
-      <only_comment>Y</only_comment>
+      <only_comment>N</only_comment>
       <use_HTML>N</use_HTML>
       <use_Priority>N</use_Priority>
       <encoding>UTF-8</encoding>
@@ -309,20 +339,31 @@
       <sensitivity>normal</sensitivity>
       <secureconnectiontype>SSL</secureconnectiontype>
       <replyToAddresses/>
-      <filetypes>        <filetype>GENERAL</filetype>
+      <filetypes>        <filetype>ERRORLINE</filetype>
+        <filetype>ERROR</filetype>
       </filetypes>      <embeddedimages>
       </embeddedimages>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>458</xloc>
-      <yloc>333</yloc>
+      <xloc>450</xloc>
+      <yloc>239</yloc>
+      </entry>
+    <entry>
+      <name>Success</name>
+      <description/>
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>673</xloc>
+      <yloc>88</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
       <from>START</from>
-      <to>trans_common_tasks_etl_setVariables</to>
+      <to>trans_common_tasks_get_tasks</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -330,8 +371,8 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>trans_common_tasks_etl_setVariables</from>
-      <to>job_common_tasks_one</to>
+      <from>trans_common_tasks_get_tasks</from>
+      <to>job_common_tasks_foreach</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -339,16 +380,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_common_tasks_one</from>
-      <to>Success</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>trans_common_tasks_etl_setVariables</from>
+      <from>trans_common_tasks_get_tasks</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -357,11 +389,20 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_common_tasks_one</from>
-      <to>Mail Failed</to>
+      <from>job_common_tasks_foreach</from>
+      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>job_common_tasks_foreach</from>
+      <to>Mail Failed</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>

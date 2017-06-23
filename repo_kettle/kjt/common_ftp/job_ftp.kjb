@@ -1,15 +1,40 @@
 <job>
-  <name>job_common_tasks_etl_foreach</name>
+  <name>job_ftp</name>
     <description/>
     <extended_description/>
     <job_version/>
     <job_status>0</job_status>
-  <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+  <directory>&#x2f;kjt&#x2f;common_ftp</directory>
   <created_user>-</created_user>
-  <created_date>2017&#x2f;01&#x2f;23 14&#x3a;16&#x3a;24.453</created_date>
+  <created_date>2017&#x2f;05&#x2f;19 09&#x3a;50&#x3a;19.260</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;23 09&#x3a;46&#x3a;56.165</modified_date>
+  <modified_date>2017&#x2f;06&#x2f;22 10&#x3a;55&#x3a;10.988</modified_date>
     <parameters>
+        <parameter>
+            <name>cond</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>end_date</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>id</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>id_no</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>start_date</name>
+            <default_value/>
+            <description/>
+        </parameter>
     </parameters>
   <connection>
     <name>bidb90</name>
@@ -197,18 +222,18 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>166</xloc>
-      <yloc>177</yloc>
+      <xloc>106</xloc>
+      <yloc>62</yloc>
       </entry>
     <entry>
-      <name>trans_common_tasks_etl_setVariables</name>
+      <name>trans_ftp_get_all_data</name>
       <description/>
       <type>TRANS</type>
       <specification_method>rep_name</specification_method>
       <trans_object_id/>
       <filename/>
-      <transname>trans_common_tasks_etl_setVariables</transname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <transname>trans_ftp_get_all_data</transname>
+      <directory>&#x2f;kjt&#x2f;common_ftp</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
@@ -231,21 +256,21 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>331</xloc>
-      <yloc>214</yloc>
+      <xloc>303</xloc>
+      <yloc>167</yloc>
       </entry>
     <entry>
-      <name>job_common_tasks_one</name>
+      <name>job_ftp_execute_one</name>
       <description/>
       <type>JOB</type>
       <specification_method>rep_name</specification_method>
       <job_object_id/>
       <filename/>
-      <jobname>job_common_tasks_one</jobname>
-      <directory>&#x2f;kjt&#x2f;common_tasks_etl</directory>
+      <jobname>job_ftp_execute_one</jobname>
+      <directory>&#x2f;kjt&#x2f;common_ftp</directory>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
+      <exec_per_row>Y</exec_per_row>
       <set_logfile>N</set_logfile>
       <logfile/>
       <logext/>
@@ -264,8 +289,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>544</xloc>
-      <yloc>209</yloc>
+      <xloc>434</xloc>
+      <yloc>65</yloc>
       </entry>
     <entry>
       <name>Success</name>
@@ -274,8 +299,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>732</xloc>
-      <yloc>211</yloc>
+      <xloc>677</xloc>
+      <yloc>109</yloc>
       </entry>
     <entry>
       <name>Mail Failed</name>
@@ -283,16 +308,16 @@
       <type>MAIL</type>
       <server>&#x24;&#x7b;email_smtp_server&#x7d;</server>
       <port>&#x24;&#x7b;email_smtp_port&#x7d;</port>
-      <destination>&#x24;&#x7b;email_error&#x7d;</destination>
+      <destination>&#x24;&#x7b;email_error&#x7d; &#x24;&#x7b;EMAIL_ERROR&#x7d;</destination>
       <destinationCc/>
       <destinationBCc/>
       <replyto>&#x24;&#x7b;email_sender_address&#x7d;</replyto>
       <replytoname>&#x24;&#x7b;email_sender_name&#x7d;</replytoname>
-      <subject>&#x24;&#x7b;TITLE&#x7d; &#x24;&#x7b;ID&#x7d; - &#x5931;&#x8d25; &#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d;</subject>
+      <subject>&#x24;&#x7b;Internal.Job.Name&#x7d; &#x24;&#x7b;start_date&#x7d; -  FTP&#x4e0a;&#x4f20;&#x5931;&#x8d25;</subject>
       <include_date>N</include_date>
       <contact_person/>
       <contact_phone/>
-      <comment>&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;&#xd;&#xa;&#xd;&#xa;&#x6267;&#x884c;&#x8bed;&#x53e5;&#xff1a;&#xd;&#xa;&#x24;&#x7b;SOURCE_TABLE_MAX&#x7d;</comment>
+      <comment>FTP&#x4e0a;&#x4f20;&#x5931;&#x8d25;&#x21;&#xd;&#xa;&#xd;&#xa;&#x6587;&#x4ef6;&#xff1a;&#x24;&#x7b;Internal.Job.Repository.Directory&#x7d;&#x2f;&#x24;&#x7b;Internal.Job.Name&#x7d;&#xd;&#xa;&#x73af;&#x5883;&#xff1a;&#x24;&#x7b;HOSTIP&#x7d;</comment>
       <include_files>N</include_files>
       <zip_files>N</zip_files>
       <zip_name/>
@@ -315,14 +340,14 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>458</xloc>
-      <yloc>333</yloc>
+      <xloc>399</xloc>
+      <yloc>286</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
       <from>START</from>
-      <to>trans_common_tasks_etl_setVariables</to>
+      <to>trans_ftp_get_all_data</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -330,8 +355,8 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>trans_common_tasks_etl_setVariables</from>
-      <to>job_common_tasks_one</to>
+      <from>trans_ftp_get_all_data</from>
+      <to>job_ftp_execute_one</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -339,7 +364,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_common_tasks_one</from>
+      <from>job_ftp_execute_one</from>
       <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -348,7 +373,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>trans_common_tasks_etl_setVariables</from>
+      <from>trans_ftp_get_all_data</from>
       <to>Mail Failed</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -357,12 +382,12 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>job_common_tasks_one</from>
-      <to>Mail Failed</to>
+      <from>Mail Failed</from>
+      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
-      <evaluation>N</evaluation>
+      <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>
